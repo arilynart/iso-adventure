@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         //facing the right direction
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 
-        transform.forward = heading;
+        transform.forward = Vector3.Lerp(transform.forward, heading, 0.1f);
         transform.position += rightMovement;
         transform.position += upMovement;
         

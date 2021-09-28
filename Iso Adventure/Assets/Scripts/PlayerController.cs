@@ -88,7 +88,6 @@ public class PlayerController : MonoBehaviour
         CalculateDirection(mov);
         CalculateGroundAngle();
         CheckGround();
-        ApplyGravity();
         DrawDebugLines();
         //if (!collision)
         //{
@@ -168,15 +167,6 @@ public class PlayerController : MonoBehaviour
         }
         //Debug.Log("Grounded: " + grounded);
     }
-
-    void ApplyGravity()
-    {
-        if (!grounded)
-        {
-            Debug.Log("Not grounded, applying gravity.");
-            transform.position += Physics.gravity * Time.deltaTime;
-        }
-    }
     
     void Move()
     {
@@ -189,9 +179,9 @@ public class PlayerController : MonoBehaviour
         
         //if slope ahead compared to the current location is too high, return.
         if (groundAngle >= maxGroundAngle) return;
-        Debug.Log("Slope is passable.");
+        //Debug.Log("Slope is passable.");
         //check if we're hitting anything on the ground layer in front of us.
-        if (Physics.Raycast(transform.position, point, out hitInfo, height + heightPadding, ground)) return;
+        //if (Physics.Raycast(transform.position, point, out hitInfo, height + heightPadding, ground)) return;
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += point * moveSpeed * Time.deltaTime;
         Debug.Log("Moving: " + transform.position);
@@ -210,7 +200,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Dodge inputted.");
         //if we're not already dodging
-        if (!dodge && grounded)
+        if (!dodge)
         {
             Debug.Log("Dodge available.");
             if (m != Vector2.zero)

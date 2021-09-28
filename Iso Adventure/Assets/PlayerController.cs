@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     Vector2 move;
 
     [SerializeField]
-    float moveSpeed = 4f;
+    float moveSpeed = 150f;
 
     Vector3 forward, right;
 
@@ -35,18 +35,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       Vector2 m = (new Vector2(move.x, move.y)) * Time.deltaTime;
+        Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
         print("Move: " + move);
-        if (m != Vector2.zero)
+        if (mov != Vector2.zero)
         {
-            transform.Translate(m, Space.World);
+            Move(mov);
+            //transform.Translate(m, Space.World);
         }
-       //Move(m);
+       
     }
     
     void Move(Vector2 m)
     {
-        Vector3 direction = new Vector3(m.x * moveSpeed, 0, m.y * moveSpeed);
+        //Vector3 direction = new Vector3(m.x * moveSpeed, 0, m.y * moveSpeed);
         Vector3 rightMovement = right * moveSpeed * Time.deltaTime * m.x;
         Vector3 upMovement = forward * moveSpeed * Time.deltaTime * m.y;
 
@@ -55,7 +56,6 @@ public class PlayerController : MonoBehaviour
         transform.forward = heading;
         transform.position += rightMovement;
         transform.position += upMovement;
-        //GetComponent<Rigidbody>().velocity = direction;
         
     }
 

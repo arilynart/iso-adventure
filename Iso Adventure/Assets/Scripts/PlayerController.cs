@@ -90,10 +90,10 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         ApplyGravity();
         DrawDebugLines();
-        if (!collision)
-        {
+        //if (!collision)
+        //{
             DodgeMove();
-        }
+        //}
         
         //if we're inputting a move
         if (move == Vector2.zero || dodge) return;
@@ -220,6 +220,8 @@ public class PlayerController : MonoBehaviour
                 transform.forward = head;
             }
 
+
+
             dodge = true;
   
             //Start movement
@@ -229,8 +231,17 @@ public class PlayerController : MonoBehaviour
 
     void DodgeMove()
     {
-        if (dodge && !Physics.Raycast(transform.position, point, out hitInfo, height + heightPadding, ground))
+        if (dodge)
         {
+            if (Physics.Raycast(transform.position, head, out hitInfo, height + heightPadding - 0.10f))
+            {
+                if (Vector3.Angle(hitInfo.normal, head) > 151f)
+                {
+                    Debug.Log("Sharp Angle: " + Vector3.Angle(hitInfo.normal, point));
+                    return;
+                }
+
+            }
             Debug.Log("dodging");
             
             transform.position += head * dashSpeed * Time.deltaTime;

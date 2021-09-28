@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask ground;
 
+    private new Rigidbody rigidbody;
+
     RaycastHit hitInfo;
 
 
@@ -54,6 +56,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        // Initialize rigidbody reference
+        rigidbody = GetComponent<Rigidbody>();
+
         //forward is the way we're looking
         forward = Camera.main.transform.forward;
         Debug.Log("Forward direction set.");
@@ -71,11 +76,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Dodge set to false.");
     }
 
+
     // Update is called once per frame
     void FixedUpdate()
     {
         //set a mov variable every frame to the current controller input
         Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
+        rigidbody.velocity = new Vector3(mov.normalized.x * moveSpeed, rigidbody.velocity.y);
         //print("Move: " + move);
 
         CalculateDirection(mov);
@@ -91,6 +98,7 @@ public class PlayerController : MonoBehaviour
         Rotate();
        
     }
+
 
     void CalculateDirection(Vector2 m)
     {

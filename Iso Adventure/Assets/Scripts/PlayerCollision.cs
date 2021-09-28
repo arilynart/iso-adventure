@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public PlayerController controller;
+
+    private void Start()
     {
+        controller = GetComponent<PlayerController>();
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        controller.collision = true;
+        Debug.Log("Colliding");
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionExit(Collision collision)
     {
-        
+        controller.collision = false;
+        Debug.Log("Stop Colliding");
     }
 }

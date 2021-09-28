@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public bool dodge;
     public bool debug;
+    public bool collision;
     bool grounded;
     bool moving;
 
@@ -82,7 +83,6 @@ public class PlayerController : MonoBehaviour
     {
         //set a mov variable every frame to the current controller input
         Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
-        rigidbody.velocity = new Vector3(mov.normalized.x * moveSpeed, rigidbody.velocity.y);
         //print("Move: " + move);
 
         CalculateDirection(mov);
@@ -90,7 +90,11 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         ApplyGravity();
         DrawDebugLines();
-        DodgeMove();
+        if (!collision)
+        {
+            DodgeMove();
+        }
+        
         //if we're inputting a move
         if (move == Vector2.zero || dodge) return;
 

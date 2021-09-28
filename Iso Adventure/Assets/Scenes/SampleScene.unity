@@ -220,7 +220,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 252385563}
-  smoothSpeed: 0.125
   offset: {x: -5, y: 5, z: -5}
 --- !u!1 &252385558
 GameObject:
@@ -348,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e19f0198ee55784fa208ba0c181363b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 150
+  moveSpeed: 250
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

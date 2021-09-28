@@ -13,7 +13,7 @@ public class PlayerCollision : MonoBehaviour
     private void OnCollisionStay(Collision collision)
     {
         controller.collision = true;
-        Debug.Log("Colliding");
+        //Debug.Log("Colliding");
         
     }
 

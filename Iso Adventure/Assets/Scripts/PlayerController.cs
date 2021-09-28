@@ -18,12 +18,16 @@ public class PlayerController : MonoBehaviour
     public bool dodge;
     public bool debug;
     public bool collision;
+    public bool dashDelay;
+    public bool dashInvuln;
     bool grounded;
     bool moving;
 
     public float moveSpeed = 5f;
     public float turnSpeed = 10f;
-    public float dashSpeed = 12f;
+    public float dashSpeed = 8f;
+    public float dashDuration = 0.8f;
+    public float dashTime = 0.5f;
     public float height = 0.5f;
     public float heightPadding = 0.05f;
     public float maxGroundAngle = 120;
@@ -200,7 +204,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Dodge inputted.");
         //if we're not already dodging
-        if (!dodge)
+        if (!dodge && !dashDelay)
         {
             Debug.Log("Dodge available.");
             if (m != Vector2.zero)
@@ -209,13 +213,13 @@ public class PlayerController : MonoBehaviour
                 //snap player rotation to inputted direction
                 transform.forward = head;
             }
-
-
-
-            dodge = true;
   
             //Start movement
-            StartCoroutine(DodgeMovement(0.5f));
+            StartCoroutine(DodgeMovement(dashDuration));
+        }
+        else
+        {
+            Debug.Log("Cannot dodge at this time.");
         }
     }
 
@@ -248,22 +252,38 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Moving Dodge");
         //reset timer
         float time = 0f;
-        
+        float bar = duration - dashTime;
 
         while (time < duration)
         {
-            Debug.Log("Dodge executing: " + time);
-            //movement
-            dodge = true;
-                
-
+            if (time < 0.3)
+            {
+                Debug.Log("Dodge executing: " + time);
+                //movement
+                dodge = true;
+            }
+            else
+            {
+                Debug.Log("Delay executing: " + time);
+                dodge = false;
+            }
+            if (time < bar)
+            {
+                dashInvuln = true;
+            }
+            else
+            {
+                dashInvuln = false;
+                dashDelay = true;
+            }
             //Increase the timer
             time += Time.deltaTime;
 
             yield return null;
         }
         //finish movement and remove dodge status.
-        dodge = false;
+        //dodge = false;
+        dashDelay = false;
         Debug.Log("Dodge: " + dodge);
     }
 

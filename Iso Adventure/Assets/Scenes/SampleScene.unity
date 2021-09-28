@@ -1143,7 +1143,7 @@ MonoBehaviour:
   collision: 0
   dashDelay: 0
   dashInvuln: 0
-  moveSpeed: 5
+  moveSpeed: 3.5
   turnSpeed: 10
   dashSpeed: 8
   dashDuration: 0.8

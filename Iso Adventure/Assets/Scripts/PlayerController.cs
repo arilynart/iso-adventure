@@ -9,10 +9,9 @@ public class PlayerController : MonoBehaviour
 
     Vector2 move;
 
-    [SerializeField]
-    float moveSpeed = 250f;
 
-    Vector3 forward, right, head;
+
+    Vector3 forward, right, head, point;
     Vector3 rightMovement, upMovement;
 
     Quaternion targetRotation;
@@ -21,8 +20,13 @@ public class PlayerController : MonoBehaviour
     public bool dodge;
     public bool debug;
     bool grounded;
+    bool moving;
 
-    public float height = 0.05f;
+    public float baseMoveSpeed = 5f;
+    float moveSpeed;
+    public float turnSpeed = 10f;
+    public float dashSpeed = 10f;
+    public float height = 0.5f;
     public float heightPadding = 0.05f;
     public float maxGroundAngle = 120;
     float angle;
@@ -59,18 +63,28 @@ public class PlayerController : MonoBehaviour
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 
         dodge = false;
+
+        moveSpeed = baseMoveSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
+        print(moveSpeed);
         //set a mov variable every frame to the current controller input
         Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
-        print("Move: " + move);
+        //print("Move: " + move);
+
+        CalculateDirection(mov);
+        CalculateForward();
+        CalculateGroundAngle();
+        CheckGround();
+        ApplyGravity();
+        DrawDebugLines();
+        DodgeMove();
         //if we're inputting a move
         if (move == Vector2.zero || dodge) return;
 
-        CalculateDirection(mov);
         Move(mov);
         Rotate();
        
@@ -82,57 +96,125 @@ public class PlayerController : MonoBehaviour
         rightMovement = right * moveSpeed * Time.deltaTime * m.x;
         upMovement = forward * moveSpeed * Time.deltaTime * m.y;
 
-        head = Vector3.Normalize(rightMovement + upMovement);
-
         //calculate rotation angle based on move direction
         angle = Mathf.Atan2(m.x, m.y);
         angle = Mathf.Rad2Deg * angle;
     }
+
+    void CalculateForward()
+    {
+        head = Vector3.Normalize(rightMovement + upMovement);
+
+        if (!grounded)
+        {
+            point = transform.forward;
+            return;
+        }
+
+        point = Vector3.Cross(transform.right, hitInfo.normal);
+    }
+
+    void CalculateGroundAngle()
+    {
+        if (!grounded)
+        {
+            groundAngle = 90;
+            return;
+        }
+
+        groundAngle = Vector3.Angle(hitInfo.normal, transform.forward);
+    }
+
+    void CheckGround()
+    {
+        //are we on the ground? raycast of length "height" to determine if so
+        if (Physics.Raycast(transform.position, -Vector3.up, out hitInfo, height + heightPadding, ground))
+        {
+            if (Vector3.Distance(transform.position, hitInfo.point) < height)
+            {
+                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * height, 5 * Time.deltaTime);
+            }
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+    }
+
+    void ApplyGravity()
+    {
+        if (!grounded)
+        {
+            transform.position += Physics.gravity * Time.deltaTime;
+        }
+    }
     
     void Move(Vector2 m)
     {
+        //if we're not dodging
+        if (dodge) return;
+
+        CalculateForward();
+
+     
+        
+        //if slope is too high, return.
+        if (groundAngle >= maxGroundAngle) return;
+        //wall collision
+        if (Physics.Raycast(transform.position, point, out hitInfo, height + heightPadding, ground)) return;
+       
         //move the player
-        transform.position += rightMovement;
-        transform.position += upMovement;
+        transform.position += point * moveSpeed * Time.deltaTime;
+        //transform.position += upMovement;
     }
 
     void Rotate()
     {
         //lerp to the target rotation
         targetRotation = Quaternion.Euler(0, angle+45, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10 * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 
     void Dodge(Vector2 m)
     {
         //if we're not already dodging
-        if (!dodge)
+        if (!dodge && grounded)
         {
+
             dodge = true;
-
-            //calculating next position based on input or if no input then just forward
-            Vector3 dashHead = head * 250f * Time.deltaTime;
-            Vector3 dashDefault = transform.forward * 250f * Time.deltaTime;
-
-            Vector3 basePos = transform.position;
-            Vector3 newPos;
 
             if (m != Vector2.zero)
             {
-                newPos = basePos + dashHead;
+                
                 transform.forward = head;
             }
             else
             {
-                newPos = basePos + dashDefault;
+                
             }
             
             //Start movement
-            StartCoroutine(LerpMovement(basePos, newPos, 0.5f));
+            StartCoroutine(DodgeMovement(0.5f));
         }
     }
 
-    IEnumerator LerpMovement(Vector3 basePos, Vector3 newPos, float duration)
+    void DodgeMove()
+    {
+        if (dodge /*&& !Physics.Raycast(transform.position, point, out hitInfo, height + heightPadding, ground)*/)
+        {
+            //wall collision
+            print("dodging");
+            
+            transform.position += point * dashSpeed * Time.deltaTime;
+        }
+        else
+        {
+            moveSpeed = baseMoveSpeed;
+        }
+    }
+
+    IEnumerator DodgeMovement(float duration)
     {
         //reset timer
         float time = 0f;
@@ -141,15 +223,16 @@ public class PlayerController : MonoBehaviour
         while (time < duration)
         {
             //Lerp the movement
-            transform.position = Vector3.Lerp(basePos, newPos, time / duration);
-            
+            dodge = true;
+                
+
             //Increase the timer
             time += Time.deltaTime;
-            
+
             yield return null;
         }
         //finish movement and remove dodge status.
-        transform.position = newPos;
+        //transform.position = newPos;
         dodge = false;
         
     }
@@ -162,5 +245,13 @@ public class PlayerController : MonoBehaviour
     void OnDisable()
     {
         controls.Gameplay.Disable();
+    }
+
+    void DrawDebugLines()
+    {
+        if (!debug) return;
+
+        Debug.DrawLine(transform.position, transform.position + point * height * 2, Color.blue);
+        Debug.DrawLine(transform.position, transform.position - Vector3.up * height, Color.green);
     }
 }

@@ -463,7 +463,7 @@ MonoBehaviour:
   debug: 0
   collision: 0
   dashDelay: 0
-  dashInvuln: 0
+  invuln: 0
   moveSpeed: 5
   turnSpeed: 10
   dashSpeed: 15
@@ -2806,6 +2806,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 672830533, guid: 0616308f626330740800bf213bc4dd38, type: 3}
+      propertyPath: hp
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 672830533, guid: 0616308f626330740800bf213bc4dd38, type: 3}
+      propertyPath: invulnDuration
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5430377791670745391, guid: 0616308f626330740800bf213bc4dd38,
         type: 3}
       propertyPath: m_Name

@@ -14,17 +14,17 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Enemy")
-        {
-            health.AdjustHealth(-1);
-        }
+
     }
 
     private void OnCollisionStay(Collision collision)
     {
         controller.collision = true;
         //Debug.Log("Colliding");
-        
+        if (collision.collider.tag == "Enemy")
+        {
+            health.TakeDamage(1);
+        }
     }
 
     private void OnCollisionExit(Collision collision)

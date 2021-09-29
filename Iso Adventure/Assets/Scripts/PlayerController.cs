@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool debug;
     public bool collision;
     public bool dashDelay;
-    public bool dashInvuln;
+    public bool invuln;
     bool grounded;
     bool moving;
 
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Attack.performed += ctx => combat.BasicAttack();
 
         health = GetComponent<PlayerHealth>();
-        controls.Gameplay.Heal.performed += ctx => health.AdjustHealth(1);
+        controls.Gameplay.Heal.performed += ctx => health.HealDamage(1);
 
     }
 
@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
                 //snap player rotation to inputted direction
                 transform.forward = head;
             }
-  
+            dodge = true;
             //Start movement
             StartCoroutine(DodgeMovement(dashDuration));
         }
@@ -283,15 +283,15 @@ public class PlayerController : MonoBehaviour
                 dodge = false;
             }
             //for the first X seconds of the dodge
-            if (time < bar)
+            if (time < bar + 0.01)
             {
                 //we have invulnerability
-                dashInvuln = true;
+                invuln = true;
             }
             else
             {
                 //afterwards, set remaining time for cooldown.
-                dashInvuln = false;
+                invuln = false;
                 dashDelay = true;
             }
             //Increase the timer

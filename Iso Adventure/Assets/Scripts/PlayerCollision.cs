@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public PlayerController controller;
+    PlayerController controller;
 
     private void Start()
     {

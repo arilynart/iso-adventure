@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     public bool collision;
     public bool dashDelay;
     public bool dashInvuln;
-    public bool attack;
     bool grounded;
     bool moving;
 
@@ -36,6 +35,10 @@ public class PlayerController : MonoBehaviour
     float groundAngle;
 
     public LayerMask ground;
+
+    public Transform basicAttackPoint;
+    public float basicAttackRange = 0.5f;
+    public LayerMask enemyLayers;
 
     private new Rigidbody rigidbody;
 
@@ -59,7 +62,7 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Dodge.performed += ctx => Dodge(move);
         Debug.Log("Dodge performance set.");
 
-        controls.Gameplay.Attack.performed += ctx => Attack();
+        controls.Gameplay.Attack.performed += ctx => BasicAttack();
         
     }
 
@@ -293,9 +296,31 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Dodge: " + dodge);
     }
 
-    void Attack()
+    void BasicAttack()
     {
-        Debug.Log("You attack!");
+        //if not already dodging or falling (based on collision with floor)
+        if (!dodge && collision == true)
+        {
+            Debug.Log("You attack!");
+            //animation controls go here
+
+            //detect enemies in range of attack
+            Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
+
+            //damage enemies
+            foreach(Collider enemy in hitEnemies)
+            {
+                Debug.Log("Hit " + enemy.name);
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (basicAttackPoint == null)
+            return;
+
+        Gizmos.DrawWireSphere(basicAttackPoint.position, basicAttackRange);
     }
 
     void OnEnable()

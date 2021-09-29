@@ -335,7 +335,6 @@ MonoBehaviour:
   collision: 0
   dashDelay: 0
   dashInvuln: 0
-  attack: 0
   moveSpeed: 5
   turnSpeed: 10
   dashSpeed: 15
@@ -347,6 +346,11 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  basicAttackPoint: {fileID: 0}
+  basicAttackRange: 0.5
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &672830525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5430377791670745391, guid: 0616308f626330740800bf213bc4dd38,
@@ -972,7 +976,7 @@ GameObject:
   - component: {fileID: 1135084498}
   - component: {fileID: 1135084497}
   - component: {fileID: 1135084496}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1078,7 +1082,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19420
+  m_Name: pb_Mesh19398
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1338,6 +1342,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2027668769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027668770}
+  m_Layer: 0
+  m_Name: BasicAttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2027668770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027668769}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.701}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1498520468}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069293315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,6 +1414,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430377791670745392, guid: 0616308f626330740800bf213bc4dd38,
+        type: 3}
+      propertyPath: basicAttackRang
+      value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430377791670745392, guid: 0616308f626330740800bf213bc4dd38,
+        type: 3}
+      propertyPath: basicAttackPoint
+      value: 
+      objectReference: {fileID: 2027668770}
+    - target: {fileID: 5430377791670745392, guid: 0616308f626330740800bf213bc4dd38,
+        type: 3}
+      propertyPath: basicAttackRange
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430377791670745392, guid: 0616308f626330740800bf213bc4dd38,
+        type: 3}
+      propertyPath: enemyLayers.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 5430377791670745396, guid: 0616308f626330740800bf213bc4dd38,
         type: 3}

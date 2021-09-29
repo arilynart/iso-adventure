@@ -236,10 +236,17 @@ public class PlayerController : MonoBehaviour
 
             }
             Debug.Log("dodging");
-            
-            //move player during dodge
-            transform.position += head * dashSpeed * Time.deltaTime;
-            Debug.Log("Position: " + transform.position);
+
+            if (move == Vector2.zero)
+            {
+                //move player during dodge
+                transform.position += point * dashSpeed * Time.deltaTime;
+                Debug.Log("Position: " + transform.position);
+            }
+            else
+            {
+                transform.position += head * dashSpeed * Time.deltaTime;
+            }
         }
     }
 

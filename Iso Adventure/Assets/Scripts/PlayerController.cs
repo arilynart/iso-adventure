@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     Quaternion targetRotation;
 
+    public Animator animator;
 
     public bool dodge;
     public bool debug;
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public bool dashDelay;
     public bool dashInvuln;
     bool grounded;
-    bool moving;
+    public bool moving;
 
     public float moveSpeed = 5f;
     public float turnSpeed = 10f;
@@ -106,7 +107,9 @@ public class PlayerController : MonoBehaviour
 
         Move();
         Rotate();
-       
+
+        animator.SetBool("Speed", moving);
+
     }
 
 
@@ -191,6 +194,7 @@ public class PlayerController : MonoBehaviour
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += point * moveSpeed * Time.deltaTime;
         Debug.Log("Moving: " + transform.position);
+        moving = true;
     }
 
     void Rotate()

@@ -7,9 +7,12 @@ public class PlayerHealth : MonoBehaviour
     PlayerController controller;
     PlayerCombat combat;
 
+    public System.DateTime invulnTime = System.DateTime.MinValue;
+
     public int hp = 10;
     public int maxhp = 10;
     public float invulnDuration = 1;
+
 
     // Start is called before the first frame update
     void Start()
@@ -46,22 +49,28 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             if (controller.dodge) return;
-            StartCoroutine(Invulnerability());
+            controller.dodge = false;
+            StartCoroutine(Invulnerability(invulnDuration));
         }
         Debug.Log("Hp adjusted. Current HP: " + hp);
     }
 
-    IEnumerator Invulnerability()
+    public IEnumerator Invulnerability(float duration)
     {
         Debug.Log("Starting Invuln");
+        if (System.DateTime.Now.AddSeconds(duration) < invulnTime) yield break;
+
 
         controller.invuln = true;
-
+        Physics.IgnoreLayerCollision(3, 7, true);
         Debug.Log("Invincible");
+        invulnTime = System.DateTime.Now.AddSeconds(duration);
 
-        yield return new WaitForSeconds(invulnDuration);
+        yield return new WaitForSeconds(duration);
 
-        if (!controller.dodge) controller.invuln = false;
+        Physics.IgnoreLayerCollision(3, 7, false);
+        controller.invuln = false;
+
     }
 
 }

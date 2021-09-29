@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public bool collision;
     public bool dashDelay;
     public bool invuln;
+    
+
     bool grounded;
     bool moving;
 
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public float height = 0.5f;
     public float heightPadding = 0.05f;
     public float maxGroundAngle = 120;
+    public float invulnDuration;
     float angle;
     float groundAngle;
 
@@ -70,6 +73,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        Physics.IgnoreLayerCollision(3, 7, false);
         // Initialize rigidbody reference
         rigidbody = GetComponent<Rigidbody>();
 
@@ -94,6 +98,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
         //set a mov variable every frame to the current controller input
         Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
         //print("Move: " + move);
@@ -208,6 +213,14 @@ public class PlayerController : MonoBehaviour
 
     void Dodge(Vector2 m)
     {
+/*        if (invulnBreak)
+        {
+            dashDelay = false;
+            invuln = false;
+            dodge = false;
+            invulnBreak = false;
+            StopAllCoroutines();
+        }*/
         Debug.Log("Dodge inputted.");
         //if we're not already dodging
         if (!dodge && !dashDelay)
@@ -236,11 +249,14 @@ public class PlayerController : MonoBehaviour
             //if the way we are facing is a sharp enough angle to the wall
             if (Physics.Raycast(transform.position, head, out hitInfo, height + heightPadding - 0.10f))
             {
-                if (Vector3.Angle(hitInfo.normal, head) > 151f)
+                if (hitInfo.collider.tag != "Enemy")
                 {
-                    //cancel the dodge.
-                    Debug.Log("Sharp Angle: " + Vector3.Angle(hitInfo.normal, point));
-                    return;
+                    if (Vector3.Angle(hitInfo.normal, head) > 151f)
+                    {
+                        //cancel the dodge.
+                        Debug.Log("Sharp Angle: " + Vector3.Angle(hitInfo.normal, point));
+                        return;
+                    }
                 }
 
             }
@@ -257,17 +273,23 @@ public class PlayerController : MonoBehaviour
                 transform.position += head * dashSpeed * Time.deltaTime;
             }
         }
+        else
+        {
+            
+        }
     }
 
-    IEnumerator DodgeMovement(float duration)
+    public IEnumerator DodgeMovement(float duration)
     {
         Debug.Log("Moving Dodge");
         //reset timer
         float time = 0f;
         float bar = duration - dashTime;
+        StartCoroutine(health.Invulnerability(0.3f));
 
         while (time < duration)
         {
+
             //for the first 0.3s of the dodge
             if (time < 0.3)
             {
@@ -281,26 +303,17 @@ public class PlayerController : MonoBehaviour
                 //afterwards, we aren't dodging.
                 Debug.Log("Delay executing: " + time);
                 dodge = false;
-            }
-            //for the first X seconds of the dodge
-            if (time < bar + 0.01)
-            {
-                //we have invulnerability
-                invuln = true;
-            }
-            else
-            {
-                //afterwards, set remaining time for cooldown.
-                invuln = false;
                 dashDelay = true;
+
             }
+            
+
             //Increase the timer
             time += Time.deltaTime;
 
             yield return null;
         }
         //finish movement and remove dodge status.
-        //dodge = false;
         dashDelay = false;
         Debug.Log("Dodge: " + dodge);
     }

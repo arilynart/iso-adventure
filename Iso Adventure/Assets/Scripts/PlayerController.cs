@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     PlayerControls controls;
+    PlayerCombat combat;
 
     Vector2 move;
 
@@ -57,6 +58,10 @@ public class PlayerController : MonoBehaviour
 
         controls.Gameplay.Dodge.performed += ctx => Dodge(move);
         Debug.Log("Dodge performance set.");
+
+        combat = GetComponent<PlayerCombat>();
+        controls.Gameplay.Attack.performed += ctx => combat.BasicAttack();
+        
     }
 
     void Start()

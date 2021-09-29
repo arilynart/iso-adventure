@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     PlayerControls controls;
+    PlayerCombat combat;
 
     Vector2 move;
 
@@ -36,10 +37,6 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask ground;
 
-    public Transform basicAttackPoint;
-    public float basicAttackRange = 0.5f;
-    public LayerMask enemyLayers;
-
     private new Rigidbody rigidbody;
 
     RaycastHit hitInfo;
@@ -62,7 +59,8 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Dodge.performed += ctx => Dodge(move);
         Debug.Log("Dodge performance set.");
 
-        controls.Gameplay.Attack.performed += ctx => BasicAttack();
+        combat = GetComponent<PlayerCombat>();
+        controls.Gameplay.Attack.performed += ctx => combat.BasicAttack();
         
     }
 
@@ -294,33 +292,6 @@ public class PlayerController : MonoBehaviour
         //dodge = false;
         dashDelay = false;
         Debug.Log("Dodge: " + dodge);
-    }
-
-    void BasicAttack()
-    {
-        //if not already dodging or falling (based on collision with floor)
-        if (!dodge && collision == true)
-        {
-            Debug.Log("You attack!");
-            //animation controls go here
-
-            //detect enemies in range of attack
-            Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
-
-            //damage enemies
-            foreach(Collider enemy in hitEnemies)
-            {
-                Debug.Log("Hit " + enemy.name);
-            }
-        }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        if (basicAttackPoint == null)
-            return;
-
-        Gizmos.DrawWireSphere(basicAttackPoint.position, basicAttackRange);
     }
 
     void OnEnable()

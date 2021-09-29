@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public bool collision;
     public bool dashDelay;
     public bool dashInvuln;
+    public bool attack;
     bool grounded;
     bool moving;
 
@@ -57,6 +58,9 @@ public class PlayerController : MonoBehaviour
 
         controls.Gameplay.Dodge.performed += ctx => Dodge(move);
         Debug.Log("Dodge performance set.");
+
+        controls.Gameplay.Attack.performed += ctx => Attack();
+        
     }
 
     void Start()
@@ -287,6 +291,11 @@ public class PlayerController : MonoBehaviour
         //dodge = false;
         dashDelay = false;
         Debug.Log("Dodge: " + dodge);
+    }
+
+    void Attack()
+    {
+        Debug.Log("You attack!");
     }
 
     void OnEnable()

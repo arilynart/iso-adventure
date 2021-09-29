@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerCombat combat;
 
     public int hp = 10;
+    public int maxhp = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -16,10 +17,21 @@ public class PlayerHealth : MonoBehaviour
         combat = GetComponent<PlayerCombat>();
     }
 
-    public void TakeDamage(int amount)
+    public void AdjustHealth(int amount)
     {
-        hp -= amount;
-        Debug.Log("Damage. Remaining HP: " + hp);
+        
+        //take damage
+        hp += amount;
+
+        //can't go above maximum.
+        if (hp > maxhp) hp = maxhp;
+        Debug.Log("Hp adjusted. Current HP: " + hp);
+        if (hp <= 0)
+        {
+            //can't go below zero, also dead
+            hp = 0;
+            Debug.Log("You are dead.");
+        }
     }
 
 }

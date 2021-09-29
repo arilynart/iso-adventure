@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     PlayerControls controls;
     PlayerCombat combat;
+    PlayerHealth health;
 
     Vector2 move;
 
@@ -61,7 +62,10 @@ public class PlayerController : MonoBehaviour
 
         combat = GetComponent<PlayerCombat>();
         controls.Gameplay.Attack.performed += ctx => combat.BasicAttack();
-        
+
+        health = GetComponent<PlayerHealth>();
+        controls.Gameplay.Heal.performed += ctx => health.AdjustHealth(1);
+
     }
 
     void Start()
@@ -177,9 +181,9 @@ public class PlayerController : MonoBehaviour
     
     void Move()
     {
+        Debug.Log("Dodge: " + dodge);
         //if we're dodging no movement
         if (dodge) return;
-        Debug.Log("Dodge: " + dodge);
 
         //calculate forward rotation based on input and incline and assign to point variable
         CalculateForward();

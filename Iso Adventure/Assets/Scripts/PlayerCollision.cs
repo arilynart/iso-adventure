@@ -16,7 +16,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (collision.collider.tag == "Enemy")
         {
-            health.TakeDamage(1);
+            health.AdjustHealth(-1);
         }
     }
 

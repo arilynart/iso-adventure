@@ -8,7 +8,7 @@ public class PlayerCombat : MonoBehaviour
 
     public Animator animator;
     public Transform basicAttackPoint;
-    public float basicAttackRange = 0.5f;
+    public float basicAttackRange = 0.77f;
     public LayerMask enemyLayers;
 
     private void Start()

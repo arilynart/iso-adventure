@@ -93,12 +93,10 @@ public class PlayerController : MonoBehaviour
         CalculateGroundAngle();
         CheckGround();
         DrawDebugLines();
-        //if (!collision)
-        //{
-            DodgeMove();
-        //}
+        DodgeMove();
+
         
-        //if we're inputting a move
+        //if we're inputting a move and not dodging
         if (move == Vector2.zero || dodge) return;
 
         Move();
@@ -184,8 +182,7 @@ public class PlayerController : MonoBehaviour
         //if slope ahead compared to the current location is too high, return.
         if (groundAngle >= maxGroundAngle) return;
         //Debug.Log("Slope is passable.");
-        //check if we're hitting anything on the ground layer in front of us.
-        //if (Physics.Raycast(transform.position, point, out hitInfo, height + heightPadding, ground)) return;
+
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += point * moveSpeed * Time.deltaTime;
         Debug.Log("Moving: " + transform.position);
@@ -227,10 +224,12 @@ public class PlayerController : MonoBehaviour
     {
         if (dodge)
         {
+            //if the way we are facing is a sharp enough angle to the wall
             if (Physics.Raycast(transform.position, head, out hitInfo, height + heightPadding - 0.10f))
             {
                 if (Vector3.Angle(hitInfo.normal, head) > 151f)
                 {
+                    //cancel the dodge.
                     Debug.Log("Sharp Angle: " + Vector3.Angle(hitInfo.normal, point));
                     return;
                 }
@@ -238,13 +237,10 @@ public class PlayerController : MonoBehaviour
             }
             Debug.Log("dodging");
             
+            //move player during dodge
             transform.position += head * dashSpeed * Time.deltaTime;
             Debug.Log("Position: " + transform.position);
         }
-/*        else
-        {
-            moveSpeed = baseMoveSpeed;
-        }*/
     }
 
     IEnumerator DodgeMovement(float duration)
@@ -256,23 +252,29 @@ public class PlayerController : MonoBehaviour
 
         while (time < duration)
         {
+            //for the first 0.3s of the dodge
             if (time < 0.3)
             {
+                //we are dodging
                 Debug.Log("Dodge executing: " + time);
                 //movement
                 dodge = true;
             }
             else
             {
+                //afterwards, we aren't dodging.
                 Debug.Log("Delay executing: " + time);
                 dodge = false;
             }
+            //for the first X seconds of the dodge
             if (time < bar)
             {
+                //we have invulnerability
                 dashInvuln = true;
             }
             else
             {
+                //afterwards, set remaining time for cooldown.
                 dashInvuln = false;
                 dashDelay = true;
             }

@@ -4,10 +4,20 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     PlayerController controller;
+    PlayerHealth health;
 
     private void Start()
     {
         controller = GetComponent<PlayerController>();
+        health = GetComponent<PlayerHealth>();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Enemy")
+        {
+            health.TakeDamage(1);
+        }
     }
 
     private void OnCollisionStay(Collision collision)

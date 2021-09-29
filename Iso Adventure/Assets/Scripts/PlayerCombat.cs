@@ -6,6 +6,7 @@ public class PlayerCombat : MonoBehaviour
 {
     PlayerController controller;
 
+    public Animator animator;
     public Transform basicAttackPoint;
     public float basicAttackRange = 0.5f;
     public LayerMask enemyLayers;
@@ -20,8 +21,9 @@ public class PlayerCombat : MonoBehaviour
         //if not already dodging or falling (based on collision with floor)
         if (!controller.dodge && controller.collision == true)
         {
-            Debug.Log("You attack!");
             //animation controls go here
+            animator.SetTrigger("Basic Attack");
+            Debug.Log("You attack!");
 
             //detect enemies in range of attack
             Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);

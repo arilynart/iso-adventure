@@ -103,12 +103,17 @@ public class PlayerController : MonoBehaviour
 
         
         //if we're inputting a move and not dodging
-        if (move == Vector2.zero || dodge) return;
+        if (move == Vector2.zero)
+        {
+            moving = false;
+            //Debug.Log("Moving: " + moving);
+            animator.SetBool("Speed", moving);
+            return;
+        }
+        if (dodge) return;
 
         Move();
         Rotate();
-
-        animator.SetBool("Speed", moving);
 
     }
 
@@ -193,8 +198,10 @@ public class PlayerController : MonoBehaviour
 
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += point * moveSpeed * Time.deltaTime;
-        Debug.Log("Moving: " + transform.position);
+        //Debug.Log("Moving: " + transform.position);
         moving = true;
+        animator.SetBool("Speed", moving);
+        //Debug.Log("Moving: " + moving);
     }
 
     void Rotate()

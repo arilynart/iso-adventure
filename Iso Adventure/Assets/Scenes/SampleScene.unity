@@ -337,7 +337,6 @@ MonoBehaviour:
   dashDelay: 0
   dashInvuln: 0
   moving: 0
-  moveInt: 0
   moveSpeed: 5
   turnSpeed: 10
   dashSpeed: 15
@@ -1379,6 +1378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0649b97e729964f9f133621e2351a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1434884005}
   basicAttackPoint: {fileID: 1042535819}
   basicAttackRange: 0.5
   enemyLayers:
@@ -1415,7 +1415,6 @@ MonoBehaviour:
   dashDelay: 0
   dashInvuln: 0
   moving: 0
-  moveInt: 0
   moveSpeed: 3.5
   turnSpeed: 10
   dashSpeed: 8

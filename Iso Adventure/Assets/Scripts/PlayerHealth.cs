@@ -20,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
             max_Hp = value;
         }
     }
+    public static int LIFE_UNLOCKED = 3;
     public float invulnDuration = 1;
 
     public delegate void HealthBarDelegate(int hp);

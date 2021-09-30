@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     Quaternion targetRotation;
 
+    public Animator animator;
 
     public bool dodge;
     public bool debug;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
     
 
     bool grounded;
-    bool moving;
+    public bool moving;
 
     public float moveSpeed = 5f;
     public float turnSpeed = 10f;
@@ -111,11 +112,18 @@ public class PlayerController : MonoBehaviour
 
         
         //if we're inputting a move and not dodging
-        if (move == Vector2.zero || dodge) return;
+        if (move == Vector2.zero)
+        {
+            moving = false;
+            //Debug.Log("Moving: " + moving);
+            animator.SetBool("Speed", moving);
+            return;
+        }
+        if (dodge) return;
 
         Move();
         Rotate();
-       
+
     }
 
 
@@ -199,7 +207,10 @@ public class PlayerController : MonoBehaviour
 
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += point * moveSpeed * Time.deltaTime;
-        Debug.Log("Moving: " + transform.position);
+        //Debug.Log("Moving: " + transform.position);
+        moving = true;
+        animator.SetBool("Speed", moving);
+        //Debug.Log("Moving: " + moving);
     }
 
     void Rotate()

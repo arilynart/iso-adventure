@@ -7,7 +7,9 @@ public class PlayerDodge : MonoBehaviour
     public PlayerController controller;
     public PlayerHealth health;
 
+
     public Animator animator;
+
     public float dashSpeed = 8f;
     public float dashDuration = 0.8f;
     public float dashTime = 0.5f;
@@ -21,6 +23,7 @@ public class PlayerDodge : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         health = GetComponent<PlayerHealth>();
+
         animator = GetComponent<Animator>();
 
         dodge = false;
@@ -127,7 +130,6 @@ public class PlayerDodge : MonoBehaviour
 
             animator.SetBool("Dodge Roll", dodge);
         }
-
         //finish movement and remove dodge status.
         dashDelay = false;
         Debug.Log("Dodge: " + dodge);

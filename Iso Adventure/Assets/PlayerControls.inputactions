@@ -28,6 +28,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Heal",
+                    "type": "Button",
+                    "id": "85bca362-bcde-4d02-9b47-31871c0eefeb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -45,7 +53,7 @@
                 {
                     "name": "",
                     "id": "c584e934-2021-495c-82ae-dc229d11d4ae",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -61,6 +69,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e03a9eb6-9a39-42bd-9cde-9a9d8fb4ff07",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Heal",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

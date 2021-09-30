@@ -284,8 +284,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Moving Dodge");
         //reset timer
         float time = 0f;
-        float bar = duration - dashTime;
-        StartCoroutine(health.Invulnerability(0.3f));
+        StartCoroutine(health.Invulnerability(duration - dashTime));
 
         while (time < duration)
         {

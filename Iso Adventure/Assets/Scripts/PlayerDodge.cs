@@ -100,6 +100,7 @@ public class PlayerDodge : MonoBehaviour
             {
                 Debug.Log("Moving, snapping direction.");
                 //snap player rotation to inputted direction
+                controller.point = controller.head;
                 transform.forward = controller.head;
             }
 

@@ -330,18 +330,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e19f0198ee55784fa208ba0c181363b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move: {x: 0, y: 0}
+  head: {x: 0, y: 0, z: 0}
+  point: {x: 0, y: 0, z: 0}
   animator: {fileID: 0}
-  dodge: 0
   debug: 0
   collision: 0
-  dashDelay: 0
   invuln: 0
   moving: 0
   moveSpeed: 5
   turnSpeed: 10
-  dashSpeed: 15
-  dashDuration: 0.2
-  dashTime: 0.4
   height: 0.5
   heightPadding: 0.05
   maxGroundAngle: 120

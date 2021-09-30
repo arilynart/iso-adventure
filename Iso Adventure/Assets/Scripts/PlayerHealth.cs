@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     PlayerController controller;
     PlayerCombat combat;
+    PlayerDodge playerDodge;
 
 
     public System.DateTime invulnTime = System.DateTime.MinValue;
@@ -32,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         combat = GetComponent<PlayerCombat>();
+        playerDodge = GetComponent<PlayerDodge>();
 
         hp = MAX_HP;
     }
@@ -47,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (controller.invuln || controller.dodge) return;
+        if (controller.invuln || playerDodge.dodge) return;
 
         Debug.Log("Taking damage");
         hp -= amount;
@@ -60,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            if (controller.dodge) return;
+            //if (controller.dodge) return;
             StartCoroutine(Invulnerability(invulnDuration));
         }
         Debug.Log("Hp adjusted. Current HP: " + hp);

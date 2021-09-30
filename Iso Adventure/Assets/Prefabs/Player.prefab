@@ -423,7 +423,8 @@ GameObject:
   - component: {fileID: 5477901638835078309}
   - component: {fileID: 5477901638835078306}
   - component: {fileID: 5477901637876126268}
-  - component: {fileID: 231031616}
+  - component: {fileID: 231031618}
+  - component: {fileID: 231031613}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -507,20 +508,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e19f0198ee55784fa208ba0c181363b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  move: {x: 0, y: 0}
+  head: {x: 0, y: 0, z: 0}
+  point: {x: 0, y: 0, z: 0}
   animator: {fileID: 5812596624847002532}
-  dodge: 0
   debug: 0
   collision: 0
-  dashDelay: 0
   invuln: 0
   moving: 0
   moveSpeed: 3.5
   turnSpeed: 10
-  dashSpeed: 8
-  dashDuration: 0.8
-  dashTime: 0.55
-  height: 0.65
-  heightPadding: 0.05
+  height: 0
+  heightPadding: 0
   maxGroundAngle: 120
   ground:
     serializedVersion: 2
@@ -559,8 +558,8 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
---- !u!135 &231031616
-SphereCollider:
+--- !u!65 &231031618
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -570,8 +569,27 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.66110885
-  m_Center: {x: 0, y: 0.76971924, z: 0}
+  m_Size: {x: 0.75, y: 1.39, z: 0.6598743}
+  m_Center: {x: 0, y: 0.7, z: 0.074937165}
+--- !u!114 &231031613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812596624839583768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6522d654c3f09144bac335c6551cce07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  health: {fileID: 0}
+  dashSpeed: 8
+  dashDuration: 0.8
+  dashTime: 0.5
+  dodge: 0
+  dashDelay: 0
 --- !u!1 &5812596624839583770
 GameObject:
   m_ObjectHideFlags: 0

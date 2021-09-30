@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     PlayerController controller;
+    PlayerDodge dodge;
 
     public Animator animator;
     public Transform basicAttackPoint;
@@ -17,6 +18,7 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<PlayerController>();
+        dodge = GetComponent<PlayerDodge>();
     }
 
     private void FixedUpdate()
@@ -33,7 +35,7 @@ public class PlayerCombat : MonoBehaviour
     public void BasicAttack()
     {
         //if not already dodging or falling (based on collision with floor)
-        if (!controller.dodge && controller.collision == true)
+        if (!dodge.dodge && controller.collision == true)
         {
             //detect enemies in range of attack
             Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);

@@ -5,38 +5,79 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject Player;
-    public float Distance;
+    public Animator animator;
 
-    public bool aggro;
+    public float lookRadius = 5f;
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public float attackDelay = 5f;
+    public LayerMask playerLayer;
 
-    public NavMeshAgent agent;
-    void Start()
+    Transform target;
+    NavMeshAgent agent;
+
+    private void Start()
     {
-        
+        //Find and target player in instance
+        target = PlayerManager.instance.player.transform;
+        //Get Nav Mesh
+        agent = GetComponent<NavMeshAgent>();
     }
 
     void FixedUpdate()
     {
-        Distance = Vector3.Distance(Player.transform.position, this.transform.position);
+        //Distance from enemy to player
+        float distance = Vector3.Distance(target.position, transform.position);
 
-        if(Distance <= 5)
+        if (distance <= lookRadius)
         {
-            aggro = true;
+            agent.SetDestination(target.position);
+
+            if (distance <= agent.stoppingDistance)
+            {
+                // Face Target
+                FaceTarget();
+                // Attack
+                Attack();
+            }
         }
-        else
+    }
+
+    void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    public void Attack()
+    {
+        //detect enemies in range of attack
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, playerLayer);
+
+        //damage enemies
+        foreach (Collider enemy in hitEnemies)
         {
-            aggro = false;
+            StartCoroutine(DoDamage(attackDelay));
         }
 
-        if (aggro)
-        {
-            agent.isStopped = false;
-            agent.SetDestination(Player.transform.position);
-        }
-        else
-        {
-            agent.isStopped = true;
-        }
+        //animation controls go here
+    }
+
+    IEnumerator DoDamage (float delay)
+    {
+        Debug.Log("Hit player!");
+        yield return new WaitForSeconds(delay);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        //Draws radius of lookRadius in Scene View
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
+
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

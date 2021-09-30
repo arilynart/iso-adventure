@@ -156,17 +156,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (Physics.Raycast(transform.position + transform.forward + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfoF, height + heightPadding, ground))
-        {
-            if (groundAngle > 90f || groundAngle < 90f || forwardGroundAngle > 90f || forwardGroundAngle < 90f)
-            {
-                playerDodge.velocity = false;
-            }
-            else
-            {
-                playerDodge.velocity = true;
-            }
-        }
         point = Vector3.Cross(transform.right, hitInfo.normal);
 
         //Debug.Log("Point calculated: " + point);
@@ -185,7 +174,20 @@ public class PlayerController : MonoBehaviour
         groundAngle = Vector3.Angle(hitInfo.normal, transform.forward);
         forwardGroundAngle = Vector3.Angle(hitInfoF.normal, transform.forward);
 
+        if (Physics.Raycast(transform.position + transform.forward + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfoF, height + heightPadding, ground))
+        {
+            if (groundAngle > 95f || groundAngle < 85f || forwardGroundAngle > 95f || forwardGroundAngle < 85f)
+            {
+                playerDodge.velocity = false;
+            }
+            else
+            {
+                playerDodge.velocity = true;
+            }
+        }
+
         Debug.Log("Ground Angle calculated: " + groundAngle);
+        Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
     }
 
     void CheckGround()
@@ -260,7 +262,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!debug) return;
 
-        Debug.DrawLine(transform.position +new Vector3(0, height + heightPadding, 0), transform.position + point * height * 20, Color.blue);
+        Debug.DrawLine(transform.position + new Vector3(0, (height + heightPadding) / 5, 0), transform.position + point + new Vector3(0, (height + heightPadding) / 5, 0), Color.blue);
         Debug.DrawLine(transform.position, transform.position - Vector3.up * height, Color.green);
     }
 }

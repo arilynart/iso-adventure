@@ -44,7 +44,7 @@ public class PlayerDodge : MonoBehaviour
         if (dodge)
         {
             //if the way we are facing is a sharp enough angle to the wall
-            if (Physics.Raycast(transform.position, controller.head, out hitInfo, controller.height + controller.heightPadding - 0.10f))
+            /*if (Physics.Raycast(transform.position, controller.head, out hitInfo, controller.height + controller.heightPadding - 0.10f))
             {
                 if (hitInfo.collider.tag != "Enemy")
                 {
@@ -56,19 +56,26 @@ public class PlayerDodge : MonoBehaviour
                     }
                 }
 
-            }
+            }*/
             Debug.Log("dodging");
 
             //if (controller.move == Vector2.zero)
             //{
 
-                if (velocity) rb.velocity = controller.point * dashSpeed;
-                //move player during dodge
-                else transform.position += controller.point * dashSpeed * Time.deltaTime;
+            if (velocity)
+            {
 
-                Debug.Log("Position: " + transform.position);
-            //}
-/*            else
+                rb.velocity = controller.point * dashSpeed;
+                Debug.Log(" O1Velocity: " + transform.position);
+
+            }
+            //move player during dodge
+            else
+            {
+                transform.position += controller.point * dashSpeed * Time.deltaTime;
+                Debug.Log(" O1Position: " + transform.position);
+            }       
+            /*else
             {
                 if (velocity) rb.velocity = controller.head * dashSpeed;
                 //move player during dodge

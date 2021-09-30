@@ -7,6 +7,9 @@ public class PlayerDodge : MonoBehaviour
     public PlayerController controller;
     public PlayerHealth health;
 
+
+    public Animator animator;
+
     public float dashSpeed = 8f;
     public float dashDuration = 0.8f;
     public float dashTime = 0.5f;
@@ -21,6 +24,8 @@ public class PlayerDodge : MonoBehaviour
         controller = GetComponent<PlayerController>();
         health = GetComponent<PlayerHealth>();
 
+        animator = GetComponent<Animator>();
+
         dodge = false;
         Debug.Log("Dodge set to false.");
     }
@@ -32,6 +37,7 @@ public class PlayerDodge : MonoBehaviour
 
     void DodgeMove()
     {
+
         if (dodge)
         {
             //if the way we are facing is a sharp enough angle to the wall
@@ -65,6 +71,7 @@ public class PlayerDodge : MonoBehaviour
         {
 
         }
+
     }
 
     public void Dodge(Vector2 m)
@@ -114,14 +121,14 @@ public class PlayerDodge : MonoBehaviour
                 Debug.Log("Delay executing: " + time);
                 dodge = false;
                 dashDelay = true;
-
             }
-
 
             //Increase the timer
             time += Time.deltaTime;
 
             yield return null;
+
+            animator.SetBool("Dodge Roll", dodge);
         }
         //finish movement and remove dodge status.
         dashDelay = false;

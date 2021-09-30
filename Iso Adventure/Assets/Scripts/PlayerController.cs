@@ -36,12 +36,14 @@ public class PlayerController : MonoBehaviour
     public float maxGroundAngle = 120;
     float angle;
     float groundAngle;
+    float forwardGroundAngle;
 
     public LayerMask ground;
 
     private new Rigidbody rigidbody;
 
     RaycastHit hitInfo;
+    RaycastHit hitInfoF;
 
 
     // Start is called before the first frame update
@@ -155,6 +157,7 @@ public class PlayerController : MonoBehaviour
         }
 
         point = Vector3.Cross(transform.right, hitInfo.normal);
+
         //Debug.Log("Point calculated: " + point);
     }
 
@@ -164,33 +167,49 @@ public class PlayerController : MonoBehaviour
         if (!grounded)
         {
             groundAngle = 90;
+            forwardGroundAngle = 90;
             return;
         }
 
         groundAngle = Vector3.Angle(hitInfo.normal, transform.forward);
+        forwardGroundAngle = Vector3.Angle(hitInfoF.normal, transform.forward);
 
-        //Debug.Log("Ground Angle calculated: " + groundAngle);
+        if (Physics.Raycast(transform.position + transform.forward + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfoF, height + heightPadding, ground))
+        {
+            if (groundAngle > 95f || groundAngle < 85f || forwardGroundAngle > 95f || forwardGroundAngle < 85f)
+            {
+                playerDodge.velocity = false;
+            }
+            else
+            {
+                playerDodge.velocity = true;
+            }
+        }
+
+        Debug.Log("Ground Angle calculated: " + groundAngle);
+        Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
     }
 
     void CheckGround()
     {
         //Debug.Log("Checking  if grounded...");
         //are we on the ground? raycast of length "height" to determine if so
-        if (Physics.Raycast(transform.position, -Vector3.up, out hitInfo, height + heightPadding, ground))
+        if (Physics.Raycast(transform.position + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfo, height + heightPadding, ground))
         {
-            if (Vector3.Distance(transform.position, hitInfo.point) < height)
-            {
-                Debug.Log("Cube fell below floor, correcting...");
-                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * height, 5 * Time.deltaTime);
-            }
+            //if (Vector3.Distance(transform.position, hitInfo.point) < height)
+            //{
+                //Debug.Log("Cube fell below floor, correcting...");
+                //transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * height, 5 * Time.deltaTime);
+            //}
             grounded = true;
+
         }
         else
         {
             
             grounded = false;
         }
-        //Debug.Log("Grounded: " + grounded);
+        Debug.Log("Grounded: " + grounded);
     }
     
     void Move()
@@ -243,7 +262,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!debug) return;
 
-        Debug.DrawLine(transform.position, transform.position + point * height * 2, Color.blue);
+        Debug.DrawLine(transform.position + new Vector3(0, (height + heightPadding) / 5, 0), transform.position + point + new Vector3(0, (height + heightPadding) / 5, 0), Color.blue);
         Debug.DrawLine(transform.position, transform.position - Vector3.up * height, Color.green);
     }
 }

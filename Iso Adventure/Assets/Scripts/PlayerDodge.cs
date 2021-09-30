@@ -16,6 +16,7 @@ public class PlayerDodge : MonoBehaviour
 
     public bool dodge;
     public bool dashDelay;
+    public bool velocity;
 
     RaycastHit hitInfo;
     Rigidbody rb;
@@ -43,7 +44,7 @@ public class PlayerDodge : MonoBehaviour
         if (dodge)
         {
             //if the way we are facing is a sharp enough angle to the wall
-            if (Physics.Raycast(transform.position, controller.head, out hitInfo, controller.height + controller.heightPadding - 0.10f))
+            /*if (Physics.Raycast(transform.position, controller.head, out hitInfo, controller.height + controller.heightPadding - 0.10f))
             {
                 if (hitInfo.collider.tag != "Enemy")
                 {
@@ -55,21 +56,31 @@ public class PlayerDodge : MonoBehaviour
                     }
                 }
 
-            }
+            }*/
             Debug.Log("dodging");
 
-            if (controller.move == Vector2.zero)
+            //if (controller.move == Vector2.zero)
+            //{
+
+            if (velocity)
             {
-                //move player during dodge
-                //transform.position += controller.point * dashSpeed * Time.deltaTime;
+
                 rb.velocity = controller.point * dashSpeed;
-                Debug.Log("Position: " + transform.position);
+                Debug.Log(" O1Velocity: " + transform.position);
+
             }
+            //move player during dodge
             else
             {
-                //transform.position += controller.head * dashSpeed * Time.deltaTime;
-                rb.velocity = controller.point * dashSpeed;
-            }
+                transform.position += controller.point * dashSpeed * Time.deltaTime;
+                Debug.Log(" O1Position: " + transform.position);
+            }       
+            /*else
+            {
+                if (velocity) rb.velocity = controller.head * dashSpeed;
+                //move player during dodge
+                else if (!velocity) transform.position += controller.poin * dashSpeed * Time.deltaTime;
+            }*/
         }
         else
         {

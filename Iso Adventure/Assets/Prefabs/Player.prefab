@@ -41,10 +41,12 @@ GameObject:
   - component: {fileID: 5430377791670745396}
   - component: {fileID: 5430377791670745395}
   - component: {fileID: 5430377791670745394}
-  - component: {fileID: 5430377791670745392}
   - component: {fileID: 5430377791670745393}
   - component: {fileID: 5430377791670745398}
+  - component: {fileID: 5430377791670745392}
   - component: {fileID: 5430377791670745397}
+  - component: {fileID: 672830532}
+  - component: {fileID: 672830533}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -74,7 +76,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5430377791670745391}
-  m_Mesh: {fileID: 4300004, guid: a58d63122b09e9144938cd6a1ece4824, type: 3}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5430377791670745394
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -117,34 +119,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5430377791670745392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5430377791670745391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e19f0198ee55784fa208ba0c181363b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dodge: 0
-  debug: 0
-  collision: 0
-  dashDelay: 0
-  dashInvuln: 0
-  moveSpeed: 3.5
-  turnSpeed: 10
-  dashSpeed: 8
-  dashDuration: 0.8
-  dashTime: 0.5
-  height: 0.5
-  heightPadding: 0.05
-  maxGroundAngle: 120
-  ground:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!136 &5430377791670745393
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -175,6 +149,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5430377791670745392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5430377791670745391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e19f0198ee55784fa208ba0c181363b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dodge: 0
+  debug: 0
+  collision: 0
+  dashDelay: 0
+  invuln: 0
+  moveSpeed: 3.5
+  turnSpeed: 10
+  dashSpeed: 8
+  dashDuration: 0.8
+  dashTime: 0.5
+  height: 0.5
+  heightPadding: 0.05
+  maxGroundAngle: 120
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &5430377791670745397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,3 +189,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de6bd9d691f38349a2137e2318c9822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &672830532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5430377791670745391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0649b97e729964f9f133621e2351a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicAttackPoint: {fileID: 2027668770}
+  basicAttackRange: 0.5
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &672830533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5430377791670745391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0115c07dae3dd4f9ac3f4c49a1ae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+  maxhp: 10
+  invulnDuration: 1

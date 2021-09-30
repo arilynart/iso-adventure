@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e19f0198ee55784fa208ba0c181363b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 0}
   move: {x: 0, y: 0}
   head: {x: 0, y: 0, z: 0}
   point: {x: 0, y: 0, z: 0}

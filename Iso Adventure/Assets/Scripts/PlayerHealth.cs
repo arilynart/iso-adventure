@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
     public static int LIFE_UNLOCKED = 3;
+    public int healValue = 1;
     public float invulnDuration = 1;
 
     public delegate void HealthBarDelegate(int hp);
@@ -45,6 +47,15 @@ public class PlayerHealth : MonoBehaviour
         HealthClamp();
 
         Debug.Log("Hp adjusted. Current HP: " + hp);
+    }
+
+    public void HealButton(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            //take damage
+            HealDamage(healValue);
+        }
     }
 
     public void TakeDamage(int amount)

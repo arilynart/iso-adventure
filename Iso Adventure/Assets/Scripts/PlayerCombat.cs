@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
     PlayerController controller;
     PlayerDodge dodge;
+    
 
     public Animator animator;
     public Transform basicAttackPoint;
@@ -32,46 +34,49 @@ public class PlayerCombat : MonoBehaviour
 
     }
 
-    public void BasicAttack()
+    public void BasicAttack(InputAction.CallbackContext value)
     {
-        //if not already dodging or falling (based on collision with floor)
-        if (!dodge.dodge && controller.collision == true)
+        if (value.started)
         {
-            //detect enemies in range of attack
-            Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
+            //if not already dodging or falling (based on collision with floor)
+            if (!dodge.dodge && controller.collision == true)
+            {
+                //detect enemies in range of attack
+                Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
 
-            //damage enemies
-            foreach (Collider enemy in hitEnemies)
-            {
-                Debug.Log("Hit " + enemy.name);
-            }
+                //damage enemies
+                foreach (Collider enemy in hitEnemies)
+                {
+                    Debug.Log("Hit " + enemy.name);
+                }
 
-            //animation controls go here
-            lastPressedTime = System.DateTime.Now;
-            noOfPresses++;
-            if (noOfPresses == 1)
-            {
-                animator.SetBool("Basic Attack", true);
-                Debug.Log("You attack once!");
-            }
-            else
-            {
-                animator.SetBool("Basic Attack", false);
-            }
+                //animation controls go here
+                lastPressedTime = System.DateTime.Now;
+                noOfPresses++;
+                if (noOfPresses == 1)
+                {
+                    animator.SetBool("Basic Attack", true);
+                    Debug.Log("You attack once!");
+                }
+                else
+                {
+                    animator.SetBool("Basic Attack", false);
+                }
 
-            if (noOfPresses == 2)
-            {
-                animator.SetBool("Basic Attack", false);
-                animator.SetBool("Basic Attack 2", true);
-                Debug.Log("You attack twice!");
-                noOfPresses = 0;
+                if (noOfPresses == 2)
+                {
+                    animator.SetBool("Basic Attack", false);
+                    animator.SetBool("Basic Attack 2", true);
+                    Debug.Log("You attack twice!");
+                    noOfPresses = 0;
+                }
+                else
+                {
+                    animator.SetBool("Basic Attack 2", false);
+                }
+                //noOfPresses = Mathf.Clamp(noOfPresses, 0, 2);
+                return;
             }
-            else
-            {
-                animator.SetBool("Basic Attack 2", false);
-            }
-            //noOfPresses = Mathf.Clamp(noOfPresses, 0, 2);
-            return;
         }
     }
 

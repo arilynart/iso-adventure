@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     PlayerCombat combat;
     PlayerHealth health;
     PlayerDodge playerDodge;
+    public PlayerInput input;
 
     public Vector2 move;
 
@@ -54,21 +55,23 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Controls set");
 
         //When movement input is performed set move to the value
-        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+        //controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         Debug.Log("Movement performance set.");
         //Otherwise set to 0
-        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+        //controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
         Debug.Log("Movement cancellation set.");
 
         playerDodge = GetComponent<PlayerDodge>();
-        controls.Gameplay.Dodge.performed += ctx => playerDodge.Dodge(move);
+        //controls.Gameplay.Dodge.performed += ctx => playerDodge.Dodge(move);
         Debug.Log("Dodge performance set.");
 
         combat = GetComponent<PlayerCombat>();
-        controls.Gameplay.Attack.performed += ctx => combat.BasicAttack();
+        //controls.Gameplay.Attack.performed += ctx => combat.BasicAttack();
 
         health = GetComponent<PlayerHealth>();
-        controls.Gameplay.Heal.performed += ctx => health.HealDamage(1);
+        //controls.Gameplay.Heal.performed += ctx => health.HealDamage(1);
+
+        input = GetComponent<PlayerInput>();
 
     }
 
@@ -129,6 +132,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void OnMovement(InputAction.CallbackContext value)
+    {
+        Vector2 inputMovement = value.ReadValue<Vector2>();
+        move = inputMovement;
+    }
 
     void CalculateDirection(Vector2 m)
     {
@@ -176,7 +184,7 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(transform.position + transform.forward + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfoF, height + heightPadding, ground))
         {
-            if (groundAngle > 95f || groundAngle < 85f || forwardGroundAngle > 95f || forwardGroundAngle < 85f)
+            if (groundAngle > 90f || groundAngle < 90f || forwardGroundAngle > 90f || forwardGroundAngle < 90f)
             {
                 playerDodge.velocity = false;
             }

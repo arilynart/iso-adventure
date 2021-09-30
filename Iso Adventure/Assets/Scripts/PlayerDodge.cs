@@ -18,11 +18,13 @@ public class PlayerDodge : MonoBehaviour
     public bool dashDelay;
 
     RaycastHit hitInfo;
+    Rigidbody rb;
 
     private void Start()
     {
         controller = GetComponent<PlayerController>();
         health = GetComponent<PlayerHealth>();
+        rb = GetComponent<Rigidbody>();
 
         animator = GetComponent<Animator>();
 
@@ -59,17 +61,19 @@ public class PlayerDodge : MonoBehaviour
             if (controller.move == Vector2.zero)
             {
                 //move player during dodge
-                transform.position += controller.point * dashSpeed * Time.deltaTime;
+                //transform.position += controller.point * dashSpeed * Time.deltaTime;
+                rb.velocity = controller.point * dashSpeed;
                 Debug.Log("Position: " + transform.position);
             }
             else
             {
-                transform.position += controller.head * dashSpeed * Time.deltaTime;
+                //transform.position += controller.head * dashSpeed * Time.deltaTime;
+                rb.velocity = controller.point * dashSpeed;
             }
         }
         else
         {
-
+            
         }
 
     }
@@ -93,6 +97,7 @@ public class PlayerDodge : MonoBehaviour
         }
         else
         {
+            
             Debug.Log("Cannot dodge at this time.");
         }
     }
@@ -121,6 +126,10 @@ public class PlayerDodge : MonoBehaviour
                 Debug.Log("Delay executing: " + time);
                 dodge = false;
                 dashDelay = true;
+            }
+            if (time  <= 0.35 && time >= 0.25)
+            {
+                rb.velocity = Vector3.zero;
             }
 
             //Increase the timer

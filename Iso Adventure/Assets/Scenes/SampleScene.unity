@@ -1381,9 +1381,11 @@ MonoBehaviour:
   animator: {fileID: 1434884005}
   basicAttackPoint: {fileID: 1042535819}
   basicAttackRange: 0.77
+  noOfPresses: 0
+  maxComboDelay: 0.43
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
 --- !u!114 &1434884010
 MonoBehaviour:
   m_ObjectHideFlags: 0

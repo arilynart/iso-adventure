@@ -5,6 +5,7 @@
 [Bb]uild/
 [Ll]ibrary/
 [Ll]ocal[Cc]ache/
+[Ll]ogs/
 [Oo]bj/
 [Tt]emp/
 [Uu]nityGenerated/
@@ -28,6 +29,7 @@ sysinfo.txt
 *.pidb
 .DS_Store
 
+
 ###
 # OS generated
 ###
@@ -39,3 +41,4 @@ sysinfo.txt
 Icon?
 ehthumbs.db
 Thumbs.db
+Iso Adventure/Logs/shadercompiler-AssetImportWorker0.log

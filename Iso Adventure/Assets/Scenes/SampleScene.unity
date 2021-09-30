@@ -221,58 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2066896390771880149}
   offset: {x: -5, y: 5, z: -5}
---- !u!1 &231031608 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5812596624839583768, guid: 0616308f626330740800bf213bc4dd38,
-    type: 3}
-  m_PrefabInstance: {fileID: 5477901638835078317}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &231031613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231031608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6522d654c3f09144bac335c6551cce07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  health: {fileID: 0}
-  dashSpeed: 8
-  dashDuration: 0.8
-  dashTime: 0.5
-  dodge: 0
-  dashDelay: 0
---- !u!136 &231031617
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231031608}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 1.39
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.7, z: 0}
---- !u!65 &231031618
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 231031608}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.75, y: 1.39, z: 0.6598743}
-  m_Center: {x: 0, y: 0.7, z: 0.074937165}
 --- !u!1 &252385558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,28 +1817,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 231031616, guid: 0616308f626330740800bf213bc4dd38, type: 3}
-      propertyPath: m_Radius
-      value: 0.695
-      objectReference: {fileID: 0}
-    - target: {fileID: 231031616, guid: 0616308f626330740800bf213bc4dd38, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 231031616, guid: 0616308f626330740800bf213bc4dd38, type: 3}
-      propertyPath: m_Center.y
-      value: 0.70144296
-      objectReference: {fileID: 0}
-    - target: {fileID: 5477901638835078309, guid: 0616308f626330740800bf213bc4dd38,
-        type: 3}
-      propertyPath: height
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5477901638835078309, guid: 0616308f626330740800bf213bc4dd38,
-        type: 3}
-      propertyPath: heightPadding
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5812596624839583768, guid: 0616308f626330740800bf213bc4dd38,
         type: 3}
       propertyPath: m_Name

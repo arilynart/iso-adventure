@@ -117,15 +117,6 @@ public class PlayerController : MonoBehaviour
         Move();
         Rotate();
 
-        if (collision == false)
-        {
-            animator.SetBool("Falling", true);
-        }
-        else
-        {
-            animator.SetBool("Falling", false);
-        }
-
     }
 
 

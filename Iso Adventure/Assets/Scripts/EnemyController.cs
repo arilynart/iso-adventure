@@ -5,38 +5,48 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject Player;
-    public float Distance;
+    public float lookRadius = 5f;
 
-    public bool aggro;
+    Transform target;
+    NavMeshAgent agent;
 
-    public NavMeshAgent agent;
-    void Start()
+    private void Start()
     {
-        
+        //Find and target player in instance
+        target = PlayerManager.instance.player.transform;
+        //Get Nav Mesh
+        agent = GetComponent<NavMeshAgent>();
     }
 
     void FixedUpdate()
     {
-        Distance = Vector3.Distance(Player.transform.position, this.transform.position);
+        //Distance from enemy to player
+        float distance = Vector3.Distance(target.position, transform.position);
 
-        if(Distance <= 5)
+        if (distance <= lookRadius)
         {
-            aggro = true;
-        }
-        else
-        {
-            aggro = false;
-        }
+            agent.SetDestination(target.position);
 
-        if (aggro)
-        {
-            agent.isStopped = false;
-            agent.SetDestination(Player.transform.position);
+            if (distance <= agent.stoppingDistance)
+            {
+                // Face Target
+                FaceTarget();
+                // Attack
+            }
         }
-        else
-        {
-            agent.isStopped = true;
-        }
+    }
+
+    void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        //Draws radius of lookRadius in Scene View
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 }

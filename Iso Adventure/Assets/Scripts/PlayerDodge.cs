@@ -16,6 +16,7 @@ public class PlayerDodge : MonoBehaviour
 
     public bool dodge;
     public bool dashDelay;
+    public bool velocity;
 
     RaycastHit hitInfo;
     Rigidbody rb;
@@ -58,18 +59,21 @@ public class PlayerDodge : MonoBehaviour
             }
             Debug.Log("dodging");
 
-            if (controller.move == Vector2.zero)
-            {
+            //if (controller.move == Vector2.zero)
+            //{
+
+                if (velocity) rb.velocity = controller.point * dashSpeed;
                 //move player during dodge
-                //transform.position += controller.point * dashSpeed * Time.deltaTime;
-                rb.velocity = controller.point * dashSpeed;
+                else transform.position += controller.point * dashSpeed * Time.deltaTime;
+
                 Debug.Log("Position: " + transform.position);
-            }
-            else
+            //}
+/*            else
             {
-                //transform.position += controller.head * dashSpeed * Time.deltaTime;
-                rb.velocity = controller.point * dashSpeed;
-            }
+                if (velocity) rb.velocity = controller.head * dashSpeed;
+                //move player during dodge
+                else if (!velocity) transform.position += controller.poin * dashSpeed * Time.deltaTime;
+            }*/
         }
         else
         {

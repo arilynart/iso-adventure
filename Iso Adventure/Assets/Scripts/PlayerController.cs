@@ -103,7 +103,15 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         DrawDebugLines();
 
-        
+        if (collision == false)
+        {
+            animator.SetBool("Falling", true);
+        }
+        else
+        {
+            animator.SetBool("Falling", false);
+        }
+
         //if we're inputting a move and not dodging
         if (move == Vector2.zero)
         {
@@ -116,15 +124,6 @@ public class PlayerController : MonoBehaviour
 
         Move();
         Rotate();
-
-        if (collision == false)
-        {
-            animator.SetBool("Falling", true);
-        }
-        else
-        {
-            animator.SetBool("Falling", false);
-        }
 
     }
 

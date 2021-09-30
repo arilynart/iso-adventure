@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         DrawDebugLines();
 
-        if (collision == false)
+        if (collision == false && !playerDodge.dodge)
         {
             animator.SetBool("Falling", true);
         }

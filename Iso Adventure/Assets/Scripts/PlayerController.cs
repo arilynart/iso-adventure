@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool debug;
     public bool collision;
     public bool dashDelay;
-    public bool dashInvuln;
+    public bool invuln;
     bool grounded;
     public bool moving;
 
@@ -286,12 +286,12 @@ public class PlayerController : MonoBehaviour
             if (time < bar)
             {
                 //we have invulnerability
-                dashInvuln = true;
+                invuln = true;
             }
             else
             {
                 //afterwards, set remaining time for cooldown.
-                dashInvuln = false;
+                invuln = false;
                 dashDelay = true;
             }
             //Increase the timer

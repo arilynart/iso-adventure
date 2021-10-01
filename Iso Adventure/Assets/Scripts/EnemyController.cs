@@ -31,7 +31,10 @@ public class EnemyController : MonoBehaviour
 
         if (distance <= lookRadius)
         {
+            agent.isStopped = false;
             agent.SetDestination(target.position);
+            animator.SetFloat("Speed", distance);
+            Debug.Log("Speed: " + distance);
 
             if (distance <= agent.stoppingDistance)
             {
@@ -41,6 +44,17 @@ public class EnemyController : MonoBehaviour
                 Attack();
             }
         }
+
+        if (distance > lookRadius)
+        {
+            agent.isStopped = true;
+            distance = 0;
+            animator.SetFloat("Speed", distance);
+        }
+/*        else
+        {
+            animator.SetFloat("Speed", distance);
+        }*/
     }
 
     void FaceTarget()

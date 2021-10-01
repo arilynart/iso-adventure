@@ -10,8 +10,7 @@ public class PlayerCombat : MonoBehaviour
     
 
     public Animator animator;
-    public Transform basicAttackPoint;
-    public float basicAttackRange = 0.77f;
+    public GameObject hurtBox;
     public int noOfPresses = 0;
     System.DateTime lastPressedTime;
     public float maxComboDelay = 0.43f;
@@ -21,6 +20,7 @@ public class PlayerCombat : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         dodge = GetComponent<PlayerDodge>();
+        deactivateHurtbox();
     }
 
     private void FixedUpdate()
@@ -45,14 +45,6 @@ public class PlayerCombat : MonoBehaviour
                 if (controller.MouseActivityCheck())
                 {
                     transform.LookAt(controller.GetLookPoint());
-                }
-                //detect enemies in range of attack
-                Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
-
-                //damage enemies
-                foreach (Collider enemy in hitEnemies)
-                {
-                    Debug.Log("Hit " + enemy.name);
                 }
 
                 //animation controls go here
@@ -85,12 +77,16 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    void OnDrawGizmosSelected()
+    public void activateHurtbox()
     {
-        if (basicAttackPoint == null)
-            return;
+        hurtBox.GetComponent<Collider>().enabled = true;
+        Debug.Log("Hurtbox on!");
+    }
 
-        Gizmos.DrawWireSphere(basicAttackPoint.position, basicAttackRange);
+    public void deactivateHurtbox()
+    {
+        hurtBox.GetComponent<Collider>().enabled = false;
+        Debug.Log("Hurtbox off!");
     }
 
 }

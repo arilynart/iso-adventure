@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.InputSystem;
+using Ludiq;
+using Bolt;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerControls controls;
+    public PlayerControls controls;
     PlayerCombat combat;
     PlayerHealth health;
     PlayerDodge playerDodge;
@@ -18,20 +20,19 @@ public class PlayerController : MonoBehaviour
     Vector2 lastMousePos;
 
     Vector3 forward, right;
-    Vector3 rightMovement, upMovement, mouseR, mouseU;
+    Vector3 rightMovement, upMovement;
 
     public Vector3 head;
     public Vector3 point;
 
     Quaternion targetRotation;
-    Quaternion mouseRotation;
 
     public Animator animator;
 
     public bool debug;
     public bool collision;
     public bool invuln;
-    bool grounded;
+    public bool grounded;
     public bool moving;
 
     public float moveSpeed = 5f;
@@ -41,13 +42,10 @@ public class PlayerController : MonoBehaviour
     public float heightPadding = 0.05f;
     public float maxGroundAngle = 120;
     float angle;
-    float mouseAngle;
     float groundAngle;
     float forwardGroundAngle;
 
     public LayerMask ground;
-
-    private new Rigidbody rigidbody;
 
     RaycastHit hitInfo;
     RaycastHit hitInfoF;
@@ -76,10 +74,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // Initialize rigidbody reference
-        rigidbody = GetComponent<Rigidbody>();
-
-
         //forward is the way we're looking
         forward = Camera.main.transform.forward;
         Debug.Log("Forward direction set.");
@@ -108,7 +102,7 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         DrawDebugLines();
 
-        if (collision == false && !playerDodge.dodge)
+        if (collision == false)
         {
             animator.SetBool("Falling", true);
         }
@@ -116,7 +110,6 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Falling", false);
         }
-        //Debug.Log("Mouse Present");
         if (MouseActivityCheck())
         {
             MouseRotate();
@@ -128,10 +121,9 @@ public class PlayerController : MonoBehaviour
         {
             moving = false;
             //Debug.Log("Moving: " + moving);
-            animator.SetBool("Speed", moving);
             return;
         }
-        if (playerDodge.dodge) return;
+        if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
 
         Move();
         Rotate();
@@ -225,9 +217,7 @@ public class PlayerController : MonoBehaviour
     
     void Move()
     {
-        //if we're dodging no movement
-        if (playerDodge.dodge) return;
-        Debug.Log("Dodge: " + playerDodge.dodge);
+        
 
         //calculate forward rotation based on input and incline and assign to point variable
         CalculateForward();
@@ -240,7 +230,6 @@ public class PlayerController : MonoBehaviour
         transform.position += point * moveSpeed * Time.deltaTime;
         //Debug.Log("Moving: " + transform.position);
         moving = true;
-        animator.SetBool("Speed", moving);
         //Debug.Log("Moving: " + moving);
     }
 
@@ -287,8 +276,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-        void OnEnable()
+    void OnEnable()
     {
         controls.Gameplay.Enable();
     }

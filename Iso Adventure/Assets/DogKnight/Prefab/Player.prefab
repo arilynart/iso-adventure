@@ -112,7 +112,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5812596624839750776}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1595478395
 SphereCollider:
@@ -567,6 +567,8 @@ GameObject:
   - component: {fileID: 231031613}
   - component: {fileID: 1848268328}
   - component: {fileID: 1825053301}
+  - component: {fileID: 1818880091}
+  - component: {fileID: 1818880092}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -697,9 +699,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5812596624847002532}
-  hurtBox: {fileID: 0}
+  hurtBox: {fileID: 5812596624839584234}
   noOfPresses: 0
-  maxComboDelay: 0.43
+  maxComboDelay: 1.25
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
@@ -833,6 +835,37 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1818880091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812596624839583768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1999370065, guid: dcd2196c4e9166f499793f2007fcda35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: fd0f54009bfcdf74da136694910b814f, type: 2}
+--- !u!114 &1818880092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812596624839583768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1465209106, guid: c8d0ad23af520fe46aabe2b1fecf6462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[{"name":"animLock","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1 &5812596624839583770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2510,6 +2543,7 @@ GameObject:
   - component: {fileID: 5812596624839751114}
   - component: {fileID: 8929879218827765514}
   - component: {fileID: 5812596624851084640}
+  - component: {fileID: 221783898}
   m_Layer: 3
   m_Name: polySurface1
   m_TagString: Untagged
@@ -2665,6 +2699,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00000008940697, y: 0.17928879, z: 0.7022597}
     m_Extent: {x: 0.87674475, y: 0.61002564, z: 0.75376505}
   m_DirtyAABB: 0
+--- !u!114 &221783898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812596624839584234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f9726f53b79d5498c725817ca77301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5812596624839584236
 GameObject:
   m_ObjectHideFlags: 0

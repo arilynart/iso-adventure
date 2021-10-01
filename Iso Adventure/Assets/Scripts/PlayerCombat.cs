@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Ludiq;
+using Bolt;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class PlayerCombat : MonoBehaviour
     public GameObject hurtBox;
     public int noOfPresses = 0;
     System.DateTime lastPressedTime;
-    public float maxComboDelay = 0.43f;
+    public float maxComboDelay = 1.25f;
     public LayerMask enemyLayers;
     public int attackDamage = 1;
 
@@ -29,8 +31,6 @@ public class PlayerCombat : MonoBehaviour
         if(System.DateTime.Now.Subtract(lastPressedTime).TotalSeconds > maxComboDelay)
         {
             noOfPresses = 0;
-            animator.SetBool("Basic Attack", false);
-            animator.SetBool("Basic Attack 2", false);
         }
 
     }
@@ -41,46 +41,54 @@ public class PlayerCombat : MonoBehaviour
         {
 
             //if not already dodging or falling (based on collision with floor)
-            if (!dodge.dodge && controller.collision == true)
+            if (controller.grounded == true)
             {
+                if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
                 if (controller.MouseActivityCheck())
                 {
                     transform.LookAt(controller.GetLookPoint());
                 }
                 //detect enemies in range of attack
-                //Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
-
-                //damage enemies
 
 
                 //animation controls go here
                 lastPressedTime = System.DateTime.Now;
-                noOfPresses++;
-                if (noOfPresses == 1)
+                if (noOfPresses == 0)
                 {
-                    animator.SetBool("Basic Attack", true);
+                    CustomEvent.Trigger(gameObject, "AttackButton1");
+                    StartCoroutine(AttackAnimation(0.13f, 0.32f));
+                    
                     Debug.Log("You attack once!");
-                }
-                else
+                }                    
+                else if (noOfPresses == 1)
                 {
-                    animator.SetBool("Basic Attack", false);
-                }
-
-                if (noOfPresses == 2)
-                {
-                    animator.SetBool("Basic Attack", false);
-                    animator.SetBool("Basic Attack 2", true);
+                    CustomEvent.Trigger(gameObject, "AttackButton2");
+                    StartCoroutine(AttackAnimation(0.12f, 0.25f));
                     Debug.Log("You attack twice!");
-                    noOfPresses = 0;
                 }
                 else
                 {
-                    animator.SetBool("Basic Attack 2", false);
                 }
-                //noOfPresses = Mathf.Clamp(noOfPresses, 0, 2);
                 return;
             }
         }
+    }
+
+    public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)
+    {
+        float time = 0;
+
+
+        while (time < animator.GetCurrentAnimatorStateInfo(0).length)
+        {
+            if (time >= hurtBoxStart && time < hurtBoxEnd) activateHurtbox();
+            if (time > hurtBoxEnd) deactivateHurtbox();
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        ReturnAttack();
     }
 
     public void activateHurtbox()
@@ -93,6 +101,13 @@ public class PlayerCombat : MonoBehaviour
     {
         hurtBox.GetComponent<Collider>().enabled = false;
         Debug.Log("Hurtbox off!");
+        
+    }
+
+    public void ReturnAttack()
+    {
+        Debug.Log("Returning");
+        CustomEvent.Trigger(gameObject, "ReturnAttack");
     }
 
 }

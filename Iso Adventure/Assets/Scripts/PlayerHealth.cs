@@ -60,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (controller.invuln || playerDodge.dodge) return;
+        if (controller.invuln) return;
 
         Debug.Log("Taking damage");
         hp -= amount;

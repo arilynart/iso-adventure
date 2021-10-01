@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -9,16 +10,21 @@ public class PlayerController : MonoBehaviour
     PlayerCombat combat;
     PlayerHealth health;
     PlayerDodge playerDodge;
+    public PlayerInput input;
+
+    public GameObject mousePoint;
 
     public Vector2 move;
+    Vector2 lastMousePos;
 
     Vector3 forward, right;
-    Vector3 rightMovement, upMovement;
+    Vector3 rightMovement, upMovement, mouseR, mouseU;
 
     public Vector3 head;
     public Vector3 point;
 
     Quaternion targetRotation;
+    Quaternion mouseRotation;
 
     public Animator animator;
 
@@ -35,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public float heightPadding = 0.05f;
     public float maxGroundAngle = 120;
     float angle;
+    float mouseAngle;
     float groundAngle;
     float forwardGroundAngle;
 
@@ -53,22 +60,17 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
         Debug.Log("Controls set");
 
-        //When movement input is performed set move to the value
-        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         Debug.Log("Movement performance set.");
-        //Otherwise set to 0
-        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
         Debug.Log("Movement cancellation set.");
 
         playerDodge = GetComponent<PlayerDodge>();
-        controls.Gameplay.Dodge.performed += ctx => playerDodge.Dodge(move);
         Debug.Log("Dodge performance set.");
 
         combat = GetComponent<PlayerCombat>();
-        controls.Gameplay.Attack.performed += ctx => combat.BasicAttack();
 
         health = GetComponent<PlayerHealth>();
-        controls.Gameplay.Heal.performed += ctx => health.HealDamage(1);
+
+        input = GetComponent<PlayerInput>();
 
     }
 
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
         //set a mov variable every frame to the current controller input
         Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
         //print("Move: " + move);
+        
 
         CalculateDirection(mov);
         CalculateGroundAngle();
@@ -113,6 +116,12 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Falling", false);
         }
+        //Debug.Log("Mouse Present");
+        if (MouseActivityCheck())
+        {
+            MouseRotate();
+        }
+        lastMousePos = Mouse.current.position.ReadValue();
 
         //if we're inputting a move and not dodging
         if (move == Vector2.zero)
@@ -129,6 +138,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void OnMovement(InputAction.CallbackContext value)
+    {
+        Vector2 inputMovement = value.ReadValue<Vector2>();
+        move = inputMovement;
+    }
 
     void CalculateDirection(Vector2 m)
     {
@@ -142,6 +156,8 @@ public class PlayerController : MonoBehaviour
         angle = Mathf.Atan2(m.x, m.y);
         angle = Mathf.Rad2Deg * angle;
         //Debug.Log("Direction calculated. Right: " + rightMovement + " Up: " + upMovement + "Angle: " + angle);
+
+
     }
 
     void CalculateForward()
@@ -176,7 +192,7 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(transform.position + transform.forward + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfoF, height + heightPadding, ground))
         {
-            if (groundAngle > 95f || groundAngle < 85f || forwardGroundAngle > 95f || forwardGroundAngle < 85f)
+            if (groundAngle > 90f || groundAngle < 90f || forwardGroundAngle > 90f || forwardGroundAngle < 90f)
             {
                 playerDodge.velocity = false;
             }
@@ -196,11 +212,6 @@ public class PlayerController : MonoBehaviour
         //are we on the ground? raycast of length "height" to determine if so
         if (Physics.Raycast(transform.position + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfo, height + heightPadding, ground))
         {
-            //if (Vector3.Distance(transform.position, hitInfo.point) < height)
-            //{
-                //Debug.Log("Cube fell below floor, correcting...");
-                //transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * height, 5 * Time.deltaTime);
-            //}
             grounded = true;
 
         }
@@ -242,13 +253,49 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Rotating: " + transform.rotation);
     }
 
+    void MouseRotate()
+    {
+        mousePoint.transform.LookAt(GetLookPoint());
+    }
+
+    public Vector3 GetLookPoint()
+    {
+        
 
 
+        Ray cameraRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Debug.Log("Mouse Point: " + Mouse.current.position.ReadValue());
+
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        float rayLength;
+        if (groundPlane.Raycast(cameraRay, out rayLength))
+        {
+            Vector3 pointToLook = cameraRay.GetPoint(rayLength);
+            Debug.DrawLine(cameraRay.origin, pointToLook, Color.cyan);
+            return new Vector3(pointToLook.x, mousePoint.transform.position.y, pointToLook.z);
+        }
+        else
+        {
+            return Vector3.zero;
+        }
+    }
+
+    public bool MouseActivityCheck()
+    {
+        if (lastMousePos == Mouse.current.position.ReadValue())
+        {
+            mousePoint.SetActive(false);
+            return false;
+        }
+        else
+        {
+            mousePoint.SetActive(true);
+            return true;
+        }
+    }
 
 
-    
-
-    void OnEnable()
+        void OnEnable()
     {
         controls.Gameplay.Enable();
     }

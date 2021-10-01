@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerDodge : MonoBehaviour
 {
@@ -89,28 +90,31 @@ public class PlayerDodge : MonoBehaviour
 
     }
 
-    public void Dodge(Vector2 m)
+    public void Dodge(InputAction.CallbackContext value)
     {
-        Debug.Log("Dodge inputted.");
-        //if we're not already dodging
-        if (!dodge && !dashDelay)
+        if (value.started)
         {
-            Debug.Log("Dodge available.");
-            if (m != Vector2.zero)
+            Debug.Log("Dodge inputted.");
+            //if we're not already dodging
+            if (!dodge && !dashDelay)
             {
-                Debug.Log("Moving, snapping direction.");
-                //snap player rotation to inputted direction
-                controller.point = controller.head;
-                transform.forward = controller.head;
-            }
+                Debug.Log("Dodge available.");
+                if (controller.move != Vector2.zero)
+                {
+                    Debug.Log("Moving, snapping direction.");
+                    //snap player rotation to inputted direction
+                    controller.point = controller.head;
+                    transform.forward = controller.head;
+                }
 
-            //Start movement
-            StartCoroutine(DodgeMovement(dashDuration));
-        }
-        else
-        {
-            
-            Debug.Log("Cannot dodge at this time.");
+                //Start movement
+                StartCoroutine(DodgeMovement(dashDuration));
+            }
+            else
+            {
+
+                Debug.Log("Cannot dodge at this time.");
+            }
         }
     }
 

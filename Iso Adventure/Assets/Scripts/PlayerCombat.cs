@@ -38,11 +38,14 @@ public class PlayerCombat : MonoBehaviour
     {
         if (value.started)
         {
-            transform.LookAt(controller.GetLookPoint());
 
             //if not already dodging or falling (based on collision with floor)
             if (!dodge.dodge && controller.collision == true)
             {
+                if (controller.MouseScreenCheck())
+                {
+                    transform.LookAt(controller.GetLookPoint());
+                }
                 //detect enemies in range of attack
                 Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
 

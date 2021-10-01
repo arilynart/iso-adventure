@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -113,11 +114,11 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Falling", false);
         }
-/*        if (Input.mousePresent)
-        {*/
-            //Debug.Log("Mouse Present");
+        //Debug.Log("Mouse Present");
+        if (MouseScreenCheck())
+        {
             MouseRotate();
-/*        }*/
+        }
 
         //if we're inputting a move and not dodging
         if (move == Vector2.zero)
@@ -256,7 +257,11 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 GetLookPoint()
     {
+        
+
+
         Ray cameraRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Debug.Log("Mouse Point: " + Mouse.current.position.ReadValue());
 
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         float rayLength;
@@ -272,9 +277,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    public bool MouseScreenCheck()
+    {
+        if (Mouse.current.position.ReadValue().x == 0 || Mouse.current.position.ReadValue().y == 0 || Mouse.current.position.ReadValue().x >= Handles.GetMainGameViewSize().x - 1 || Mouse.current.position.ReadValue().y >= Handles.GetMainGameViewSize().y - 1)
+        {
+            mousePoint.SetActive(false);
+            return false;
+        }
+        else
+        {
+            mousePoint.SetActive(true);
+            return true;
+        }
+    }
 
-    void OnEnable()
+
+        void OnEnable()
     {
         controls.Gameplay.Enable();
     }

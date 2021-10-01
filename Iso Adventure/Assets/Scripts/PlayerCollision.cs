@@ -13,10 +13,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "Enemy" && !controller.invuln)
-        {
-            health.TakeDamage(1);
-        }
+
     }
 
     private void OnCollisionStay(Collision collision)

@@ -42,7 +42,7 @@ public class PlayerCombat : MonoBehaviour
             //if not already dodging or falling (based on collision with floor)
             if (!dodge.dodge && controller.collision == true)
             {
-                if (controller.MouseScreenCheck())
+                if (controller.MouseActivityCheck())
                 {
                     transform.LookAt(controller.GetLookPoint());
                 }

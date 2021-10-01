@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mousePoint;
 
     public Vector2 move;
+    Vector2 lastMousePos;
 
     Vector3 forward, right;
     Vector3 rightMovement, upMovement, mouseR, mouseU;
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
         //set a mov variable every frame to the current controller input
         Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
         //print("Move: " + move);
+        
 
         CalculateDirection(mov);
         CalculateGroundAngle();
@@ -115,10 +117,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Falling", false);
         }
         //Debug.Log("Mouse Present");
-        if (MouseScreenCheck())
+        if (MouseActivityCheck())
         {
             MouseRotate();
         }
+        lastMousePos = Mouse.current.position.ReadValue();
 
         //if we're inputting a move and not dodging
         if (move == Vector2.zero)
@@ -277,9 +280,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public bool MouseScreenCheck()
+    public bool MouseActivityCheck()
     {
-        if (Mouse.current.position.ReadValue().x == 0 || Mouse.current.position.ReadValue().y == 0 || Mouse.current.position.ReadValue().x >= Handles.GetMainGameViewSize().x - 1 || Mouse.current.position.ReadValue().y >= Handles.GetMainGameViewSize().y - 1)
+        if (lastMousePos == Mouse.current.position.ReadValue())
         {
             mousePoint.SetActive(false);
             return false;

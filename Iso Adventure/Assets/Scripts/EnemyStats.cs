@@ -7,7 +7,6 @@ public class EnemyStats : MonoBehaviour
     public int hp;
     public int maxHp;
 
-    //public List<EnemyAttack> attacks;
     public EnemyAttack[] attacks;
     public EnemyAttack activeAttack;
 

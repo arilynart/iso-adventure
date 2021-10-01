@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
+    public EnemyController controller;
     public int hp;
     public int maxHp;
 
@@ -13,7 +14,7 @@ public class EnemyStats : MonoBehaviour
 
     private void Start()
     {
-        
+        controller = GetComponent<EnemyController>();
     }
 
     public void TakeDamage(int Amount)
@@ -22,8 +23,8 @@ public class EnemyStats : MonoBehaviour
         Debug.Log("Enemy took damage: " + hp);
         if (hp <= 0)
         {
+            Die();
             Debug.Log("Enemy is dead");
-            Destroy(this.gameObject);
         }
     }
 
@@ -33,5 +34,16 @@ public class EnemyStats : MonoBehaviour
         activeAttack = attacks[r];
 
         Debug.Log("Chosen attack: " + activeAttack.name);
+    }
+
+    void Die()
+    {
+        controller.setRigidbodyState(false);
+        controller.setColliderState(true);
+        controller.agent.enabled = false;
+        GetComponent<Animator>().enabled = false;
+        GetComponent<EnemyController>().enabled = false;
+
+        Destroy(this.gameObject, 10f);
     }
 }

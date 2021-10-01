@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     public LayerMask playerLayer;
 
     Transform target;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     private void Start()
     {
@@ -24,6 +24,10 @@ public class EnemyController : MonoBehaviour
         //Get Nav Mesh
         agent = GetComponent<NavMeshAgent>();
         stats = GetComponent<EnemyStats>();
+
+        //Disable ragdoll
+        setRigidbodyState(true);
+        setColliderState(false);
     }
 
     void FixedUpdate()
@@ -82,6 +86,31 @@ public class EnemyController : MonoBehaviour
         hurtBox.GetComponent<Collider>().enabled = false;
         Debug.Log("Hurtbox off!");
         stats.activeAttack = null;
+    }
+
+    //Enables ragdoll
+    public void setRigidbodyState(bool state)
+    {
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+        foreach(Rigidbody rigidbody in rigidbodies)
+        {
+            rigidbody.isKinematic = state;
+        }
+
+        GetComponent<Rigidbody>().isKinematic = state;
+    }
+
+    public void setColliderState(bool state)
+    {
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = state;
+        }
+
+        GetComponent<Collider>().enabled = !state;
     }
 
     private void OnDrawGizmosSelected()

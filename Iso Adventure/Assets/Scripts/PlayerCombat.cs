@@ -48,16 +48,10 @@ public class PlayerCombat : MonoBehaviour
                     transform.LookAt(controller.GetLookPoint());
                 }
                 //detect enemies in range of attack
-                Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
+                //Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
 
                 //damage enemies
-                foreach (Collider enemy in hitEnemies)
-                {
-                    Debug.Log("Hit " + enemy.name);
-                    EnemyStats stats = enemy.GetComponent<EnemyStats>();
 
-                    stats.TakeDamage(attackDamage);
-                }
 
                 //animation controls go here
                 lastPressedTime = System.DateTime.Now;

@@ -57,5 +57,6 @@ public class HealthBar : MonoBehaviour
         } 
 
         life[health].fillAmount = lifeFill / (float)healthPerLife;
+        life[health + 1].fillAmount = 0;
     }
 }

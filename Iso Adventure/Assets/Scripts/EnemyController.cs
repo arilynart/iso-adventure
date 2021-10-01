@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
 {
     public Animator animator;
 
+    public EnemyStats stats;
+
     public float lookRadius = 5f;
     public float attackDelay = 5f;
     public GameObject hurtBox;
@@ -21,6 +23,7 @@ public class EnemyController : MonoBehaviour
         target = PlayerManager.instance.player.transform;
         //Get Nav Mesh
         agent = GetComponent<NavMeshAgent>();
+        stats = GetComponent<EnemyStats>();
     }
 
     void FixedUpdate()
@@ -62,8 +65,10 @@ public class EnemyController : MonoBehaviour
 
     public void Attack()
     {
+        if (stats.activeAttack == null) stats.ChooseAttack();
         //Start attack animation
-        animator.SetTrigger("Attack");
+        Debug.Log("Playing animtion: " + stats.activeAttack.animation);
+        animator.SetTrigger(stats.activeAttack.animation);
     }
 
     public void activateHurtbox()
@@ -76,6 +81,7 @@ public class EnemyController : MonoBehaviour
     {
         hurtBox.GetComponent<Collider>().enabled = false;
         Debug.Log("Hurtbox off!");
+        stats.activeAttack = null;
     }
 
     private void OnDrawGizmosSelected()

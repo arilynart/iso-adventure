@@ -9,7 +9,8 @@ public class DetectDamage : MonoBehaviour
         
         if (other.tag == "Enemy" && !transform.parent.gameObject.GetComponent<PlayerController>().invuln)
         {
-            transform.parent.gameObject.GetComponent<PlayerHealth>().TakeDamage(1);
+            Debug.Log("Damage: " + other.transform.parent.GetComponent<EnemyStats>().activeAttack.damage);
+            transform.parent.gameObject.GetComponent<PlayerHealth>().TakeDamage(other.transform.parent.GetComponent<EnemyStats>().activeAttack.damage);
         }
     }
 }

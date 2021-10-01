@@ -15,6 +15,7 @@ public class PlayerCombat : MonoBehaviour
     System.DateTime lastPressedTime;
     public float maxComboDelay = 0.43f;
     public LayerMask enemyLayers;
+    public int attackDamage = 1;
 
     private void Start()
     {
@@ -45,6 +46,17 @@ public class PlayerCombat : MonoBehaviour
                 if (controller.MouseActivityCheck())
                 {
                     transform.LookAt(controller.GetLookPoint());
+                }
+                //detect enemies in range of attack
+                Collider[] hitEnemies = Physics.OverlapSphere(basicAttackPoint.position, basicAttackRange, enemyLayers);
+
+                //damage enemies
+                foreach (Collider enemy in hitEnemies)
+                {
+                    Debug.Log("Hit " + enemy.name);
+                    EnemyStats stats = enemy.GetComponent<EnemyStats>();
+
+                    stats.TakeDamage(attackDamage);
                 }
 
                 //animation controls go here

@@ -19,6 +19,12 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamage(int Amount)
     {
         hp -= Amount;
+        Debug.Log("Enemy took damage: " + hp);
+        if (hp <= 0)
+        {
+            Debug.Log("Enemy is dead");
+            Destroy(this.gameObject);
+        }
     }
 
     public void ChooseAttack()

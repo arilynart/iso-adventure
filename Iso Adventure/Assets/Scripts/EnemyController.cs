@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour
 
     public void Attack()
     {
-        stats.ChooseAttack();
+        if (stats.activeAttack == null) stats.ChooseAttack();
         //Start attack animation
         Debug.Log("Playing animtion: " + stats.activeAttack.animation);
         animator.SetTrigger(stats.activeAttack.animation);
@@ -81,6 +81,7 @@ public class EnemyController : MonoBehaviour
     {
         hurtBox.GetComponent<Collider>().enabled = false;
         Debug.Log("Hurtbox off!");
+        stats.activeAttack = null;
     }
 
     private void OnDrawGizmosSelected()

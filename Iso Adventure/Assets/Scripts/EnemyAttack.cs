@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyAttack : ScriptableObject
 {
     public string animation;
+    //public string windup;
 
     public int damage;
 }

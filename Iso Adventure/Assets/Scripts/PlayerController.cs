@@ -260,23 +260,16 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 GetLookPoint()
     {
-        
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-
-        Ray cameraRay = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-        Debug.Log("Mouse Point: " + Mouse.current.position.ReadValue());
-
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-        if (groundPlane.Raycast(cameraRay, out rayLength))
+        if (Physics.Raycast(ray, out hit, 100))
         {
-            Vector3 pointToLook = cameraRay.GetPoint(rayLength);
-            Debug.DrawLine(cameraRay.origin, pointToLook, Color.cyan);
-            return new Vector3(pointToLook.x, mousePoint.transform.position.y, pointToLook.z);
+            return new Vector3(hit.point.x, mousePoint.transform.position.y, hit.point.z);
         }
         else
         {
-            return Vector3.zero;
+            return mousePoint.transform.forward;
         }
     }
 

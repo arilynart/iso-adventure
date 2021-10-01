@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Ludiq;
+using Bolt;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -29,8 +31,8 @@ public class PlayerCombat : MonoBehaviour
         if(System.DateTime.Now.Subtract(lastPressedTime).TotalSeconds > maxComboDelay)
         {
             noOfPresses = 0;
-            animator.SetBool("Basic Attack", false);
-            animator.SetBool("Basic Attack 2", false);
+/*            animator.SetBool("Basic Attack", false);
+            animator.SetBool("Basic Attack 2", false);*/
         }
 
     }
@@ -55,27 +57,30 @@ public class PlayerCombat : MonoBehaviour
 
                 //animation controls go here
                 lastPressedTime = System.DateTime.Now;
-                noOfPresses++;
-                if (noOfPresses == 1)
+                //noOfPresses++;
+                if (noOfPresses == 0)
                 {
-                    animator.SetBool("Basic Attack", true);
+                    CustomEvent.Trigger(gameObject, "AttackButton1");
+                    //animator.SetBool("Basic Attack", true);
                     Debug.Log("You attack once!");
                 }
-                else
+/*                else
                 {
+                    
                     animator.SetBool("Basic Attack", false);
-                }
+                }*/
 
-                if (noOfPresses == 2)
+                else if (noOfPresses == 1)
                 {
-                    animator.SetBool("Basic Attack", false);
-                    animator.SetBool("Basic Attack 2", true);
+                    //animator.SetBool("Basic Attack", false);
+                    //animator.SetBool("Basic Attack 2", true);
+                    CustomEvent.Trigger(gameObject, "AttackButton2");
                     Debug.Log("You attack twice!");
                     noOfPresses = 0;
                 }
                 else
                 {
-                    animator.SetBool("Basic Attack 2", false);
+                    //animator.SetBool("Basic Attack 2", false);
                 }
                 //noOfPresses = Mathf.Clamp(noOfPresses, 0, 2);
                 return;
@@ -92,7 +97,10 @@ public class PlayerCombat : MonoBehaviour
     public void deactivateHurtbox()
     {
         hurtBox.GetComponent<Collider>().enabled = false;
+        animator.ResetTrigger("BasicAttackTrigger");
+        animator.ResetTrigger("BasicAttackTrigger2");
         Debug.Log("Hurtbox off!");
+        CustomEvent.Trigger(gameObject, "ReturnAttack");
     }
 
 }

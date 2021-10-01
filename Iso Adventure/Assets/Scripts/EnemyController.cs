@@ -8,9 +8,8 @@ public class EnemyController : MonoBehaviour
     public Animator animator;
 
     public float lookRadius = 5f;
-    public Transform attackPoint;
-    public float attackRange = 0.5f;
     public float attackDelay = 5f;
+    public GameObject hurtBox;
     public LayerMask playerLayer;
 
     Transform target;
@@ -34,7 +33,7 @@ public class EnemyController : MonoBehaviour
             agent.isStopped = false;
             agent.SetDestination(target.position);
             animator.SetFloat("Speed", distance);
-            Debug.Log("Speed: " + distance);
+            //Debug.Log("Speed: " + distance);
 
             if (distance <= agent.stoppingDistance)
             {
@@ -50,11 +49,8 @@ public class EnemyController : MonoBehaviour
             agent.isStopped = true;
             distance = 0;
             animator.SetFloat("Speed", distance);
+            deactivateHurtbox();
         }
-/*        else
-        {
-            animator.SetFloat("Speed", distance);
-        }*/
     }
 
     void FaceTarget()
@@ -66,22 +62,20 @@ public class EnemyController : MonoBehaviour
 
     public void Attack()
     {
-        //detect enemies in range of attack
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, playerLayer);
-
-        //damage enemies
-        foreach (Collider enemy in hitEnemies)
-        {
-            StartCoroutine(DoDamage(attackDelay));
-        }
-
-        //animation controls go here
+        //Start attack animation
+        animator.SetTrigger("Attack");
     }
 
-    IEnumerator DoDamage (float delay)
+    public void activateHurtbox()
     {
-        Debug.Log("Hit player!");
-        yield return new WaitForSeconds(delay);
+        hurtBox.GetComponent<Collider>().enabled = true;
+        Debug.Log("Hurtbox on!");
+    }
+
+    public void deactivateHurtbox()
+    {
+        hurtBox.GetComponent<Collider>().enabled = false;
+        Debug.Log("Hurtbox off!");
     }
 
     private void OnDrawGizmosSelected()
@@ -89,9 +83,5 @@ public class EnemyController : MonoBehaviour
         //Draws radius of lookRadius in Scene View
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
-
-        if (attackPoint == null)
-            return;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

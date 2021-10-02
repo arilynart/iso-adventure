@@ -130,6 +130,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 686479989491633995, guid: 0616308f626330740800bf213bc4dd38,
+        type: 3}
+      propertyPath: blinkDistance
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5812596624839583768, guid: 0616308f626330740800bf213bc4dd38,
         type: 3}
       propertyPath: m_Name

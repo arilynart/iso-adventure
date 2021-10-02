@@ -5,17 +5,21 @@ using UnityEngine;
 public class PlayerBlink : MonoBehaviour
 {
     PlayerController controller;
-    public float blinkDistance = 2f;
+    PlayerDodge playerDodge;
+    public float blinkDistance = 100f;
 
     private void Start()
     {
         controller = GetComponent<PlayerController>();
+        playerDodge = GetComponent<PlayerDodge>();
     }
 
     public void Blink()
     {
-        Vector3 targetPosition = new Vector3(blinkDistance * controller.point.x, transform.position.y, blinkDistance * controller.point.z);
+        //Vector3 targetPosition = controller.point * blinkDistance;
 
-        transform.position = targetPosition;
+        //transform.position += targetPosition;
+
+        playerDodge.dashSpeed = blinkDistance;
     }
 }

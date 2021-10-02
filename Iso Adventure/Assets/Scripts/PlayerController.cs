@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     bool idle;
 
     int idleCount;
+    public int idleTimer = 180;
 
     public float moveSpeed = 5f;
     public float turnSpeed = 10f;
@@ -118,7 +119,7 @@ public class PlayerController : MonoBehaviour
             idleCount = 0;
             mousePoint.SetActive(true);
         }
-        if (idleCount > 300)
+        if (idleCount > idleTimer)
         {
             idle = true;
             mousePoint.SetActive(false);

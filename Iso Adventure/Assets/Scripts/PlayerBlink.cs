@@ -5,20 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerBlink : MonoBehaviour
 {
-    PlayerController controller;
-    PlayerDodge playerDodge;
     public BoxCollider blinkCollider;
-
-    private void Start()
-    {
-        controller = transform.parent.GetComponent<PlayerController>();
-        playerDodge = transform.parent.GetComponent<PlayerDodge>();
-    }
 
     public void Blink(InputAction.CallbackContext value)
     {
         if (value.started)
         {
+            Debug.Log("Starting Blink");
             blinkCollider.enabled = true;
             //Vector3 targetPosition = controller.point * blinkDistance;
 
@@ -30,7 +23,7 @@ public class PlayerBlink : MonoBehaviour
     IEnumerator BlinkDisable()
     {
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         blinkCollider.enabled = false;
     }

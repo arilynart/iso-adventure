@@ -9,7 +9,6 @@ public class PlayerDodge : MonoBehaviour
 {
     PlayerController controller;
     PlayerHealth health;
-    PlayerBlink blink;
 
     public Animator animator;
 
@@ -29,7 +28,6 @@ public class PlayerDodge : MonoBehaviour
         controller = GetComponent<PlayerController>();
         health = GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody>();
-        blink = GetComponent<PlayerBlink>();
 
         animator = GetComponent<Animator>();
         dodge = false;

@@ -5,13 +5,27 @@ using UnityEngine;
 public class BlinkCollider : MonoBehaviour
 {
     RaycastHit hitInfo;
-    private void OnTriggerEnter(Collider other)
+    public LayerMask blink;
+    public Transform backPoint;
+
+    public void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Blink")
+        if (!GetComponent<BlinkCollider>()) return;
+        Debug.Log("Triggered collision");
+
+        //shoot laser from behind us, if we hit a blink point
+        if (Physics.Raycast(backPoint.position, transform.parent.GetComponent<PlayerController>().point, out hitInfo, 10f, blink))
         {
-            if (Physics.Raycast(transform.position, transform.forward, out hitInfo, 0.5f))
-            transform.parent.position = other.ClosestPoint(transform.position) + new Vector3(0, 0.5f, 0);
-            GetComponent<BoxCollider>().enabled = false;
+            Debug.Log("Raycast hit");
+            if (hitInfo.collider.tag == "Blink")
+            {
+                //stop dash movement
+                transform.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+                //teleport us there
+                transform.parent.position = hitInfo.collider.ClosestPoint(transform.parent.position);
+                GetComponent<BoxCollider>().enabled = false;
+            }
         }
     }
 }

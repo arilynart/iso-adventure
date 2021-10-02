@@ -11,7 +11,6 @@ public class PlayerBlink : MonoBehaviour
     public BoxCollider blinkCollider;
     PlayerController controller;
 
-    public bool blinkable;
     public bool mouseBlink = false;
 
     private void Start()
@@ -22,7 +21,7 @@ public class PlayerBlink : MonoBehaviour
     public void Blink()
     {
         Debug.Log("Starting Blink");
-        if (!blinkable) return;
+        if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
 
         if (controller.MouseActivityCheck())
             mouseBlink = true;

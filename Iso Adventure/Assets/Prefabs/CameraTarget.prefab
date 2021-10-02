@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   offset: {x: -5, y: 5, z: -5}
+  lerpTime: 0.15
 --- !u!1 &2568198154367422235
 GameObject:
   m_ObjectHideFlags: 0

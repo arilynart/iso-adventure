@@ -6,10 +6,13 @@ public class CameraFollow : MonoBehaviour
 
     //public float smoothSpeed = 0.125f;
     public Vector3 offset;
+    public float lerpTime = 0.15f;
 
     void LateUpdate()
     {
         //Camera follows player
-        transform.position = target.position + offset;
+        Vector3 targetPosition = target.position + offset;
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, lerpTime);
     }
 }

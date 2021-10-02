@@ -7,9 +7,8 @@ using Bolt;
 
 public class PlayerDodge : MonoBehaviour
 {
-    public PlayerController controller;
-    public PlayerHealth health;
-
+    PlayerController controller;
+    PlayerHealth health;
 
     public Animator animator;
 
@@ -31,6 +30,7 @@ public class PlayerDodge : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         animator = GetComponent<Animator>();
+        dodge = false;
 
         Debug.Log("Dodge set to false.");
     }
@@ -51,36 +51,33 @@ public class PlayerDodge : MonoBehaviour
     {
         if (value.started)
         {
-            if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
-            Debug.Log("Dodge inputted.");
-            //if we're not already dodging
-            if (!dashDelay)
-            {
-                controller.moving = false;
-                if (controller.groundAngle != 90)
-                    GetComponent<Rigidbody>().AddForce(0, -controller.slopeForce, 0);
-
-                Debug.Log("Dodge available.");
-                if (controller.move != Vector2.zero)
+                if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
+                Debug.Log("Dodge inputted.");
+                //if we're not already dodging
+                if (!dashDelay)
                 {
-                    Debug.Log("Moving, snapping direction.");
-                    //snap player rotation to inputted direction
-                    controller.point = controller.head;
-                    transform.forward = controller.head;
+                    controller.moving = false;
+                    if (controller.groundAngle != 90)
+                        GetComponent<Rigidbody>().AddForce(0, -controller.slopeForce, 0);
+
+                    Debug.Log("Dodge available.");
+                    if (controller.move != Vector2.zero)
+                    {
+                        Debug.Log("Moving, snapping direction.");
+                        //snap player rotation to inputted direction
+                        controller.point = controller.head;
+                        transform.forward = controller.head;
+                    }
+
+                    if (controller.groundAngle > controller.maxGroundAngle) return;
+
+                    CustomEvent.Trigger(gameObject, "DodgeButton");
+                    //Start movement
+                    StartCoroutine(DodgeMovement(dashDuration));
                 }
-
-                if (controller.groundAngle > controller.maxGroundAngle) return;
-
-                CustomEvent.Trigger(gameObject, "DodgeButton");
-                //Start movement
-                StartCoroutine(DodgeMovement(dashDuration));
-            }
-            else
-            {
-
-                Debug.Log("Cannot dodge at this time.");
-            }
         }
+
+        
     }
 
     IEnumerator DodgeMovement(float duration)
@@ -93,11 +90,26 @@ public class PlayerDodge : MonoBehaviour
         while (time < duration)
         {
             
-
             //for the first 0.3s of the dodge
             if (time <= 0.3)
             {
-                    if (velocity)
+                if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), controller.point, out hitInfo, 0.75f))
+                {
+                    if (hitInfo.collider.tag != "Enemy")
+                    {
+                        Debug.Log("Sharp Angle: " + Vector3.Angle(hitInfo.normal, controller.point));
+                        if (Vector3.Angle(hitInfo.normal, controller.point) > 95f)
+                        {
+                            //cancel the dodge.
+                            CustomEvent.Trigger(gameObject, "ReturnDodge");
+                            dashDelay = false;
+                            dashSpeed = 8f;
+                            yield break;
+                        }
+                    }
+
+                }
+                if (velocity)
                     {
 
                         rb.velocity = controller.point * dashSpeed;
@@ -114,6 +126,7 @@ public class PlayerDodge : MonoBehaviour
                     Debug.Log("Dodge executing: " + time);
                     //movement
                     //dodge = true;
+
             }
             else
             {
@@ -135,5 +148,6 @@ public class PlayerDodge : MonoBehaviour
         }
         //finish movement and remove dodge status.
         dashDelay = false;
+        dashSpeed = 8f;
     }
 }

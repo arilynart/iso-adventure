@@ -1,25 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerBlink : MonoBehaviour
 {
     PlayerController controller;
     PlayerDodge playerDodge;
-    public float blinkDistance = 100f;
+    public BoxCollider blinkCollider;
 
     private void Start()
     {
-        controller = GetComponent<PlayerController>();
-        playerDodge = GetComponent<PlayerDodge>();
+        controller = transform.parent.GetComponent<PlayerController>();
+        playerDodge = transform.parent.GetComponent<PlayerDodge>();
     }
 
-    public void Blink()
+    public void Blink(InputAction.CallbackContext value)
     {
-        //Vector3 targetPosition = controller.point * blinkDistance;
+        if (value.started)
+        {
+            blinkCollider.enabled = true;
+            //Vector3 targetPosition = controller.point * blinkDistance;
 
-        //transform.position += targetPosition;
+            //transform.position += targetPosition;
+            StartCoroutine(BlinkDisable());
+        }
+    }
 
-        playerDodge.dashSpeed = blinkDistance;
+    IEnumerator BlinkDisable()
+    {
+
+        yield return new WaitForSeconds(0.1f);
+
+        blinkCollider.enabled = false;
     }
 }

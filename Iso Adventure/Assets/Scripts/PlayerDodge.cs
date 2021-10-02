@@ -53,8 +53,6 @@ public class PlayerDodge : MonoBehaviour
     {
         if (value.started)
         {
-            if (!dodge)
-            {
                 if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
                 Debug.Log("Dodge inputted.");
                 //if we're not already dodging
@@ -79,14 +77,9 @@ public class PlayerDodge : MonoBehaviour
                     //Start movement
                     StartCoroutine(DodgeMovement(dashDuration));
                 }
-            }
-            else
-            {
-                //blink
-                Debug.Log("Cannot dodge at this time.");
-                blink.Blink();
-            }
         }
+
+        
     }
 
     IEnumerator DodgeMovement(float duration)
@@ -102,7 +95,23 @@ public class PlayerDodge : MonoBehaviour
             //for the first 0.3s of the dodge
             if (time <= 0.3)
             {
-                    if (velocity)
+                if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), controller.point, out hitInfo, 0.75f))
+                {
+                    if (hitInfo.collider.tag != "Enemy")
+                    {
+                        Debug.Log("Sharp Angle: " + Vector3.Angle(hitInfo.normal, controller.point));
+                        if (Vector3.Angle(hitInfo.normal, controller.point) > 95f)
+                        {
+                            //cancel the dodge.
+                            CustomEvent.Trigger(gameObject, "ReturnDodge");
+                            dashDelay = false;
+                            dashSpeed = 8f;
+                            yield break;
+                        }
+                    }
+
+                }
+                if (velocity)
                     {
 
                         rb.velocity = controller.point * dashSpeed;
@@ -119,6 +128,7 @@ public class PlayerDodge : MonoBehaviour
                     Debug.Log("Dodge executing: " + time);
                     //movement
                     //dodge = true;
+
             }
             else
             {

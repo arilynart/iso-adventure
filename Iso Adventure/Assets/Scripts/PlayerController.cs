@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     public bool invuln;
     public bool grounded;
     public bool moving;
+    public bool interacting;
+    public bool interactTrigger;
     bool idle;
 
     int idleCount;
@@ -81,7 +83,16 @@ public class PlayerController : MonoBehaviour
         blink = GetComponent<PlayerBlink>();
         controls.Gameplay.Blink.started += ctx => blink.Blink();
 
+        controls.Gameplay.Interact.performed += ctx => interacting = true;
+        controls.Gameplay.Interact.canceled += ctx => interacting = false;
+        controls.Gameplay.Interact.started += ctx => StartCoroutine(InteractTrigger());
+    }
 
+    IEnumerator InteractTrigger()
+    {
+        interactTrigger = true;
+        yield return null;
+        interactTrigger = false;
     }
 
     void Start()

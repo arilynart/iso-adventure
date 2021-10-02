@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     public LayerMask playerLayer;
 
     Transform target;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
 
 /*    private void Start()
     {
@@ -56,12 +56,12 @@ public class EnemyController : MonoBehaviour
         }
     }*/
 
-    void FaceTarget()
+/*    void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-    }
+    }*/
 
     public void Attack()
     {

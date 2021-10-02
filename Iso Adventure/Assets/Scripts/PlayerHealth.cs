@@ -49,13 +49,13 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Hp adjusted. Current HP: " + hp);
     }
 
-    public void HealButton(InputAction.CallbackContext value)
+    public void HealButton(/*InputAction.CallbackContext value*/)
     {
-        if (value.started)
-        {
+/*        if (value.started)
+        {*/
             //take damage
             HealDamage(healValue);
-        }
+/*        }*/
     }
 
     public void TakeDamage(int amount)

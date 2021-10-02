@@ -7,17 +7,16 @@ public class PlayerBlink : MonoBehaviour
 {
     public BoxCollider blinkCollider;
 
-    public void Blink(InputAction.CallbackContext value)
+    public void Blink()
     {
-        if (value.started)
-        {
+
             Debug.Log("Starting Blink");
             blinkCollider.enabled = true;
             //Vector3 targetPosition = controller.point * blinkDistance;
 
             //transform.position += targetPosition;
             StartCoroutine(BlinkDisable());
-        }
+
     }
 
     IEnumerator BlinkDisable()

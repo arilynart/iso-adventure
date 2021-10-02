@@ -35,10 +35,10 @@ public class PlayerCombat : MonoBehaviour
 
     }
 
-    public void BasicAttack(InputAction.CallbackContext value)
+    public void BasicAttack(/*InputAction.CallbackContext value*/)
     {
-        if (value.started)
-        {
+/*        if (value.started)
+        {*/
 
             //if not already dodging or falling (based on collision with floor)
             if (controller.grounded == true)
@@ -71,7 +71,7 @@ public class PlayerCombat : MonoBehaviour
                 }
                 return;
             }
-        }
+        //}
     }
 
     public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)

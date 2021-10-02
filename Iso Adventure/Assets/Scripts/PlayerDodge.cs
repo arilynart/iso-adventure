@@ -47,10 +47,10 @@ public class PlayerDodge : MonoBehaviour
 
     }
 
-    public void Dodge(InputAction.CallbackContext value)
+    public void Dodge(/*InputAction.CallbackContext value*/)
     {
-        if (value.started)
-        {
+/*        if (value.started)
+        {*/
                 if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
                 Debug.Log("Dodge inputted.");
                 //if we're not already dodging
@@ -75,7 +75,7 @@ public class PlayerDodge : MonoBehaviour
                     //Start movement
                     StartCoroutine(DodgeMovement(dashDuration));
                 }
-        }
+        //}
 
         
     }

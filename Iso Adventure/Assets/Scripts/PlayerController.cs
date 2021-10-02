@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     PlayerCombat combat;
     PlayerHealth health;
     PlayerDodge playerDodge;
-    public PlayerInput input;
+    PlayerBlink blink;
 
     public GameObject mousePoint;
 
@@ -60,16 +60,23 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Controls set");
 
         Debug.Log("Movement performance set.");
+        controls.Gameplay.Move.performed += ctx => OnMovement(ctx.ReadValue<Vector2>());
         Debug.Log("Movement cancellation set.");
+        controls.Gameplay.Move.canceled += ctx => OnMovement(Vector2.zero); 
 
         playerDodge = GetComponent<PlayerDodge>();
+        controls.Gameplay.Dodge.started += ctx => playerDodge.Dodge();
         Debug.Log("Dodge performance set.");
 
         combat = GetComponent<PlayerCombat>();
+        controls.Gameplay.Attack.started += ctx => combat.BasicAttack();
 
         health = GetComponent<PlayerHealth>();
+        controls.Gameplay.Heal.started += ctx => health.HealButton();
 
-        input = GetComponent<PlayerInput>();
+        blink = GetComponent<PlayerBlink>();
+        controls.Gameplay.Blink.started += ctx => blink.Blink();
+
 
     }
 
@@ -132,9 +139,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void OnMovement(InputAction.CallbackContext value)
+    public void OnMovement(/*InputAction.CallbackContext value*/ Vector2 value)
     {
-        Vector2 inputMovement = value.ReadValue<Vector2>();
+        Vector2 inputMovement = value/*.ReadValue<Vector2>()*/;
         move = inputMovement;
     }
 

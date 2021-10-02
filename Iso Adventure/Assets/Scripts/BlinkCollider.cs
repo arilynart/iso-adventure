@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ludiq;
+using Bolt;
 
 public class BlinkCollider : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class BlinkCollider : MonoBehaviour
             Debug.Log("Raycast hit");
             if (hitInfo.collider.tag == "Blink")
             {
+                
                 //stop dash movement
                 transform.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
 

@@ -91,14 +91,14 @@ public class PlayerDodge : MonoBehaviour
         {
             
             //for the first 0.3s of the dodge
-            if (time <= 0.3)
+            if (time <= 0.3f)
             {
-                if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), controller.point, out hitInfo, 0.75f))
+/*                if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), controller.point, out hitInfo, 0.75f))
                 {
                     if (hitInfo.collider.tag != "Enemy")
                     {
                         Debug.Log("Sharp Angle: " + Vector3.Angle(hitInfo.normal, controller.point));
-                        if (Vector3.Angle(hitInfo.normal, controller.point) > 95f)
+                        if (Vector3.Angle(hitInfo.normal, controller.point) > 95)
                         {
                             //cancel the dodge.
                             CustomEvent.Trigger(gameObject, "ReturnDodge");
@@ -108,7 +108,7 @@ public class PlayerDodge : MonoBehaviour
                         }
                     }
 
-                }
+                }*/
                 if (velocity)
                     {
 
@@ -136,7 +136,7 @@ public class PlayerDodge : MonoBehaviour
                 //dodge = false;
                 dashDelay = true;
             }
-            if (time < 0.35 && time > 0.25)
+            if (time < 0.39 && time > 0.29)
             {
                 rb.velocity = Vector3.zero;
             }

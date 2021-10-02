@@ -57,6 +57,9 @@ public class PlayerDodge : MonoBehaviour
             if (!dashDelay)
             {
                 controller.moving = false;
+                if (controller.groundAngle != 90)
+                    GetComponent<Rigidbody>().AddForce(0, -controller.slopeForce, 0);
+
                 Debug.Log("Dodge available.");
                 if (controller.move != Vector2.zero)
                 {
@@ -65,6 +68,8 @@ public class PlayerDodge : MonoBehaviour
                     controller.point = controller.head;
                     transform.forward = controller.head;
                 }
+
+                if (controller.groundAngle > controller.maxGroundAngle) return;
 
                 CustomEvent.Trigger(gameObject, "DodgeButton");
                 //Start movement
@@ -87,28 +92,28 @@ public class PlayerDodge : MonoBehaviour
 
         while (time < duration)
         {
+            
 
             //for the first 0.3s of the dodge
             if (time <= 0.3)
             {
+                    if (velocity)
+                    {
 
-                if (velocity)
-                {
+                        rb.velocity = controller.point * dashSpeed;
+                        Debug.Log(" O1Velocity: " + transform.position);
 
-                    rb.velocity = controller.point * dashSpeed;
-                    Debug.Log(" O1Velocity: " + transform.position);
-
-                }
-                //move player during dodge
-                else
-                {
-                    transform.position += controller.point * dashSpeed * Time.deltaTime;
-                    Debug.Log(" O1Position: " + transform.position);
-                }
-            //we are dodging
-                Debug.Log("Dodge executing: " + time);
-                //movement
-                //dodge = true;
+                    }
+                    //move player during dodge
+                    else
+                    {
+                        transform.position += controller.point * dashSpeed * Time.deltaTime;
+                        Debug.Log(" O1Position: " + transform.position);
+                    }
+                    //we are dodging
+                    Debug.Log("Dodge executing: " + time);
+                    //movement
+                    //dodge = true;
             }
             else
             {

@@ -241,12 +241,15 @@ MonoBehaviour:
   debug: 0
   collision: 0
   invuln: 0
+  grounded: 0
   moving: 0
   moveSpeed: 5
   turnSpeed: 10
   height: 0.5
   heightPadding: 0.05
+  slopeForce: 0
   maxGroundAngle: 120
+  groundAngle: 0
   ground:
     serializedVersion: 2
     m_Bits: 64

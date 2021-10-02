@@ -40,9 +40,10 @@ public class PlayerController : MonoBehaviour
     
     public float height = 0.5f;
     public float heightPadding = 0.05f;
+    public float slopeForce;
     public float maxGroundAngle = 120;
     float angle;
-    float groundAngle;
+    public float groundAngle;
     float forwardGroundAngle;
 
     public LayerMask ground;
@@ -100,6 +101,7 @@ public class PlayerController : MonoBehaviour
         CalculateDirection(mov);
         CalculateGroundAngle();
         CheckGround();
+        CalculateForward();
         DrawDebugLines();
 
         if (collision == false)
@@ -184,7 +186,7 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(transform.position + transform.forward + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfoF, height + heightPadding, ground))
         {
-            if (groundAngle > 90f || groundAngle < 90f || forwardGroundAngle > 90f || forwardGroundAngle < 90f)
+            if (groundAngle != 90f || forwardGroundAngle != 90f)
             {
                 playerDodge.velocity = false;
             }
@@ -202,7 +204,7 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Checking  if grounded...");
         //are we on the ground? raycast of length "height" to determine if so
-        if (Physics.Raycast(transform.position + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfo, height + heightPadding, ground))
+        if (Physics.Raycast(transform.position + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfo, height + heightPadding, ground) || groundAngle > 90)
         {
             grounded = true;
 
@@ -215,16 +217,24 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Grounded: " + grounded);
     }
     
+    void AddSlopeForce(float amount)
+    {
+        GetComponent<Rigidbody>().AddForce(0, -amount, 0);
+    }
+    
     void Move()
     {
         
 
         //calculate forward rotation based on input and incline and assign to point variable
-        CalculateForward();
+        
         
         //if slope ahead compared to the current location is too high, return.
-        if (groundAngle >= maxGroundAngle) return;
+        if (groundAngle > maxGroundAngle) return;
         //Debug.Log("Slope is passable.");
+
+        if (groundAngle != 90 || forwardGroundAngle != 90)
+            AddSlopeForce(slopeForce);
 
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += point * moveSpeed * Time.deltaTime;

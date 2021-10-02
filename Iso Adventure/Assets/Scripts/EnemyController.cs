@@ -17,10 +17,10 @@ public class EnemyController : MonoBehaviour
     Transform target;
     NavMeshAgent agent;
 
-    private void Start()
+/*    private void Start()
     {
         //Find and target player in instance
-        target = PlayerManager.instance.player.transform;
+        //target = PlayerManager.instance.player.transform;
         //Get Nav Mesh
         agent = GetComponent<NavMeshAgent>();
         stats = GetComponent<EnemyStats>();
@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
             animator.SetFloat("Speed", distance);
             deactivateHurtbox();
         }
-    }
+    }*/
 
     void FaceTarget()
     {
@@ -84,10 +84,10 @@ public class EnemyController : MonoBehaviour
         stats.activeAttack = null;
     }
 
-    private void OnDrawGizmosSelected()
+/*    private void OnDrawGizmosSelected()
     {
         //Draws radius of lookRadius in Scene View
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lookRadius);
-    }
+    }*/
 }

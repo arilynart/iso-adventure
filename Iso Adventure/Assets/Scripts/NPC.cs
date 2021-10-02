@@ -24,10 +24,10 @@ public class NPC : MonoBehaviour
         if (!other.GetComponent<PlayerController>()) return;
         if (other.gameObject.tag != "Player") return;
         //enabled = true;
-        dialogueSystem.EnterRangeOfNPC();
+        dialogueSystem.EnterRangeOfNPC(transform);
         
         PlayerController controller = other.GetComponent<PlayerController>();
-        if (controller.interacting)
+        if (controller.interactTrigger)
         {
             dialogueSystem.SetController(controller);
             enabled = true;

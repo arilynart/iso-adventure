@@ -13,7 +13,7 @@ public class DialogueSystem : MonoBehaviour
     public GameObject interactable;
 
     public float letterDelay = 0.1f;
-    public float letterMultiplier = 0.5f;
+    public float letterMultiplier = 0.1f;
 
     int currentDialogueIndex = 0;
 
@@ -34,10 +34,13 @@ public class DialogueSystem : MonoBehaviour
         dialogueText.text = "";
     }
 
-    public void EnterRangeOfNPC()
+    public void EnterRangeOfNPC(Transform npc)
     {
         outOfRange = false;
+        
+        interactable.transform.position = Camera.main.WorldToScreenPoint(npc.position);
         interactable.SetActive(true);
+
 
         if(dialogueActive == true)
         {
@@ -128,7 +131,7 @@ public class DialogueSystem : MonoBehaviour
 
         while (true)
         {
-            if (controller.interacting)
+            if (controller.interactTrigger)
                 break;
             else yield return null;
         }

@@ -9,10 +9,14 @@ public class EnemyStats : MonoBehaviour
 
     public EnemyAttack[] attacks;
     public EnemyAttack activeAttack;
+    Rigidbody[] rigidBodies;
+
+    
 
     private void Start()
     {
-        
+        rigidBodies = GetComponentsInChildren<Rigidbody>();
+        DeactivateRagdoll(true);
     }
 
     public void TakeDamage(int Amount)
@@ -21,8 +25,8 @@ public class EnemyStats : MonoBehaviour
         Debug.Log("Enemy took damage: " + hp);
         if (hp <= 0)
         {
+            Die();
             Debug.Log("Enemy is dead");
-            Destroy(this.gameObject);
         }
     }
 
@@ -32,5 +36,31 @@ public class EnemyStats : MonoBehaviour
         activeAttack = attacks[r];
 
         Debug.Log("Chosen attack: " + activeAttack.name);
+    }
+
+    public void Die()
+    {
+        ActivateRagdoll();
+        GetComponent<Collider>().enabled = false;
+        Physics.IgnoreLayerCollision(7, 3, true);
+    }
+
+    public void DeactivateRagdoll(bool state)
+    {
+        foreach(var rigidBody in rigidBodies)
+        {
+            rigidBody.isKinematic = state;
+        }
+        GetComponent<Animator>().enabled = true;
+    }
+
+    public void ActivateRagdoll()
+    {
+        foreach(var rigidBody in rigidBodies)
+        {
+            rigidBody.isKinematic = false;
+        }
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Animator>().enabled = false;
     }
 }

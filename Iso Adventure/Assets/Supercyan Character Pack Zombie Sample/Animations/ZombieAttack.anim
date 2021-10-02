@@ -48476,6 +48476,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: TriggerAnimationEvent
+    data: StopAim
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.38333333
     functionName: activateHurtbox
     data: 
@@ -48486,6 +48493,13 @@ AnimationClip:
   - time: 0.55
     functionName: deactivateHurtbox
     data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.6666666
+    functionName: TriggerAnimationEvent
+    data: StartAim
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

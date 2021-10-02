@@ -81,7 +81,7 @@ public class EnemyController : MonoBehaviour
     {
         hurtBox.GetComponent<Collider>().enabled = false;
         Debug.Log("Hurtbox off!");
-        stats.activeAttack = null;
+        //stats.activeAttack = null;
     }
 
 /*    private void OnDrawGizmosSelected()

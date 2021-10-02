@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     public bool invuln;
     public bool grounded;
     public bool moving;
+    bool idle;
+
+    int idleCount;
 
     public float moveSpeed = 5f;
     public float turnSpeed = 10f;
@@ -82,6 +85,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        idleCount = 301;
         //forward is the way we're looking
         forward = Camera.main.transform.forward;
         Debug.Log("Forward direction set.");
@@ -103,7 +107,23 @@ public class PlayerController : MonoBehaviour
         //set a mov variable every frame to the current controller input
         Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
         //print("Move: " + move);
-        
+        Debug.Log("Idle: " + idleCount);
+        if (lastMousePos == Mouse.current.position.ReadValue())
+        {
+            idleCount++;
+        }
+        else
+        {
+            idle = false;
+            idleCount = 0;
+            mousePoint.SetActive(true);
+        }
+        if (idleCount > 300)
+        {
+            idle = true;
+            mousePoint.SetActive(false);
+        }
+        lastMousePos = Mouse.current.position.ReadValue();
 
         CalculateDirection(mov);
         CalculateGroundAngle();
@@ -123,7 +143,7 @@ public class PlayerController : MonoBehaviour
         {
             MouseRotate();
         }
-        lastMousePos = Mouse.current.position.ReadValue();
+        
 
         //if we're inputting a move and not dodging
         if (move == Vector2.zero)
@@ -281,16 +301,7 @@ public class PlayerController : MonoBehaviour
 
     public bool MouseActivityCheck()
     {
-        if (lastMousePos == Mouse.current.position.ReadValue())
-        {
-            mousePoint.SetActive(false);
-            return false;
-        }
-        else
-        {
-            mousePoint.SetActive(true);
-            return true;
-        }
+        return !idle;
     }
 
     void OnEnable()

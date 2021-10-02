@@ -47,10 +47,8 @@ public class PlayerDodge : MonoBehaviour
 
     }
 
-    public void Dodge(/*InputAction.CallbackContext value*/)
+    public void Dodge()
     {
-/*        if (value.started)
-        {*/
                 if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
                 Debug.Log("Dodge inputted.");
                 //if we're not already dodging
@@ -75,7 +73,6 @@ public class PlayerDodge : MonoBehaviour
                     //Start movement
                     StartCoroutine(DodgeMovement(dashDuration));
                 }
-        //}
 
         
     }
@@ -93,22 +90,6 @@ public class PlayerDodge : MonoBehaviour
             //for the first 0.3s of the dodge
             if (time <= 0.3f)
             {
-/*                if (Physics.Raycast(transform.position + new Vector3(0, 0.5f, 0), controller.point, out hitInfo, 0.75f))
-                {
-                    if (hitInfo.collider.tag != "Enemy")
-                    {
-                        Debug.Log("Sharp Angle: " + Vector3.Angle(hitInfo.normal, controller.point));
-                        if (Vector3.Angle(hitInfo.normal, controller.point) > 95)
-                        {
-                            //cancel the dodge.
-                            CustomEvent.Trigger(gameObject, "ReturnDodge");
-                            dashDelay = false;
-                            dashSpeed = 8f;
-                            yield break;
-                        }
-                    }
-
-                }*/
                 if (velocity)
                     {
 

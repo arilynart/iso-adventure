@@ -878,6 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blinkCollider: {fileID: 1489580882}
   blinkable: 0
+  mouseBlink: 0
 --- !u!1 &5812596624839583770
 GameObject:
   m_ObjectHideFlags: 0

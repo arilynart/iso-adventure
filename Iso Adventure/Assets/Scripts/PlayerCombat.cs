@@ -35,43 +35,41 @@ public class PlayerCombat : MonoBehaviour
 
     }
 
-    public void BasicAttack(/*InputAction.CallbackContext value*/)
+    public void BasicAttack()
     {
-/*        if (value.started)
-        {*/
+        if (!PlayerUnlocks.ATTACK) return;
 
-            //if not already dodging or falling (based on collision with floor)
-            if (controller.grounded == true)
+        //if not already dodging or falling (based on collision with floor)
+        if (controller.grounded == true)
+        {
+            if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
+            if (controller.MouseActivityCheck())
             {
-                if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
-                if (controller.MouseActivityCheck())
-                {
-                    transform.LookAt(controller.GetLookPoint());
-                }
-                //detect enemies in range of attack
-
-
-                //animation controls go here
-                lastPressedTime = System.DateTime.Now;
-                if (noOfPresses == 0)
-                {
-                    CustomEvent.Trigger(gameObject, "AttackButton1");
-                    StartCoroutine(AttackAnimation(0.13f, 0.32f));
-                    
-                    Debug.Log("You attack once!");
-                }                    
-                else if (noOfPresses == 1)
-                {
-                    CustomEvent.Trigger(gameObject, "AttackButton2");
-                    StartCoroutine(AttackAnimation(0.12f, 0.25f));
-                    Debug.Log("You attack twice!");
-                }
-                else
-                {
-                }
-                return;
+                transform.LookAt(controller.GetLookPoint());
             }
-        //}
+            //detect enemies in range of attack
+
+
+            //animation controls go here
+            lastPressedTime = System.DateTime.Now;
+            if (noOfPresses == 0)
+            {
+                CustomEvent.Trigger(gameObject, "AttackButton1");
+                StartCoroutine(AttackAnimation(0.13f, 0.32f));
+                    
+                Debug.Log("You attack once!");
+            }                    
+            else if (noOfPresses == 1)
+            {
+                CustomEvent.Trigger(gameObject, "AttackButton2");
+                StartCoroutine(AttackAnimation(0.12f, 0.25f));
+                Debug.Log("You attack twice!");
+            }
+            else
+            {
+            }
+            return;
+        }
     }
 
     public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)

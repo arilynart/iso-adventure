@@ -20,6 +20,7 @@ public class PlayerBlink : MonoBehaviour
 
     public void Blink()
     {
+        if (!PlayerUnlocks.BLINK) return;
         Debug.Log("Starting Blink");
         if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
 

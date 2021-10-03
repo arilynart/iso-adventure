@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
 
         combat = GetComponent<PlayerCombat>();
         controls.Gameplay.Attack.started += ctx => combat.BasicAttack();
+        controls.Gameplay.Shoot.started += ctx => combat.Shoot();
 
         health = GetComponent<PlayerHealth>();
         controls.Gameplay.Heal.started += ctx => health.HealButton();
@@ -156,6 +157,7 @@ public class PlayerController : MonoBehaviour
         {
             idle = true;
             mousePoint.SetActive(false);
+            idleCount = idleTimer;
         }
         lastMousePos = Mouse.current.position.ReadValue();
 

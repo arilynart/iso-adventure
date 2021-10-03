@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Ludiq;
 using Bolt;
+using Arilyn.DeveloperConsole.Behavior;
 
 public class PlayerCombat : MonoBehaviour
 {
     PlayerController controller;
     PlayerDodge dodge;
+
+    [SerializeField]
+    private GameObject fireball;
     
 
     public Animator animator;
@@ -70,6 +74,22 @@ public class PlayerCombat : MonoBehaviour
             }
             return;
         }
+    }
+
+    public void Shoot()
+    {
+        Debug.Log("Shooting");
+        
+        Vector3 trajectory;
+        if (DeveloperConsoleBehavior.PLAYER.MouseActivityCheck())
+        {
+            trajectory = DeveloperConsoleBehavior.PLAYER.mousePoint.transform.forward;
+        }
+        else trajectory = DeveloperConsoleBehavior.PLAYER.point;
+
+        Debug.Log("Aiming at: " + trajectory);
+        GameObject ball = Instantiate(fireball, transform);
+        ball.GetComponent<ShootFireball>().trajectory = trajectory;
     }
 
     public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)

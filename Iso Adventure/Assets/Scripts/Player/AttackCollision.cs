@@ -6,7 +6,7 @@ public class AttackCollision : MonoBehaviour
 {
     private void OnTriggerEnter(Collider enemy)
     {
-        if (enemy.tag != "Enemy") return;
+        if (!enemy.GetComponent<EnemyStats>()) return;
 
         Debug.Log("Hit " + enemy.name);
         EnemyStats stats = enemy.GetComponent<EnemyStats>();

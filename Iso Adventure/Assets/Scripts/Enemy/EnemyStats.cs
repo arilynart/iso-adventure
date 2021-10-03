@@ -19,6 +19,7 @@ public class EnemyStats : MonoBehaviour
     public string animationName;
 
     public int damage;
+    public float range;
     public float boxStart;
     public float boxEnd;
 
@@ -37,10 +38,11 @@ public class EnemyStats : MonoBehaviour
         attackName = activeAttack.name;
         animationName = activeAttack.animationName;
         damage = activeAttack.damage;
+        range = activeAttack.range;
         boxStart = activeAttack.boxStart;
         boxEnd = activeAttack.boxEnd;
         nextAttack = activeAttack.nextAttack;
-        attack.InitializeAttack(attackName, animationName, damage, boxStart, boxEnd, nextAttack);
+        attack.InitializeAttack(attackName, animationName, damage, range, boxStart, boxEnd, nextAttack);
     }
 
 

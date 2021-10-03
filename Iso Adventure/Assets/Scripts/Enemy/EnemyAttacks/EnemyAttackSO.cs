@@ -9,6 +9,7 @@ public class EnemyAttackSO : ScriptableObject
     public string animationName;
 
     public int damage;
+    public float range;
     public float boxStart;
     public float boxEnd;
 

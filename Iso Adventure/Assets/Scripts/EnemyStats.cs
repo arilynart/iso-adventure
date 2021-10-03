@@ -7,19 +7,43 @@ public class EnemyStats : MonoBehaviour
     public int hp;
     public int maxHp;
 
-    public EnemyAttack[] attacks;
-    public EnemyAttack activeAttack;
+    public IEnemyAttack attack;
+    public EnemyAttackSO[] attacks;
+    public EnemyAttackSO[] lockedAttacks;
+    public EnemyAttackSO activeAttack;
+
     Rigidbody[] rigidBodies;
     Transform player;
 
-    
+    public string attackName;
+    public string animationName;
+
+    public int damage;
+    public float boxStart;
+    public float boxEnd;
+
+    public int nextAttack;
 
     private void Start()
     {
         rigidBodies = GetComponentsInChildren<Rigidbody>();
         DeactivateRagdoll(true);
+        attack = GetComponent<IEnemyAttack>();
         player = PlayerManager.instance.player.transform;
     }
+
+    public void InitializeAttack()
+    {
+        attackName = activeAttack.name;
+        animationName = activeAttack.animationName;
+        damage = activeAttack.damage;
+        boxStart = activeAttack.boxStart;
+        boxEnd = activeAttack.boxEnd;
+        nextAttack = activeAttack.nextAttack;
+        attack.InitializeAttack(attackName, animationName, damage, boxStart, boxEnd, nextAttack);
+    }
+
+
 
     public void TakeDamage(int Amount)
     {
@@ -34,10 +58,10 @@ public class EnemyStats : MonoBehaviour
 
     public void ChooseAttack()
     {
-        int r = Random.Range(0, attacks.Length - 1);
+        int r = Random.Range(0, attacks.Length);
         activeAttack = attacks[r];
 
-        Debug.Log("Chosen attack: " + activeAttack.name);
+        Debug.Log("Chosen attack: " + activeAttack.attackName);
     }
 
     public void Die()

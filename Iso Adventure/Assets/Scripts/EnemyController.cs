@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Ludiq;
+using Bolt;
 
 public class EnemyController : MonoBehaviour
 {
@@ -17,58 +19,84 @@ public class EnemyController : MonoBehaviour
     Transform target;
     public NavMeshAgent agent;
 
-/*    private void Start()
-    {
-        //Find and target player in instance
-        //target = PlayerManager.instance.player.transform;
-        //Get Nav Mesh
-        agent = GetComponent<NavMeshAgent>();
-        stats = GetComponent<EnemyStats>();
-    }
-
-    void FixedUpdate()
-    {
-        //Distance from enemy to player
-        float distance = Vector3.Distance(target.position, transform.position);
-
-        if (distance <= lookRadius)
+        private void Start()
         {
-            agent.isStopped = false;
-            agent.SetDestination(target.position);
-            animator.SetFloat("Speed", distance);
-            //Debug.Log("Speed: " + distance);
+            //Find and target player in instance
+            //target = PlayerManager.instance.player.transform;
+            //Get Nav Mesh
+            agent = GetComponent<NavMeshAgent>();
+            stats = GetComponent<EnemyStats>();
+            animator = GetComponent<Animator>();
+        }
+    /*
+        void FixedUpdate()
+        {
+            //Distance from enemy to player
+            float distance = Vector3.Distance(target.position, transform.position);
 
-            if (distance <= agent.stoppingDistance)
+            if (distance <= lookRadius)
             {
-                // Face Target
-                FaceTarget();
-                // Attack
-                Attack();
+                agent.isStopped = false;
+                agent.SetDestination(target.position);
+                animator.SetFloat("Speed", distance);
+                //Debug.Log("Speed: " + distance);
+
+                if (distance <= agent.stoppingDistance)
+                {
+                    // Face Target
+                    FaceTarget();
+                    // Attack
+                    Attack();
+                }
             }
-        }
 
-        if (distance > lookRadius)
+            if (distance > lookRadius)
+            {
+                agent.isStopped = true;
+                distance = 0;
+                animator.SetFloat("Speed", distance);
+                deactivateHurtbox();
+            }
+        }*/
+
+    /*    void FaceTarget()
         {
-            agent.isStopped = true;
-            distance = 0;
-            animator.SetFloat("Speed", distance);
-            deactivateHurtbox();
-        }
-    }*/
-
-/*    void FaceTarget()
-    {
-        Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-    }*/
+            Vector3 direction = (target.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }*/
 
     public void Attack()
     {
         if (stats.activeAttack == null) stats.ChooseAttack();
+
+        stats.InitializeAttack();
         //Start attack animation
-        Debug.Log("Playing animtion: " + stats.activeAttack.animation);
-        animator.SetTrigger(stats.activeAttack.animation);
+
+    }
+
+
+    public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)
+    {
+        float time = 0;
+
+        stats.attack.ExecuteAttack();
+        while (time < animator.GetCurrentAnimatorStateInfo(0).length)
+        {
+            if (time >= hurtBoxStart && time < hurtBoxEnd) activateHurtbox();
+            if (time > hurtBoxEnd) deactivateHurtbox();
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        
+
+        if (stats.activeAttack.nextAttack >= 0)
+            stats.activeAttack = stats.lockedAttacks[stats.activeAttack.nextAttack];
+        else
+            stats.activeAttack = null;
+
+        CustomEvent.Trigger(gameObject, "EndEnemyAttack");
     }
 
     public void activateHurtbox()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Arilyn.DeveloperConsole.Behavior;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class EnemyStats : MonoBehaviour
         rigidBodies = GetComponentsInChildren<Rigidbody>();
         DeactivateRagdoll(true);
         attack = GetComponent<IEnemyAttack>();
-        player = PlayerManager.instance.player.transform;
+        player = DeveloperConsoleBehavior.PLAYER.transform;
     }
 
     public void InitializeAttack()
@@ -73,6 +74,9 @@ public class EnemyStats : MonoBehaviour
         ActivateRagdoll(-direction * 5);
         GetComponent<Collider>().enabled = false;
         gameObject.layer = 9;
+        EnemyEncounter.DEATHCOUNT++;
+
+        Destroy(gameObject, 4);
     }
 
     public void DeactivateRagdoll(bool state)

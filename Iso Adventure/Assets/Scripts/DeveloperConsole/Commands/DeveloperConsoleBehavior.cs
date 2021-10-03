@@ -51,8 +51,10 @@ namespace Arilyn.DeveloperConsole.Behavior
 
         public void Toggle(InputAction.CallbackContext context)
         {
-            if (!context.action.triggered) return;
-            UIToggle();
+            if (context.started)
+            {
+                UIToggle();
+            }
         }
 
         public void UIToggle()

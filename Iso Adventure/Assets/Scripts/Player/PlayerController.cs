@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using Ludiq;
 using Bolt;
 using Arilyn.DeveloperConsole.Behavior;
+using Arilyn.DeveloperConsole.Commands;
 
 public class PlayerController : MonoBehaviour
 {
@@ -123,6 +124,14 @@ public class PlayerController : MonoBehaviour
         //rotation calculations I don't understand
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         Debug.Log("Forward direction set.");
+    }
+
+    private void Update()
+    {
+        if (!GodCommand.GODMODE) return;
+
+        invuln = true;
+        combat.attackDamage = 99;
     }
 
 

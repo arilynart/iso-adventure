@@ -15,9 +15,9 @@ namespace Arilyn.DeveloperConsole.Commands
                 Debug.Log("Invalid number of arguments.");
                 return false;
             }
+            int i = 0;
             foreach (string argument in args)
-            {
-                int i = 0;
+            {                
                 if (argument == string.Empty)
                 {
                     Debug.Log("Missing argument at index " + i);

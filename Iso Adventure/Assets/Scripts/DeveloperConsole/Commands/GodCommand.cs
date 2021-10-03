@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Arilyn.DeveloperConsole.Behavior;
+
+namespace Arilyn.DeveloperConsole.Commands
+{
+    [CreateAssetMenu(fileName = "New GodCommand", menuName = "DeveloperConsole/GodCommand")]
+    public class GodCommand : ConsoleCommand
+    {
+        public static int BASEATTACK;
+        public static bool GODMODE = false;
+
+        public override bool Process(string[] args)
+        {
+            if (args.Length != 0)
+            {
+                Debug.Log("Invalid number of arguments.");
+                return false;
+            }
+            if (!GODMODE)
+            {
+                BASEATTACK = DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().attackDamage;
+            }
+
+            GODMODE = !GODMODE;
+
+
+            if (!GODMODE)
+            {
+                DeveloperConsoleBehavior.PLAYER.invuln = false;
+                DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().attackDamage = BASEATTACK;
+            }
+
+            return true;
+        }
+    }
+
+}

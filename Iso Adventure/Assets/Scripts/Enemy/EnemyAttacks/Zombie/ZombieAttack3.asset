@@ -15,6 +15,7 @@ MonoBehaviour:
   attackName: Bite
   animationName: ZombieAttack
   damage: 3
+  range: 1.1
   boxStart: 0.17
   boxEnd: 0.78
   nextAttack: -1

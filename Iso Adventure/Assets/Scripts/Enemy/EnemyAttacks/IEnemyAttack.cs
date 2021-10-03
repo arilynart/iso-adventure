@@ -38,9 +38,7 @@ public interface IEnemyAttack
             set;
         }*/
 
-    void InitializeAttack(string name, string anim, int dmg, float start, float end, int next);
+    void InitializeAttack(string name, string anim, int dmg, float range, float start, float end, int next);
 
     void ExecuteAttack();
-
-    void ChooseNextAttack();
 }

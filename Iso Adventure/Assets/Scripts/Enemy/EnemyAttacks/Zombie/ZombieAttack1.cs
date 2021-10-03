@@ -11,6 +11,7 @@ public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
     string animationName;
 
     int damage;
+    float range;
     float boxStart;
     float boxEnd;
 
@@ -21,11 +22,12 @@ public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
         stats = GetComponent<EnemyStats>();
     }
 
-    public void InitializeAttack(string name, string anim, int dmg, float start, float end, int next)
+    public void InitializeAttack(string name, string anim, int dmg, float rng, float start, float end, int next)
     {
         attackName = name;
         animationName = anim;
         damage = dmg;
+        range = rng;
         boxStart = start;
         boxEnd = end;
         nextAttack = next;
@@ -34,11 +36,6 @@ public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
     public void ExecuteAttack()
     {
         Debug.Log("Initializing attack: " + attackName + " " + animationName + " " + damage + " " + boxStart + " " + boxEnd + " " + nextAttack + " ");
-
-    }
-
-    public void ChooseNextAttack()
-    {
 
     }
 

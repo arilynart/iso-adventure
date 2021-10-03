@@ -26,6 +26,11 @@ namespace Arilyn.DeveloperConsole.Commands
                 PlayerUnlocks.BLINK = !PlayerUnlocks.BLINK;
                 Debug.Log("Blink: " + PlayerUnlocks.BLINK);
             }
+            if (args[0] == "fireball")
+            {
+                PlayerUnlocks.FIREBALL = !PlayerUnlocks.FIREBALL;
+                Debug.Log("Fireball: " + PlayerUnlocks.FIREBALL);
+            }
             else return false;
 
             return true;

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DetectDamage : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (!other) return;
-        if (!GetComponent<EnemyStats>()) return;
+        //if (!GetComponent<EnemyStats>()) return;
         if (!transform.parent.gameObject.GetComponent<PlayerController>()) return;
 
         if (other.tag == "Attack" && !transform.parent.gameObject.GetComponent<PlayerController>().invuln)

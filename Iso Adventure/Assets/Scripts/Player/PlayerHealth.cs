@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
 {
     PlayerController controller;
     PlayerCombat combat;
+    PlayerMana mana;
 
     public System.DateTime invulnTime = System.DateTime.MinValue;
 
@@ -24,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public static int LIFE_UNLOCKED = 3;
     public int healValue = 1;
+    public int healCost = 4;
     public float invulnDuration = 1;
 
     public delegate void HealthBarDelegate(int hp);
@@ -35,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         combat = GetComponent<PlayerCombat>();
+        mana = GetComponent<PlayerMana>();
 
         hp = MAX_HP;
     }
@@ -50,7 +53,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void HealButton()
     {
+        if (mana.mana < healCost) return;
+
         HealDamage(healValue);
+        mana.AddMana(-healCost);
         CustomEvent.Trigger(gameObject, "HealStart");
         StartCoroutine(combat.PlayAnimation(-1, -1));
     }

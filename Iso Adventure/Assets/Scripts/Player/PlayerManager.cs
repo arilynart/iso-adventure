@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Arilyn.DeveloperConsole.Behavior;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -17,4 +18,9 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     public GameObject player;
+
+    private void Start()
+    {
+        player = DeveloperConsoleBehavior.PLAYER.gameObject;
+    }
 }

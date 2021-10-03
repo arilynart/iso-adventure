@@ -140,7 +140,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5927172865364000292}
-        m_TargetAssemblyTypeName: DoubleA.DeveloperConsole.Behavior.DeveloperConsoleBehavior,
+        m_TargetAssemblyTypeName: Arilyn.DeveloperConsole.Behavior.DeveloperConsoleBehavior,
           Assembly-CSharp
         m_MethodName: ProcessCommand
         m_Mode: 0

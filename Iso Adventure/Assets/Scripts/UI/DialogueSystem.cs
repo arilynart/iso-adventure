@@ -34,7 +34,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueText.text = "";
     }
 
-    public void EnterRangeOfNPC(Transform npc)
+    public void EnterRangeOfInteractable(Transform npc)
     {
         outOfRange = false;
         

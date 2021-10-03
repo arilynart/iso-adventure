@@ -88,8 +88,9 @@ public class PlayerCombat : MonoBehaviour
         else trajectory = DeveloperConsoleBehavior.PLAYER.point;
 
         Debug.Log("Aiming at: " + trajectory);
-        GameObject ball = Instantiate(fireball, transform);
+        GameObject ball = Instantiate(fireball, transform.position + new Vector3(0,0.5f,0), transform.rotation);
         ball.GetComponent<ShootFireball>().trajectory = trajectory;
+        StartCoroutine(DestroyFireball(ball));
     }
 
     public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)
@@ -107,6 +108,14 @@ public class PlayerCombat : MonoBehaviour
         }
 
         ReturnAttack();
+    }
+
+    IEnumerator DestroyFireball(GameObject ball)
+    {
+        yield return new WaitForSeconds(5);
+
+        if (ball)
+            Destroy(ball);
     }
 
     public void activateHurtbox()

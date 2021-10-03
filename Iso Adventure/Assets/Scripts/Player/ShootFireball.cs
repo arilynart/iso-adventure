@@ -7,7 +7,7 @@ using Arilyn.DeveloperConsole.Behavior;
 public class ShootFireball : MonoBehaviour
 {
     public Vector3 trajectory = Vector3.forward;
-    float speed;
+    public float speed;
 
 
 
@@ -16,7 +16,7 @@ public class ShootFireball : MonoBehaviour
         transform.position += trajectory * speed;
     }
     // Start is called before the first frame update
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (!other.GetComponent<EnemyStats>() && other.tag != "Player")
         {
@@ -37,4 +37,6 @@ public class ShootFireball : MonoBehaviour
         stats.TakeDamage(DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().attackDamage);
         Destroy(gameObject);
     }
+
+
 }

@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1509090810}
   m_Layer: 3
   m_Name: BlinkPoint
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 1836290814}
   m_Layer: 3
   m_Name: BackPoint
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -800,6 +800,9 @@ MonoBehaviour:
   invuln: 0
   grounded: 0
   moving: 0
+  interacting: 0
+  interactTrigger: 0
+  idleTimer: 180
   moveSpeed: 3.5
   turnSpeed: 10
   height: 10
@@ -837,6 +840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918350b8b2487b74a8fd1540e44eda3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireball: {fileID: 9072670680698455181, guid: a2f999882d4b99a45835736a8b3a86d1,
+    type: 3}
   animator: {fileID: 5812596624847002532}
   hurtBox: {fileID: 5812596624839584234}
   noOfPresses: 0
@@ -877,7 +882,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinkCollider: {fileID: 1489580882}
-  blinkable: 0
   mouseBlink: 0
 --- !u!1 &5812596624839583770
 GameObject:

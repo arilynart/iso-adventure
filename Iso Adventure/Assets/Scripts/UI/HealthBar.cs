@@ -32,10 +32,20 @@ public class HealthBar : MonoBehaviour
     void OnHealthChanged(int hp)
     {
         Debug.Log("Updating Health Bar");
-        int health = hp / healthPerLife; //divide current hp by how many containers we have to find the index of the hearth
+        int health = hp / healthPerLife; //divide current hp by how many containers we have to find the index of the heart
         int lifeFill = hp % healthPerLife; // return remainder
 
-        if(hp % healthPerLife == 0)
+        int i = 0;
+        foreach (Image img in life)
+        {
+
+            if (i > health)
+            {
+                life[i].fillAmount = 0;
+            }
+            i++;
+        }
+        if (hp % healthPerLife == 0)
         {
             if (health == PlayerHealth.LIFE_UNLOCKED) // full health
             {
@@ -57,6 +67,7 @@ public class HealthBar : MonoBehaviour
         } 
 
         life[health].fillAmount = lifeFill / (float)healthPerLife;
-        life[health + 1].fillAmount = 0;
+
+        
     }
 }

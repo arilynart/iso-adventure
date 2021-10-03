@@ -62,7 +62,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (controller.invuln) return;
+        if (controller.invuln)
+        {
+            Debug.Log("Contorller is invuln, no damage");
+            return;
+        }
 
         Debug.Log("Taking damage");
         hp -= amount;

@@ -5,9 +5,13 @@ using UnityEditor;
 using UnityEngine.InputSystem;
 using Ludiq;
 using Bolt;
+using Arilyn.DeveloperConsole.Behavior;
+using Arilyn.DeveloperConsole.Commands;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController CONTROL;
+
     public PlayerControls controls;
     PlayerCombat combat;
     PlayerHealth health;
@@ -86,6 +90,16 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Interact.performed += ctx => interacting = true;
         controls.Gameplay.Interact.canceled += ctx => interacting = false;
         controls.Gameplay.Interact.started += ctx => StartCoroutine(InteractTrigger());
+
+        if (DeveloperConsoleBehavior.PLAYER != null && DeveloperConsoleBehavior.PLAYER != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DeveloperConsoleBehavior.PLAYER = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     IEnumerator InteractTrigger()
@@ -110,6 +124,14 @@ public class PlayerController : MonoBehaviour
         //rotation calculations I don't understand
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
         Debug.Log("Forward direction set.");
+    }
+
+    private void Update()
+    {
+        if (!GodCommand.GODMODE) return;
+
+        invuln = true;
+        combat.attackDamage = 99;
     }
 
 
@@ -235,8 +257,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Debug.Log("Ground Angle calculated: " + groundAngle);
-        Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
+        //Debug.Log("Ground Angle calculated: " + groundAngle);
+        //Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
     }
 
     void CheckGround()
@@ -253,7 +275,7 @@ public class PlayerController : MonoBehaviour
             
             grounded = false;
         }
-        Debug.Log("Grounded: " + grounded);
+        //Debug.Log("Grounded: " + grounded);
     }
     
     void AddSlopeForce(float amount)

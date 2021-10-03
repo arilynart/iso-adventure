@@ -9,7 +9,7 @@ using Arilyn.DeveloperConsole.Behavior;
 public class PlayerCombat : MonoBehaviour
 {
     PlayerController controller;
-    PlayerDodge dodge;
+    PlayerMana mana;
 
     [SerializeField]
     private GameObject fireball;
@@ -22,11 +22,14 @@ public class PlayerCombat : MonoBehaviour
     public float maxComboDelay = 1.25f;
     public LayerMask enemyLayers;
     public int attackDamage = 1;
+    public int manaDamage = 2;
+    public int fireballCost = 4;
 
     private void Start()
     {
         controller = GetComponent<PlayerController>();
-        dodge = GetComponent<PlayerDodge>();
+        mana = GetComponent<PlayerMana>();
+
         deactivateHurtbox();
     }
 
@@ -79,10 +82,13 @@ public class PlayerCombat : MonoBehaviour
     public void Shoot()
     {
         if (!PlayerUnlocks.FIREBALL) return;
-
+        if (mana.mana < fireballCost) return;
         if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
         Debug.Log("Shooting");
+
+        mana.AddMana(-fireballCost);
         
+        //calculate fireball trajectory
         Vector3 trajectory;
         if (DeveloperConsoleBehavior.PLAYER.MouseActivityCheck())
         {
@@ -90,12 +96,16 @@ public class PlayerCombat : MonoBehaviour
         }
         else trajectory = DeveloperConsoleBehavior.PLAYER.point;
 
+        //point at fireball
         transform.forward = trajectory;
         Debug.Log("Aiming at: " + trajectory);
+
+        //Make fireball and assign trajectory
         GameObject ball = Instantiate(fireball, transform.position + new Vector3(0,0.5f,0), transform.rotation);
         ball.GetComponent<ShootFireball>().trajectory = trajectory;
         StartCoroutine(DestroyFireball(ball));
 
+        //enter fireball animation
         CustomEvent.Trigger(gameObject, "ShootTrigger");
         StartCoroutine(AttackAnimation(0.13f, 0.32f));
     }

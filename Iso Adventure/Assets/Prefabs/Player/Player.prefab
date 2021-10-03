@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 1669886860}
   m_Layer: 3
   m_Name: MousePoint
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -657,6 +657,7 @@ GameObject:
   - component: {fileID: 5477901638835078308}
   - component: {fileID: 5477901638835078309}
   - component: {fileID: 5477901638835078306}
+  - component: {fileID: 761596009300994114}
   - component: {fileID: 5477901637876126268}
   - component: {fileID: 231031613}
   - component: {fileID: 686479989491633995}
@@ -828,6 +829,19 @@ MonoBehaviour:
   hp: 0
   healValue: 1
   invulnDuration: 1
+--- !u!114 &761596009300994114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812596624839583768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24158da2df50bcc4ab76f0a48c545ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mana: 0
 --- !u!114 &5477901637876126268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -850,6 +864,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackDamage: 1
+  manaDamage: 2
+  fireballCost: 4
 --- !u!114 &231031613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1974,7 +1990,7 @@ GameObject:
   - component: {fileID: 5812596624839750692}
   m_Layer: 3
   m_Name: root
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2562,7 +2578,7 @@ GameObject:
   - component: {fileID: 5812596624851084640}
   - component: {fileID: 221783898}
   m_Layer: 3
-  m_Name: polySurface1
+  m_Name: AttackBox
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -53,7 +53,8 @@ namespace Arilyn.DeveloperConsole.Behavior
         {
             if (context.started)
             {
-                UIToggle();
+                if (!uiCanvas.activeSelf)
+                    UIToggle();
             }
         }
 

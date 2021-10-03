@@ -242,6 +242,10 @@ MonoBehaviour:
   commands:
   - {fileID: 11400000, guid: 8a130ecc11d7d9c4bb19561bf9e597cc, type: 2}
   - {fileID: 11400000, guid: 541bf2166392c8e40ad3b1d94793bd24, type: 2}
+  - {fileID: 11400000, guid: b7e4fe5bb4fa6e742bd9e0f3550eaf17, type: 2}
+  - {fileID: 11400000, guid: 8753040c91f2e604a9530eb18a40b6ce, type: 2}
+  - {fileID: 11400000, guid: f12a112b5d4672b458848b4a1b063c66, type: 2}
+  - {fileID: 11400000, guid: 2611ce867f27a454da065661eeea2303, type: 2}
   uiCanvas: {fileID: 129818427}
   inputField: {fileID: 1551044760}
 --- !u!4 &99673788

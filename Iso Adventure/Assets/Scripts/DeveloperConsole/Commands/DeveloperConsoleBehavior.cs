@@ -22,7 +22,8 @@ namespace Arilyn.DeveloperConsole.Behavior
 
         private float pausedTimeScale;
 
-        private static DeveloperConsoleBehavior instance;
+        private static DeveloperConsoleBehavior INSTANCE;
+        public static PlayerController PLAYER;
 
         private DeveloperConsole developerConsole;
 
@@ -37,13 +38,13 @@ namespace Arilyn.DeveloperConsole.Behavior
 
         private void Awake()
         {
-            if (instance != null && instance != this)
+            if (INSTANCE != null && INSTANCE != this)
             {
                 Destroy(gameObject);
                 return;
             }
 
-            instance = this;
+            INSTANCE = this;
 
             DontDestroyOnLoad(gameObject);
         }
@@ -59,11 +60,13 @@ namespace Arilyn.DeveloperConsole.Behavior
 
             if (uiCanvas.activeSelf)
             {
+                PLAYER.controls.Gameplay.Enable();
                 Time.timeScale = pausedTimeScale;
                 uiCanvas.SetActive(false);
             }
             else
             {
+                PLAYER.controls.Gameplay.Disable();
                 pausedTimeScale = Time.timeScale;
                 Time.timeScale = 0;
                 uiCanvas.SetActive(true);

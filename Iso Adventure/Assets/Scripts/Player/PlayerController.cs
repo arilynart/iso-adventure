@@ -5,9 +5,12 @@ using UnityEditor;
 using UnityEngine.InputSystem;
 using Ludiq;
 using Bolt;
+using Arilyn.DeveloperConsole.Behavior;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController CONTROL;
+
     public PlayerControls controls;
     PlayerCombat combat;
     PlayerHealth health;
@@ -86,6 +89,16 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Interact.performed += ctx => interacting = true;
         controls.Gameplay.Interact.canceled += ctx => interacting = false;
         controls.Gameplay.Interact.started += ctx => StartCoroutine(InteractTrigger());
+
+        if (DeveloperConsoleBehavior.PLAYER != null && DeveloperConsoleBehavior.PLAYER != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DeveloperConsoleBehavior.PLAYER = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     IEnumerator InteractTrigger()
@@ -235,8 +248,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Debug.Log("Ground Angle calculated: " + groundAngle);
-        Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
+        //Debug.Log("Ground Angle calculated: " + groundAngle);
+        //Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
     }
 
     void CheckGround()
@@ -253,7 +266,7 @@ public class PlayerController : MonoBehaviour
             
             grounded = false;
         }
-        Debug.Log("Grounded: " + grounded);
+        //Debug.Log("Grounded: " + grounded);
     }
     
     void AddSlopeForce(float amount)

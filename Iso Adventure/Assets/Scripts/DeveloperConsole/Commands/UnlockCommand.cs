@@ -11,7 +11,10 @@ namespace Arilyn.DeveloperConsole.Commands
         public override bool Process(string[] args)
         {
             if (args.Length != 1) return false;
-            if (args[0] == string.Empty) return false;
+            foreach (string argument in args)
+            {
+                if (argument == string.Empty) return false;
+            }
 
             if (args[0] == "attack")
             {

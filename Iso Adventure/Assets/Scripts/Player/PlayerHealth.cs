@@ -24,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
     public static int LIFE_UNLOCKED = 3;
-    public int healValue = 1;
+    public int healValue = 2;
     public int healCost = 4;
     public float invulnDuration = 1;
 

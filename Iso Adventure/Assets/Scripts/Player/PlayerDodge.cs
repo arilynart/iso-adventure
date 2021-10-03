@@ -111,7 +111,7 @@ public class PlayerDodge : MonoBehaviour
             }
             else
             {
-                CustomEvent.Trigger(gameObject, "Return");
+                CustomEvent.Trigger(gameObject, "ReturnDodge");
                 //afterwards, we aren't dodging.
                 Debug.Log("Delay executing: " + time);
                 //dodge = false;

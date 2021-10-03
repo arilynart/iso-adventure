@@ -8,9 +8,6 @@ using Bolt;
 public class PlayerHealth : MonoBehaviour
 {
     PlayerController controller;
-    PlayerCombat combat;
-    PlayerDodge playerDodge;
-
 
     public System.DateTime invulnTime = System.DateTime.MinValue;
 
@@ -36,8 +33,6 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         controller = GetComponent<PlayerController>();
-        combat = GetComponent<PlayerCombat>();
-        playerDodge = GetComponent<PlayerDodge>();
 
         hp = MAX_HP;
     }

@@ -46,7 +46,7 @@ public class EnemyStats : MonoBehaviour
         Debug.Log("Direction " + direction);
         ActivateRagdoll(-direction * 5);
         GetComponent<Collider>().enabled = false;
-        Physics.IgnoreLayerCollision(7, 3, true);
+        gameObject.layer = 9;
     }
 
     public void DeactivateRagdoll(bool state)

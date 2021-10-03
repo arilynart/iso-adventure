@@ -62,14 +62,14 @@ public class PlayerCombat : MonoBehaviour
             if (noOfPresses == 0)
             {
                 CustomEvent.Trigger(gameObject, "AttackButton1");
-                StartCoroutine(AttackAnimation(0.13f, 0.32f));
+                StartCoroutine(PlayAnimation(0.13f, 0.32f));
                     
                 Debug.Log("You attack once!");
             }                    
             else if (noOfPresses == 1)
             {
                 CustomEvent.Trigger(gameObject, "AttackButton2");
-                StartCoroutine(AttackAnimation(0.12f, 0.25f));
+                StartCoroutine(PlayAnimation(0.12f, 0.25f));
                 Debug.Log("You attack twice!");
             }
             else
@@ -107,24 +107,26 @@ public class PlayerCombat : MonoBehaviour
 
         //enter fireball animation
         CustomEvent.Trigger(gameObject, "ShootTrigger");
-        StartCoroutine(AttackAnimation(0.13f, 0.32f));
+        StartCoroutine(PlayAnimation(0.13f, 0.32f));
     }
 
-    public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)
+    public IEnumerator PlayAnimation(float hurtBoxStart, float hurtBoxEnd)
     {
         float time = 0;
 
-
         while (time < animator.GetCurrentAnimatorStateInfo(0).length)
         {
-            if (time >= hurtBoxStart && time < hurtBoxEnd) activateHurtbox();
-            if (time > hurtBoxEnd) deactivateHurtbox();
+            if (hurtBoxStart >= 0 || hurtBoxEnd >= 0)
+            {
+                if (time >= hurtBoxStart && time < hurtBoxEnd) activateHurtbox();
+                if (time > hurtBoxEnd) deactivateHurtbox();
+            }
 
             time += Time.deltaTime;
             yield return null;
         }
 
-        ReturnAttack();
+        ReturnAnimation();
     }
 
     IEnumerator DestroyFireball(GameObject ball)
@@ -148,10 +150,10 @@ public class PlayerCombat : MonoBehaviour
         
     }
 
-    public void ReturnAttack()
+    public void ReturnAnimation()
     {
         Debug.Log("Returning");
-        CustomEvent.Trigger(gameObject, "ReturnAttack");
+        CustomEvent.Trigger(gameObject, "Return");
     }
 
 }

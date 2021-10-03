@@ -8,6 +8,8 @@ using Bolt;
 public class PlayerHealth : MonoBehaviour
 {
     PlayerController controller;
+    PlayerCombat combat;
+    PlayerMana mana;
 
     public System.DateTime invulnTime = System.DateTime.MinValue;
 
@@ -23,6 +25,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public static int LIFE_UNLOCKED = 3;
     public int healValue = 1;
+    public int healCost = 4;
     public float invulnDuration = 1;
 
     public delegate void HealthBarDelegate(int hp);
@@ -33,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         controller = GetComponent<PlayerController>();
+        combat = GetComponent<PlayerCombat>();
+        mana = GetComponent<PlayerMana>();
 
         hp = MAX_HP;
     }
@@ -46,13 +51,14 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Hp adjusted. Current HP: " + hp);
     }
 
-    public void HealButton(/*InputAction.CallbackContext value*/)
+    public void HealButton()
     {
-/*        if (value.started)
-        {*/
-            //take damage
-            HealDamage(healValue);
-/*        }*/
+        if (mana.mana < healCost) return;
+
+        HealDamage(healValue);
+        mana.AddMana(-healCost);
+        CustomEvent.Trigger(gameObject, "HealStart");
+        StartCoroutine(combat.PlayAnimation(-1, -1));
     }
 
     public void TakeDamage(int amount)

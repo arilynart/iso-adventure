@@ -827,7 +827,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 0
-  healValue: 1
+  healValue: 2
+  healCost: 4
   invulnDuration: 1
 --- !u!114 &761596009300994114
 MonoBehaviour:

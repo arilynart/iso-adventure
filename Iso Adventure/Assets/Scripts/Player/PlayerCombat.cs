@@ -78,6 +78,9 @@ public class PlayerCombat : MonoBehaviour
 
     public void Shoot()
     {
+        if (!PlayerUnlocks.FIREBALL) return;
+
+        if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
         Debug.Log("Shooting");
         
         Vector3 trajectory;
@@ -87,10 +90,14 @@ public class PlayerCombat : MonoBehaviour
         }
         else trajectory = DeveloperConsoleBehavior.PLAYER.point;
 
+        transform.forward = trajectory;
         Debug.Log("Aiming at: " + trajectory);
         GameObject ball = Instantiate(fireball, transform.position + new Vector3(0,0.5f,0), transform.rotation);
         ball.GetComponent<ShootFireball>().trajectory = trajectory;
         StartCoroutine(DestroyFireball(ball));
+
+        CustomEvent.Trigger(gameObject, "ShootTrigger");
+        StartCoroutine(AttackAnimation(0.13f, 0.32f));
     }
 
     public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)

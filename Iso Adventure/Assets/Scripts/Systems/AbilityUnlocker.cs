@@ -9,7 +9,8 @@ namespace Arilyn.AbilityUnlock
         public enum Ability
         {
             Attack,
-            Blink
+            Blink,
+            Fireball
         };
         public Ability ability;
         public void UnlockAbility()
@@ -21,6 +22,9 @@ namespace Arilyn.AbilityUnlock
                     break;
                 case Ability.Blink:
                     PlayerUnlocks.BLINK = true;
+                    break;
+                case Ability.Fireball:
+                    PlayerUnlocks.FIREBALL = true;
                     break;
             }
         }

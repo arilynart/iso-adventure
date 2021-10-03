@@ -10,6 +10,7 @@ public class EnemyStats : MonoBehaviour
     public EnemyAttack[] attacks;
     public EnemyAttack activeAttack;
     Rigidbody[] rigidBodies;
+    Transform player;
 
     
 
@@ -17,6 +18,7 @@ public class EnemyStats : MonoBehaviour
     {
         rigidBodies = GetComponentsInChildren<Rigidbody>();
         DeactivateRagdoll(true);
+        player = PlayerManager.instance.player.transform;
     }
 
     public void TakeDamage(int Amount)
@@ -40,7 +42,9 @@ public class EnemyStats : MonoBehaviour
 
     public void Die()
     {
-        ActivateRagdoll();
+        Vector3 direction = player.position - transform.position;
+        Debug.Log("Direction " + direction);
+        ActivateRagdoll(-direction * 5);
         GetComponent<Collider>().enabled = false;
         Physics.IgnoreLayerCollision(7, 3, true);
     }
@@ -54,11 +58,12 @@ public class EnemyStats : MonoBehaviour
         GetComponent<Animator>().enabled = true;
     }
 
-    public void ActivateRagdoll()
+    public void ActivateRagdoll(Vector3 direction)
     {
         foreach(var rigidBody in rigidBodies)
         {
             rigidBody.isKinematic = false;
+            rigidBody.AddForce(direction, ForceMode.VelocityChange);
         }
         GetComponent<Rigidbody>().isKinematic = true;
         GetComponent<Animator>().enabled = false;

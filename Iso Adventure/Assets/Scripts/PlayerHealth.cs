@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Ludiq;
+using Bolt;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -69,6 +71,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (hp <= 0)
         {
+            CustomEvent.Trigger(gameObject, "PlayerDeath");
             Debug.Log("You are dead.");
         }
         else

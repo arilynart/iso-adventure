@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         //set a mov variable every frame to the current controller input
         Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
         //print("Move: " + move);
-        Debug.Log("Idle: " + idleCount);
+        //Debug.Log("Idle: " + idleCount);
         if (lastMousePos == Mouse.current.position.ReadValue())
         {
             idleCount++;

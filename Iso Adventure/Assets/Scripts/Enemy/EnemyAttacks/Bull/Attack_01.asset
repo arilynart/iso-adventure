@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f7fdd5d6910bd4e9352901c36bd860, type: 3}
   m_Name: Attack_01
   m_EditorClassIdentifier: 
-  attackName: attack+01
+  attackName: attack01
   animationName: attack_01
-  damage: 2
-  range: 2.98
-  boxStart: 0.33
+  damage: 1
+  range: 1.49
+  boxStart: 0.38
   boxEnd: 0.42
-  nextAttack: -1
+  nextAttack: 0

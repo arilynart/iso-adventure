@@ -67,6 +67,14 @@ public class EnemyStats : MonoBehaviour
         Debug.Log("Chosen attack: " + activeAttack.attackName);
     }
 
+    public void NextAttack()
+    {
+        if (activeAttack.nextAttack >= 0)
+            activeAttack = lockedAttacks[activeAttack.nextAttack];
+        else
+            activeAttack = null;
+    }
+
     public void Die()
     {
         Vector3 direction = player.position - transform.position;

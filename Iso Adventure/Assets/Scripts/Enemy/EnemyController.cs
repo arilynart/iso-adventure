@@ -87,12 +87,6 @@ public class EnemyController : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        
-
-        if (stats.activeAttack.nextAttack >= 0)
-            stats.activeAttack = stats.lockedAttacks[stats.activeAttack.nextAttack];
-        else
-            stats.activeAttack = null;
 
         CustomEvent.Trigger(gameObject, "EndEnemyAttack");
     }

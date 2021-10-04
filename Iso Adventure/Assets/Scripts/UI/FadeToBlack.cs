@@ -22,7 +22,7 @@ public class FadeToBlack : MonoBehaviour
 
         FADER = this;
 
-        FADEIN();
+        
     }
 
     private void Update()
@@ -54,5 +54,20 @@ public class FadeToBlack : MonoBehaviour
     {
         SceneManager.LoadScene(scene);
         
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FADEIN();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

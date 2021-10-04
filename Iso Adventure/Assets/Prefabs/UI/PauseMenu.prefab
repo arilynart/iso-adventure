@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2285180669454052066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -543,7 +543,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3225641995841667070}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: PAUSE
         m_Mode: 1
@@ -565,7 +565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4987781951628341288}
   - component: {fileID: 7455493108831236397}
-  - component: {fileID: 3225641995841667070}
+  - component: {fileID: 3690747819610470738}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -601,7 +601,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6696971660816112935}
   m_CullTransparentMesh: 1
---- !u!114 &3225641995841667070
+--- !u!114 &3690747819610470738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -610,7 +610,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6696971660816112935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bf743ecbab3d244ca664f17cb454dca, type: 3}
+  m_Script: {fileID: 11500000, guid: c4cbdcb57cc0fce4baf9e2bc8568ae59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pauseCanvas: {fileID: 85022924425500356}
@@ -815,7 +815,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3225641995841667070}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: QUIT
         m_Mode: 1

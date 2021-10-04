@@ -347,19 +347,16 @@ public class PlayerController : MonoBehaviour
     void OnEnable()
     {
         controls.Gameplay.Enable();
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        
     }
 
     void OnDisable()
     {
         controls.Gameplay.Disable();
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        FadeToBlack.FADEIN();
-    }
+
 
     void DrawDebugLines()
     {

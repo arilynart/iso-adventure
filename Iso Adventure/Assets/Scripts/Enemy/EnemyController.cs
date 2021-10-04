@@ -72,15 +72,13 @@ public class EnemyController : MonoBehaviour
 
         stats.InitializeAttack();
         //Start attack animation
-
+        stats.attack.ExecuteAttack();
     }
 
 
     public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)
     {
         float time = 0;
-
-        stats.attack.ExecuteAttack();
         while (time < animator.GetCurrentAnimatorStateInfo(0).length)
         {
             if (time >= hurtBoxStart && time < hurtBoxEnd) activateHurtbox();

@@ -93,7 +93,7 @@ public class EnemyStats : MonoBehaviour
 
         EnemyEncounter.DEATHCOUNT++;
 
-        //Destroy(gameObject, 4);
+        Destroy(gameObject, 3);
     }
 
     public void DeactivateRagdoll(bool state)

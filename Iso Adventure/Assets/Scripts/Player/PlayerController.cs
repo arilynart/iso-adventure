@@ -93,6 +93,8 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Interact.canceled += ctx => interacting = false;
         controls.Gameplay.Interact.started += ctx => StartCoroutine(InteractTrigger());
 
+        controls.Gameplay.Pause.started += ctx => PauseMenu.PAUSE();
+
         if (DeveloperConsoleBehavior.PLAYER != null && DeveloperConsoleBehavior.PLAYER != this)
         {
             Destroy(gameObject);

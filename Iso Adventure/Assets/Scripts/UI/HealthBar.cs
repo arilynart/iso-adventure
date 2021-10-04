@@ -43,6 +43,10 @@ public class HealthBar : MonoBehaviour
             {
                 life[i].fillAmount = 0;
             }
+            else
+            {
+                life[i].fillAmount = 1;
+            }
             i++;
         }
         if (hp % healthPerLife == 0)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityEngine.InputSystem;
 using Ludiq;
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
         DeveloperConsoleBehavior.PLAYER = this;
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     IEnumerator InteractTrigger()
@@ -133,6 +134,7 @@ public class PlayerController : MonoBehaviour
 
         invuln = true;
         combat.attackDamage = 99;
+        
     }
 
 
@@ -343,11 +345,18 @@ public class PlayerController : MonoBehaviour
     void OnEnable()
     {
         controls.Gameplay.Enable();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDisable()
     {
         controls.Gameplay.Disable();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FadeToBlack.FADEIN();
     }
 
     void DrawDebugLines()

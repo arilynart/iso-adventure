@@ -43,6 +43,10 @@ public class ManaBar : MonoBehaviour
             {
                 containers[i].fillAmount = 0;
             }
+            else
+            {
+                containers[i].fillAmount = 1;
+            }
             i++;
         }
         if (mp % manaPerContainer == 0)

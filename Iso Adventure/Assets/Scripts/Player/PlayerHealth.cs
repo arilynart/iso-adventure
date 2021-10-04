@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Ludiq;
 using Bolt;
 
@@ -77,7 +78,11 @@ public class PlayerHealth : MonoBehaviour
         if (hp <= 0)
         {
             CustomEvent.Trigger(gameObject, "PlayerDeath");
+
+            
             Debug.Log("You are dead.");
+            string scene = SceneManager.GetActiveScene().name;
+            FadeToBlack.FADEOUT(scene);
         }
         else
         {

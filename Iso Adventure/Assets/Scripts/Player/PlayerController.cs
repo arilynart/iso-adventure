@@ -248,6 +248,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+
         groundAngle = Vector3.Angle(hitInfo.normal, transform.forward);
         forwardGroundAngle = Vector3.Angle(hitInfoF.normal, transform.forward);
 
@@ -273,6 +274,12 @@ public class PlayerController : MonoBehaviour
         //are we on the ground? raycast of length "height" to determine if so
         if (Physics.Raycast(transform.position + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfo, height + heightPadding, ground) || groundAngle > 90)
         {
+
+/*            if (Vector3.Distance(transform.position, hitInfo.point) < height)
+            {
+                Debug.Log("Cube fell below floor, correcting...");
+                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * height, 5 * Time.deltaTime);
+            }*/
             grounded = true;
 
         }

@@ -64,7 +64,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         {
             //Random a = new Random();
             var sequence = Enumerable.Range(0, slows.Length).OrderBy(n => n * n * (new System.Random()).Next());
-            var result = sequence.Distinct().Take(3);
+            var result = sequence.Distinct().Take(1);
             List<int> list = result.ToList();
             Debug.Log("BullAttack List: " + list);
             int t = 0;

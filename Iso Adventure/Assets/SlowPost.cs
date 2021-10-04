@@ -13,6 +13,7 @@ public class SlowPost : MonoBehaviour
     private void Awake()
     {
         mesh = GetComponent<MeshRenderer>();
+        Time.timeScale = 1;
     }
 
     public void Activate()
@@ -39,7 +40,7 @@ public class SlowPost : MonoBehaviour
     {
         if (!other.GetComponent<PlayerController>()) return;
 
-        Time.timeScale = 0.35f;
+        Time.timeScale = 0.4f;
     }
 
     private void OnTriggerExit(Collider other)

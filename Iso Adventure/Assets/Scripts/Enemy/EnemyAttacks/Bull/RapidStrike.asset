@@ -18,4 +18,4 @@ MonoBehaviour:
   range: 1.5
   boxStart: 0.128
   boxEnd: 0.18
-  nextAttack: -1
+  nextAttack: -2

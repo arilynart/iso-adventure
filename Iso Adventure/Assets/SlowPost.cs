@@ -40,7 +40,7 @@ public class SlowPost : MonoBehaviour
     {
         if (!other.GetComponent<PlayerController>()) return;
 
-        Time.timeScale = 0.4f;
+        Time.timeScale = 0.5f;
     }
 
     private void OnTriggerExit(Collider other)

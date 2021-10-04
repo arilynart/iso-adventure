@@ -32,6 +32,8 @@ public class EnemyStats : MonoBehaviour
         DeactivateRagdoll(true);
         attack = GetComponent<IEnemyAttack>();
         player = DeveloperConsoleBehavior.PLAYER.transform;
+
+        activeAttack = attacks[0];
     }
 
     public void InitializeAttack()
@@ -45,8 +47,6 @@ public class EnemyStats : MonoBehaviour
         nextAttack = activeAttack.nextAttack;
         attack.InitializeAttack(attackName, animationName, damage, range, boxStart, boxEnd, nextAttack);
     }
-
-
 
     public void TakeDamage(int Amount)
     {

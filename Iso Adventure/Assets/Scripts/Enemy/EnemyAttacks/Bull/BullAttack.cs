@@ -63,15 +63,17 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         if (!active)
         {
             //Random a = new Random();
-            var sequence = Enumerable.Range(0, slows.Length).OrderBy(n => n * n * (new System.Random()).Next());
-            var result = sequence.Distinct().Take(1);
-            List<int> list = result.ToList();
-            Debug.Log("BullAttack List: " + list);
+            /*            var sequence = Enumerable.Range(0, slows.Length).OrderBy(n => n * n * (new System.Random()).Next());
+                        var result = sequence.Distinct().Take(1);
+                        List<int> list = result.ToList();
+                        Debug.Log("BullAttack List: " + list);
+                        int t = 0;*/
+            int r = Random.Range(0, slows.Length);
             int t = 0;
             foreach (GameObject slow in slows.ToList())
             {
 
-                if (list.Contains(t))
+                if (t == r)
                 {
                     Debug.Log("BullAttack: Activating slowpost " + t);
                     slow.GetComponent<SlowPost>().Activate();

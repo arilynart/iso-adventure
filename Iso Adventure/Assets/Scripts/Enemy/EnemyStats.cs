@@ -73,10 +73,15 @@ public class EnemyStats : MonoBehaviour
         Debug.Log("Direction " + direction);
         ActivateRagdoll(-direction * 5);
         GetComponent<Collider>().enabled = false;
-        gameObject.layer = 9;
+
+        if (IndoorTrigger.INDOORS)
+            gameObject.layer = 12;
+        else
+            gameObject.layer = 9;
+
         EnemyEncounter.DEATHCOUNT++;
 
-        Destroy(gameObject, 4);
+        //Destroy(gameObject, 4);
     }
 
     public void DeactivateRagdoll(bool state)

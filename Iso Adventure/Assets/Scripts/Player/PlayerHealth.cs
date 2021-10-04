@@ -100,12 +100,14 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Starting Invuln");
         controller.invuln = true;
         Physics.IgnoreLayerCollision(3, 7, true);
+        Physics.IgnoreLayerCollision(3, 11, true);
         Debug.Log("Invincible");
         invulnTime = System.DateTime.Now.AddSeconds(duration);
 
         yield return new WaitForSeconds(duration);
 
         Physics.IgnoreLayerCollision(3, 7, false);
+        Physics.IgnoreLayerCollision(3, 11, false);
         controller.invuln = false;
     }
 

@@ -11,7 +11,7 @@ public class IndoorTrigger : MonoBehaviour
         if (!other.GetComponent<PlayerController>()) return;
         normalMask = Camera.main.cullingMask;
 
-        Camera.main.cullingMask = (1 << LayerMask.NameToLayer("Indoors") | 1 << LayerMask.NameToLayer("Player"));
+        Camera.main.cullingMask = (1 << LayerMask.NameToLayer("Indoors") | 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Enemies"));
         skyColor = Camera.main.backgroundColor;
         Camera.main.backgroundColor = Color.black;
     }

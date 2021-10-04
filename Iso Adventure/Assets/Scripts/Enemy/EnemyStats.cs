@@ -71,6 +71,10 @@ public class EnemyStats : MonoBehaviour
     {
         if (activeAttack.nextAttack >= 0)
             activeAttack = lockedAttacks[activeAttack.nextAttack];
+        else if (activeAttack.nextAttack <= -2)
+        {
+            activeAttack = lockedAttacks[0];
+        } 
         else
             activeAttack = null;
     }

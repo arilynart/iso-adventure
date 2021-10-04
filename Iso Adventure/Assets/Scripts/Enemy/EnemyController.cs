@@ -81,8 +81,8 @@ public class EnemyController : MonoBehaviour
         float time = 0;
         while (time < animator.GetCurrentAnimatorStateInfo(0).length)
         {
-            if (time >= hurtBoxStart && time < hurtBoxEnd) activateHurtbox();
-            if (time > hurtBoxEnd) deactivateHurtbox();
+            if (time >= hurtBoxStart && time < hurtBoxEnd && hurtBoxStart >= 0) activateHurtbox();
+            if (time > hurtBoxEnd && hurtBoxEnd >= 0) deactivateHurtbox();
 
             time += Time.deltaTime;
             yield return null;

@@ -95,7 +95,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Glossiness: 0
+    - Glossiness: 2.52
+    - RimAmount: 0.7
+    - RimThreshold: 0.105
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -126,6 +128,7 @@ Material:
     - AmbientColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
     - Fresnel_Color: {r: 0.65928507, g: 0, b: 1, a: 0}
     - MainColor: {r: 0.126157, g: 0.18490729, b: 0.254717, a: 0}
+    - RimColor: {r: 1, g: 1, b: 1, a: 0}
     - SpecularColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

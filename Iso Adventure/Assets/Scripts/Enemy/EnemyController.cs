@@ -72,29 +72,21 @@ public class EnemyController : MonoBehaviour
 
         stats.InitializeAttack();
         //Start attack animation
-
+        stats.attack.ExecuteAttack();
     }
 
 
     public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)
     {
         float time = 0;
-
-        stats.attack.ExecuteAttack();
         while (time < animator.GetCurrentAnimatorStateInfo(0).length)
         {
-            if (time >= hurtBoxStart && time < hurtBoxEnd) activateHurtbox();
-            if (time > hurtBoxEnd) deactivateHurtbox();
+            if (time >= hurtBoxStart && time < hurtBoxEnd && hurtBoxStart >= 0) activateHurtbox();
+            if (time > hurtBoxEnd && hurtBoxEnd >= 0) deactivateHurtbox();
 
             time += Time.deltaTime;
             yield return null;
         }
-        
-
-        if (stats.activeAttack.nextAttack >= 0)
-            stats.activeAttack = stats.lockedAttacks[stats.activeAttack.nextAttack];
-        else
-            stats.activeAttack = null;
 
         CustomEvent.Trigger(gameObject, "EndEnemyAttack");
     }

@@ -21,15 +21,21 @@ namespace Arilyn.DeveloperConsole.Commands
                 PlayerUnlocks.ATTACK = !PlayerUnlocks.ATTACK;
                 Debug.Log("Attack: " + PlayerUnlocks.ATTACK);
             }
-            if (args[0] == "blink")
+            else if (args[0] == "blink")
             {
                 PlayerUnlocks.BLINK = !PlayerUnlocks.BLINK;
                 Debug.Log("Blink: " + PlayerUnlocks.BLINK);
             }
-            if (args[0] == "fireball")
+            else if (args[0] == "fireball")
             {
                 PlayerUnlocks.FIREBALL = !PlayerUnlocks.FIREBALL;
                 Debug.Log("Fireball: " + PlayerUnlocks.FIREBALL);
+            }
+            else if (args[0] == "all")
+            {
+                PlayerUnlocks.ATTACK = !PlayerUnlocks.ATTACK;
+                PlayerUnlocks.BLINK = !PlayerUnlocks.BLINK;
+                PlayerUnlocks.FIREBALL = !PlayerUnlocks.FIREBALL;
             }
             else return false;
 

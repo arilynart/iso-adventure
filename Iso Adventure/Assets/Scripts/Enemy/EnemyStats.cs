@@ -12,6 +12,9 @@ public class EnemyStats : MonoBehaviour
     public EnemyAttackSO[] attacks;
     public EnemyAttackSO[] lockedAttacks;
     public EnemyAttackSO activeAttack;
+    public Animator animator;
+
+
 
     Rigidbody[] rigidBodies;
     Transform player;
@@ -32,7 +35,11 @@ public class EnemyStats : MonoBehaviour
         DeactivateRagdoll(true);
         attack = GetComponent<IEnemyAttack>();
         player = DeveloperConsoleBehavior.PLAYER.transform;
+        animator = GetComponent<Animator>();
+
+        activeAttack = attacks[0];
     }
+
 
     public void InitializeAttack()
     {
@@ -45,8 +52,6 @@ public class EnemyStats : MonoBehaviour
         nextAttack = activeAttack.nextAttack;
         attack.InitializeAttack(attackName, animationName, damage, range, boxStart, boxEnd, nextAttack);
     }
-
-
 
     public void TakeDamage(int Amount)
     {
@@ -67,6 +72,18 @@ public class EnemyStats : MonoBehaviour
         Debug.Log("Chosen attack: " + activeAttack.attackName);
     }
 
+    public void NextAttack()
+    {
+        if (nextAttack >= 0)
+            activeAttack = lockedAttacks[nextAttack];
+        else if (nextAttack <= -2)
+        {
+            activeAttack = attacks[0];
+        } 
+        else
+            activeAttack = null;
+    }
+
     public void Die()
     {
         Vector3 direction = player.position - transform.position;
@@ -81,7 +98,7 @@ public class EnemyStats : MonoBehaviour
 
         EnemyEncounter.DEATHCOUNT++;
 
-        //Destroy(gameObject, 4);
+        Destroy(gameObject, 3);
     }
 
     public void DeactivateRagdoll(bool state)

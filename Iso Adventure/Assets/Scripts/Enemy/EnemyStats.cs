@@ -12,6 +12,9 @@ public class EnemyStats : MonoBehaviour
     public EnemyAttackSO[] attacks;
     public EnemyAttackSO[] lockedAttacks;
     public EnemyAttackSO activeAttack;
+    public Animator animator;
+
+
 
     Rigidbody[] rigidBodies;
     Transform player;
@@ -32,9 +35,11 @@ public class EnemyStats : MonoBehaviour
         DeactivateRagdoll(true);
         attack = GetComponent<IEnemyAttack>();
         player = DeveloperConsoleBehavior.PLAYER.transform;
+        animator = GetComponent<Animator>();
 
         activeAttack = attacks[0];
     }
+
 
     public void InitializeAttack()
     {
@@ -69,9 +74,9 @@ public class EnemyStats : MonoBehaviour
 
     public void NextAttack()
     {
-        if (activeAttack.nextAttack >= 0)
-            activeAttack = lockedAttacks[activeAttack.nextAttack];
-        else if (activeAttack.nextAttack <= -2)
+        if (nextAttack >= 0)
+            activeAttack = lockedAttacks[nextAttack];
+        else if (nextAttack <= -2)
         {
             activeAttack = attacks[0];
         } 

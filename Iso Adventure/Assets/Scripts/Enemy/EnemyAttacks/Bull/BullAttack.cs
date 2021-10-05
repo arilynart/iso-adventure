@@ -11,9 +11,10 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
 {
     public GameObject[] slows;
     List<GameObject> activeSlows = new List<GameObject>();
+    public GameObject root;
     //public System.Random rnd = new System.Random();
 
-    NavMeshAgent agent;
+    EnemyStats stats;
 
     string attackName;
     string animationName;
@@ -21,16 +22,23 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     bool active;
 
     int damage;
+    [SerializeField]
+    int attackCounter = 0;
     float range;
     float boxStart;
     float boxEnd;
 
+    public float jumpSpeed = 1;
+
     int nextAttack;
 
-    void Start()
+    void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        stats = GetComponent<EnemyStats>();
+
     }
+
+
 
     public void InitializeAttack(string name, string anim, int dmg, float rng, float start, float end, int next)
     {
@@ -46,17 +54,31 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     public void ExecuteAttack()
     {
         Debug.Log("Executing attack: " + attackName + " " + animationName + " " + damage + " " + boxStart + " " + boxEnd + " " + nextAttack + " ");
-
-        if (attackName == "Attack_02" || attackName == "Attack_03")
+        if (stats.activeAttack == stats.attacks[0])
         {
-            Debug.Log("BullAttack: Rotating Attack");
+            attackCounter++;
 
         }
-        else if (attackName == "ActivateSlow")
+        else if (stats.activeAttack == stats.attacks[1])
         {
             ActivateSlows();
+            attackCounter = 0;
         }
+        else if (stats.activeAttack == stats.attacks[2])
+        {
+            attackCounter = 0;
+        }
+        else if (stats.activeAttack == stats.lockedAttacks[1])
+        {
+            if (attackCounter >= 2)
+            {
+                stats.nextAttack = 3;
+            }
+        }
+
     }
+
+
 
     public void ActivateSlows()
     {
@@ -96,5 +118,24 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
 
     }
 
+    public IEnumerator Jumping()
+    {
+        float startHeight = root.transform.position.y;
+        float time = 0;
+        while (time < (stats.animator.GetCurrentAnimatorStateInfo(0).length / 2))
+        { 
+            root.transform.Translate(Vector3.up * Time.deltaTime * jumpSpeed, Space.World);
+            time += Time.deltaTime;
+            yield return null;
+        }
 
+        while (time < stats.animator.GetCurrentAnimatorStateInfo(0).length)
+        {
+            root.transform.Translate(-Vector3.up * Time.deltaTime * jumpSpeed, Space.World);
+            time += Time.deltaTime;
+            yield return null;
+        }
+            
+        root.transform.position = new Vector3(transform.position.x, startHeight, transform.position.z);
+    }
 }

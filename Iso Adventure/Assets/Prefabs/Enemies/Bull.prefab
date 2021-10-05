@@ -91,7 +91,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073675280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.45}
+  m_LocalPosition: {x: 0, y: 0, z: -0.5}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 7385320294844513734}
@@ -158,8 +158,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 10, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 1.1076801}
+  m_Size: {x: 1.4, y: 5, z: 1.4}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &33703441124654682
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 7523024062502282658}
   m_Layer: 7
   m_Name: Root
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,8 +203,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 30.87
-  m_Center: {x: -0, y: -36.1, z: 16.19}
+  m_Radius: 1
+  m_Center: {x: -0, y: 0, z: 1}
 --- !u!1 &7385320294844727336
 GameObject:
   m_ObjectHideFlags: 0
@@ -3185,7 +3185,7 @@ GameObject:
   - component: {fileID: 1757563363677762596}
   - component: {fileID: 8242166643281586458}
   - component: {fileID: 1186551262509485544}
-  - component: {fileID: 2881458071706481165}
+  - component: {fileID: 3776931326381269244}
   - component: {fileID: 2881458071706481162}
   - component: {fileID: 2881458071706481163}
   - component: {fileID: 2881458071706481164}
@@ -3294,8 +3294,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!65 &2881458071706481165
-BoxCollider:
+--- !u!136 &3776931326381269244
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3304,9 +3304,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.1403756, y: 3.5771022, z: 1.053482}
-  m_Center: {x: -0.015188217, y: -0.53003114, z: 0.022718191}
+  m_Radius: 0.8
+  m_Height: 3.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2881458071706481162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3360,6 +3361,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 44c7550e336b58e43be743f90cc90bcb, type: 2}
   - {fileID: 11400000, guid: 7c70b32e9ea45394ea9db162ef502ad4, type: 2}
   - {fileID: 11400000, guid: e7a8b0414b4f32a4da1121c3e7de2957, type: 2}
+  - {fileID: 11400000, guid: 7f34b3517382d584c9acbd3ca7734a89, type: 2}
   activeAttack: {fileID: 0}
   animator: {fileID: 0}
   attackName: 
@@ -3388,7 +3390,7 @@ MonoBehaviour:
   - {fileID: 0}
   root: {fileID: 33703441124654682}
   attackCounter: 0
-  jumpSpeed: 1
+  jumpSpeed: 5
 --- !u!1 &7385320294844987126
 GameObject:
   m_ObjectHideFlags: 0

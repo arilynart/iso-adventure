@@ -39,7 +39,7 @@ public class BlinkCollider : MonoBehaviour
         {
             Debug.Log("Point Blink");
             //shoot laser from behind us, if we hit a blink point
-            if (Physics.Raycast(backPoint.position, transform.parent.GetComponent<PlayerController>().point, out hitInfo, 9f, blink))
+            if (Physics.Raycast(backPoint.position, controller.point, out hitInfo, 9f, blink))
             {
                 Debug.Log("Raycast hit");
                 if (hitInfo.collider.tag == "Blink")
@@ -57,7 +57,7 @@ public class BlinkCollider : MonoBehaviour
         transform.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         //teleport us there
-        transform.parent.position = hitInfo.collider.transform.position;
+        transform.parent.position = hitInfo.collider.transform.position - hitInfo.collider.transform.forward;
         GetComponent<BoxCollider>().enabled = false;
     }
 }

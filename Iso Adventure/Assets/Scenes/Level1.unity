@@ -389,7 +389,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 0}
+  sharedProfile: {fileID: 11400000, guid: 0944c0cd2d94f3b4e9146ce31e92491d, type: 2}
 --- !u!4 &194059182
 Transform:
   m_ObjectHideFlags: 0
@@ -1957,17 +1957,17 @@ PrefabInstance:
     - target: {fileID: 2568198153995793482, guid: 4c966d857f686cd489a2a2da2bce5aba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: 3.78
       objectReference: {fileID: 0}
     - target: {fileID: 2568198153995793482, guid: 4c966d857f686cd489a2a2da2bce5aba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 2568198153995793482, guid: 4c966d857f686cd489a2a2da2bce5aba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -136
+      value: -6.44
       objectReference: {fileID: 0}
     - target: {fileID: 2568198153995793482, guid: 4c966d857f686cd489a2a2da2bce5aba,
         type: 3}

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Glow
-  m_Shader: {fileID: -6465566751694194690, guid: e0200fa1237626b4abbeb7fbc6a68656,
+  m_Shader: {fileID: -6465566751694194690, guid: 8e061b75fbf5feb4591536bc5a4e1458,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
@@ -64,6 +64,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ed008243608e474ba32d3ab2a5ae5ab1_Texture_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -82,7 +86,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Emmission_Intensity: 17.33
+    - Emmission_Intensity: 5.3
     - Saturation: 1
     - _AlphaClip: 0
     - _Blend: 0
@@ -112,7 +116,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.011925942, g: 0.011925942, b: 0.03773582, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

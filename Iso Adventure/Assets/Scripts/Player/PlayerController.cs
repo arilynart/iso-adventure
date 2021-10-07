@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     PlayerHealth health;
     PlayerDodge playerDodge;
     PlayerBlink blink;
-    PlayerMana mana;
 
     public GameObject mousePoint;
 
@@ -96,8 +95,6 @@ public class PlayerController : MonoBehaviour
 
         controls.Gameplay.Pause.started += ctx => PauseMenu.PAUSE();
 
-        mana = GetComponent<PlayerMana>();
-
         if (DeveloperConsoleBehavior.PLAYER != null && DeveloperConsoleBehavior.PLAYER != this)
         {
             Destroy(gameObject);
@@ -139,7 +136,6 @@ public class PlayerController : MonoBehaviour
 
         invuln = true;
         combat.attackDamage = 99;
-        mana.mana = 99;
         
     }
 
@@ -300,7 +296,7 @@ public class PlayerController : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(0, -amount, 0);
     }
     
-    public void Move()
+    void Move()
     {
         
 

@@ -108,7 +108,7 @@ public class PlayerCombat : MonoBehaviour
 
         //enter fireball animation
         CustomEvent.Trigger(gameObject, "ShootTrigger");
-        StartCoroutine(PlayAnimation(0.13f, 0.32f));
+        StartCoroutine(PlayAnimation(-1, -1));
     }
 
     public IEnumerator PlayAnimation(float hurtBoxStart, float hurtBoxEnd)
@@ -132,7 +132,7 @@ public class PlayerCombat : MonoBehaviour
 
     IEnumerator DestroyFireball(GameObject ball)
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
 
         if (ball)
             Destroy(ball);

@@ -5026,7 +5026,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5c762252d63c9994e9666d78caacd6c0, type: 2}
+  - {fileID: 2100000, guid: 3c504122a4f9dee4083d4f5cc6297897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5075,3 +5075,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trajectory: {x: 0, y: 0, z: 0}
   speed: 0.25
+  hit: 0

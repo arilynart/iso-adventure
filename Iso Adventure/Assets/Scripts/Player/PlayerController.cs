@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public bool moving;
     public bool interacting;
     public bool interactTrigger;
+    public bool onLadder;
     bool idle;
 
     int idleCount;
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour
         invuln = true;
         combat.attackDamage = 99;
         mana.mana = 99;
-        
+        combat.manaDamage = 99;
     }
 
 

@@ -2163,6 +2163,8 @@ MonoBehaviour:
   moving: 0
   interacting: 0
   interactTrigger: 0
+  onLadder: 0
+  exitLadder: 0
   idleTimer: 180
   moveSpeed: 3.5
   turnSpeed: 10

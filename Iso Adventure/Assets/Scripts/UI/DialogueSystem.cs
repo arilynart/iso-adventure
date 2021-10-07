@@ -25,7 +25,10 @@ public class DialogueSystem : MonoBehaviour
     public bool dialogueActive = false;
     public bool dialogueEnded = false;
     public bool outOfRange = true;
+    bool interacting = false;
     bool dialoguePause = false;
+
+    Transform target;
 
 
     // Start is called before the first frame update
@@ -34,18 +37,28 @@ public class DialogueSystem : MonoBehaviour
         dialogueText.text = "";
     }
 
+    private void Update()
+    {
+        if (interacting)
+        {
+            interactable.transform.position = Camera.main.WorldToScreenPoint(target.position);
+        }
+    }
+
     public void EnterRangeOfInteractable(Transform npc)
     {
         outOfRange = false;
+        target = npc;
         
-        interactable.transform.position = Camera.main.WorldToScreenPoint(npc.position);
         interactable.SetActive(true);
-
+        interacting = true;
 
         if(dialogueActive == true)
         {
             interactable.SetActive(false);
+            interacting = false;
         } 
+        
     }
 
     public void NPCName()
@@ -158,6 +171,7 @@ public class DialogueSystem : MonoBehaviour
     {
         interactable.SetActive(false);
         dialogueBox.SetActive(false);
+        interacting = false;
     }
 
     public void OutOfRange()

@@ -8,20 +8,18 @@ public class ShootFireball : MonoBehaviour
 {
     public Vector3 trajectory = Vector3.forward;
     public float speed;
-    public bool hit = false;
+
 
 
     private void Update()
     {
         transform.position += trajectory * speed;
     }
-
     // Start is called before the first frame update
     private void OnTriggerStay(Collider other)
     {
         if (!other.GetComponent<EnemyStats>() && other.tag != "Player")
         {
-            hit = true;
             Destroy(gameObject);
             return;
         }
@@ -37,8 +35,8 @@ public class ShootFireball : MonoBehaviour
 
         //calling damage method on collided enemy
         stats.TakeDamage(DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().attackDamage);
-        hit = true;
-        transform.DetachChildren();
         Destroy(gameObject);
     }
+
+
 }

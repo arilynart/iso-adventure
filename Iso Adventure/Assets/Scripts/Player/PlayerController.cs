@@ -300,7 +300,7 @@ public class PlayerController : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(0, -amount, 0);
     }
     
-    void Move()
+    public void Move()
     {
         
 

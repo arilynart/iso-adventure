@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5592916474790672479}
   - component: {fileID: 1245413074281440089}
   - component: {fileID: 1058526153603818340}
+  - component: {fileID: 393482421}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
@@ -43,7 +44,7 @@ ParticleSystem:
   lengthInSec: 5
   simulationSpeed: 1
   stopAction: 0
-  cullingMode: 0
+  cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
@@ -747,7 +748,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0.5
     randomPositionAmount: 0.21
     radius:
-      value: 0.69
+      value: 0.47
       mode: 0
       spread: 0
       speed:
@@ -804,9 +805,9 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 90
+      value: 360
       mode: 0
-      spread: 1
+      spread: 0
       speed:
         serializedVersion: 2
         minMaxState: 0
@@ -3937,13 +3938,14 @@ ParticleSystem:
   TriggerModule:
     enabled: 0
     serializedVersion: 2
-    inside: 1
+    inside: 0
     outside: 0
-    enter: 0
+    enter: 2
     exit: 0
     colliderQueryMode: 0
     radiusScale: 1
-    primitives: []
+    primitives:
+    - {fileID: 393482421}
   SubModule:
     serializedVersion: 2
     enabled: 0
@@ -4949,6 +4951,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &393482421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8992262687630737304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc3aaf92e45460419e64ec1dc178353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9072670680698455181
 GameObject:
   m_ObjectHideFlags: 0
@@ -4976,7 +4990,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9072670680698455181}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 21.796, y: 7.86, z: -38.748}
   m_LocalScale: {x: 0.4887718, y: 0.4887718, z: 0.4887718}
   m_Children:

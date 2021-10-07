@@ -106,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7682901503100576582}
   m_Layer: 6
-  m_Name: Tile
+  m_Name: Pillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

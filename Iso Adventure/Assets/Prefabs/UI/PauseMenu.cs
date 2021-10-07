@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Ludiq;
+using Bolt;
+using Arilyn.DeveloperConsole.Behavior;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -30,6 +33,7 @@ public class PauseMenu : MonoBehaviour
         {
             INSTANCE.pauseCanvas.SetActive(true);
             Time.timeScale = 0;
+            Variables.Object(DeveloperConsoleBehavior.PLAYER.gameObject).Set("animLock", true);
 
             EventSystem es = GameObject.Find("EventSystem").GetComponent<EventSystem>();
             //clear selected object
@@ -41,6 +45,7 @@ public class PauseMenu : MonoBehaviour
         {
             INSTANCE.pauseCanvas.SetActive(false);
             Time.timeScale = 1;
+            Variables.Object(DeveloperConsoleBehavior.PLAYER.gameObject).Set("animLock", false);
         }
     }
 

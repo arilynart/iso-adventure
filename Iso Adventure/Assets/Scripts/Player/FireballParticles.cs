@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FireballParticles : MonoBehaviour
 {
-    //ParticleSystem ps;
     ShootFireball fireball;
 
     private void Start()

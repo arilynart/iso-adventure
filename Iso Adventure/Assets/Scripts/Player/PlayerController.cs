@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
     PlayerHealth health;
     PlayerDodge playerDodge;
     PlayerBlink blink;
-    
-    public Screenshotter screenshot;
 
     public GameObject mousePoint;
 
@@ -97,8 +95,6 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Interact.started += ctx => StartCoroutine(InteractTrigger());
 
         controls.Gameplay.Pause.started += ctx => PauseMenu.PAUSE();
-
-        controls.Gameplay.Screenshot.started += ctx => screenshot.TakeScreenshot();
 
         if (DeveloperConsoleBehavior.PLAYER != null && DeveloperConsoleBehavior.PLAYER != this)
         {

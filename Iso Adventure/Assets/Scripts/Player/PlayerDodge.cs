@@ -50,6 +50,7 @@ public class PlayerDodge : MonoBehaviour
     public void Dodge()
     {
         if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
+        if (controller.onLadder) return;
         Debug.Log("Dodge inputted.");
         //if we're not already dodging
         if (!dashDelay)

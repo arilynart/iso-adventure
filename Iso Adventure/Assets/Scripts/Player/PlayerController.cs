@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     PlayerDodge playerDodge;
     PlayerBlink blink;
     PlayerMana mana;
+    Ladder activeLadder;
 
     public GameObject mousePoint;
 
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
     public bool interacting;
     public bool interactTrigger;
     public bool onLadder;
+    public bool exitLadder;
     bool idle;
 
     int idleCount;
@@ -113,6 +115,12 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator InteractTrigger()
     {
+        if ((bool)Variables.Object(gameObject).Get("animLock") == true) yield break;
+        if (onLadder)
+        {
+            LeaveLadder();
+        }
+
         interactTrigger = true;
         yield return null;
         interactTrigger = false;
@@ -308,13 +316,22 @@ public class PlayerController : MonoBehaviour
 
         //calculate forward rotation based on input and incline and assign to point variable
         
-        
         //if slope ahead compared to the current location is too high, return.
         if (groundAngle > maxGroundAngle) return;
         //Debug.Log("Slope is passable.");
 
         if (groundAngle != 90 || forwardGroundAngle != 90)
             AddSlopeForce(slopeForce);
+
+        if (onLadder && !exitLadder)
+        {
+            point = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
+
+        }
+        else
+        {
+
+        }
 
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += point * moveSpeed * Time.deltaTime;
@@ -325,13 +342,14 @@ public class PlayerController : MonoBehaviour
 
     void Rotate()
     {
+        if (onLadder) return;
         //lerp to the target rotation
         targetRotation = Quaternion.Euler(0, angle+45, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
 
         Debug.Log("Rotating: " + transform.rotation);
     }
-
+    
     void MouseRotate()
     {
         mousePoint.transform.LookAt(GetLookPoint());
@@ -355,6 +373,23 @@ public class PlayerController : MonoBehaviour
     public bool MouseActivityCheck()
     {
         return !idle;
+    }
+
+    public void ClimbLadder(Vector3 pos, Ladder lad)
+    {
+        transform.position = pos; 
+        activeLadder = lad;
+        transform.LookAt(lad.LookPoint);
+        exitLadder = false;
+        onLadder = true;
+        GetComponent<Rigidbody>().useGravity = false;
+    }
+
+    public void LeaveLadder()
+    {
+        exitLadder = true;
+        onLadder = false;
+        GetComponent<Rigidbody>().useGravity = true;
     }
 
     void OnEnable()

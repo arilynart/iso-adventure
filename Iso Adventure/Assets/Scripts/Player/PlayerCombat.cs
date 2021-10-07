@@ -47,7 +47,7 @@ public class PlayerCombat : MonoBehaviour
         if (!PlayerUnlocks.ATTACK) return;
 
         //if not already dodging or falling (based on collision with floor)
-        if (controller.grounded == true)
+        if (controller.grounded && !controller.onLadder)
         {
             if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
             if (controller.MouseActivityCheck())
@@ -84,6 +84,7 @@ public class PlayerCombat : MonoBehaviour
         if (!PlayerUnlocks.FIREBALL) return;
         if (mana.mana < fireballCost) return;
         if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
+        if (controller.onLadder) return;
         Debug.Log("Shooting");
 
         mana.AddMana(-fireballCost);

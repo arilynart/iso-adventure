@@ -24,12 +24,18 @@ public class ButtonController : MonoBehaviour
         PlayerController controller = other.GetComponent<PlayerController>();
         if (controller.interactTrigger)
         {
-            gate.GetComponent<GateController>().Open();
+            Camera.main.GetComponent<Cutscene>().CutsceneStart(gate.transform, 3f);
             dialogueSystem.DropDialogue();
             area.enabled = false;
+            StartCoroutine(GateDelay());
         }
     }
 
+    IEnumerator GateDelay()
+    {
+        yield return new WaitForSeconds(1);
+        gate.GetComponent<GateController>().Open();
+    }
     private void OnTriggerExit(Collider other)
     {
         dialogueSystem.DropDialogue();

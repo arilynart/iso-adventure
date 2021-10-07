@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     float forwardGroundAngle;
 
     public LayerMask ground;
+    public LayerMask mouseLayer;
 
     RaycastHit hitInfo;
     RaycastHit hitInfoF;
@@ -360,7 +361,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(ray, out hit, ground, 100))
+        if (Physics.Raycast(ray, out hit, 100, mouseLayer))
         {
             return new Vector3(hit.point.x, mousePoint.transform.position.y, hit.point.z);
         }

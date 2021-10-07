@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 8e061b75fbf5feb4591536bc5a4e1458
+=======
+guid: 440e7d13f38a82441bef1de74d067518
+>>>>>>> 10-06-2021-EnvironmentAssets
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}

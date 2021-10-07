@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
         blink = GetComponent<PlayerBlink>();
         controls.Gameplay.Blink.started += ctx => blink.Blink();
 
+
         controls.Gameplay.Interact.performed += ctx => interacting = true;
         controls.Gameplay.Interact.canceled += ctx => interacting = false;
         controls.Gameplay.Interact.started += ctx => StartCoroutine(InteractTrigger());

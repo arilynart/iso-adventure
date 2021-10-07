@@ -14,6 +14,12 @@ public class ShootFireball : MonoBehaviour
     private void Update()
     {
         transform.position += trajectory * speed;
+
+        if (Physics.Raycast(transform.position, trajectory, 0.25f, DeveloperConsoleBehavior.PLAYER.ground))
+        {
+            hit = true;
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -22,7 +28,7 @@ public class ShootFireball : MonoBehaviour
         if (!other.GetComponent<EnemyStats>() && other.tag != "Player")
         {
             hit = true;
-            Destroy(gameObject);
+            
             return;
         }
         if (other.tag == "Player")

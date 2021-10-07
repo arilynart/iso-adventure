@@ -22,7 +22,7 @@ public class Cutscene : MonoBehaviour
     {
         follow.lerpTime = 0.04f;
         Transform oldPos = follow.target;
-        Variables.Object(DeveloperConsoleBehavior.PLAYER.gameObject).Set("animLock", true);
+        DeveloperConsoleBehavior.PLAYER.controls.Disable();
         float time = 0;
         while (time < duration)
         {
@@ -32,6 +32,6 @@ public class Cutscene : MonoBehaviour
         }
         follow.target = oldPos;
         follow.lerpTime = 0.1f;
-        Variables.Object(DeveloperConsoleBehavior.PLAYER.gameObject).Set("animLock", false);
+        DeveloperConsoleBehavior.PLAYER.controls.Enable();
     }
 }

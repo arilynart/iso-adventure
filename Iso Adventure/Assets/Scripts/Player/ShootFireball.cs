@@ -9,14 +9,20 @@ public class ShootFireball : MonoBehaviour
     public Vector3 trajectory = Vector3.forward;
     public float speed;
     public bool hit = false;
+    public RaycastHit hitInfo;
 
 
     private void Update()
     {
         transform.position += trajectory * speed;
-
-        if (Physics.Raycast(transform.position, trajectory, 0.25f, DeveloperConsoleBehavior.PLAYER.ground))
+        if (Physics.Raycast(transform.position, trajectory, out hitInfo, 0.25f, DeveloperConsoleBehavior.PLAYER.ground))
         {
+            Debug.Log("Fireball collided with wall");
+            if (hitInfo.collider.GetComponent<Torch>())
+            {
+                Debug.Log("Fireball hit torch");
+                hitInfo.collider.GetComponent<Torch>().EnableTorch();
+            }
             hit = true;
             Destroy(gameObject);
         }

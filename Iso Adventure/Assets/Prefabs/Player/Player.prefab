@@ -2343,7 +2343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  dashSpeed: 8
+  dashSpeed: 12
   dashDuration: 0.8
   dashTime: 0.5
   dodge: 0

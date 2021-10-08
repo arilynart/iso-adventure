@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: attack_03
   animationName: attack_03
   damage: 2
-  range: 1.5
-  boxStart: 0.32
-  boxEnd: 0.45
+  range: 1.318655
+  boxStart: 0.3267
+  boxEnd: 0.3667
   nextAttack: -1

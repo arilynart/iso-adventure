@@ -20,6 +20,10 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     string animationName;
 
     bool active;
+    public bool step = false;
+    public bool repeatStep = true;
+
+    public float stepDelay;
 
     int damage;
     [SerializeField]
@@ -137,5 +141,15 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         }
             
         root.transform.position = new Vector3(transform.position.x, startHeight, transform.position.z);
+    }
+
+    public IEnumerator Stepping()
+    {
+        repeatStep = false;
+        step = true;
+        yield return new WaitForSeconds(stepDelay);
+        step = false;
+        yield return new WaitForSeconds(stepDelay);
+        repeatStep = true;
     }
 }

@@ -5,6 +5,7 @@ using Arilyn.DeveloperConsole.Behavior;
 
 public class GateTorchController : MonoBehaviour, ITorchController
 {
+    [SerializeField]
     private int requiredTorches;
     public int RequiredTorches
     {
@@ -24,7 +25,6 @@ public class GateTorchController : MonoBehaviour, ITorchController
     void Start()
     {
         CurrentTorches = 0;
-        RequiredTorches = 2;
     }
 
     public void LightTorch()

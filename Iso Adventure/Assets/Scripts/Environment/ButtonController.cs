@@ -28,6 +28,12 @@ public class ButtonController : MonoBehaviour
             dialogueSystem.DropDialogue();
             area.enabled = false;
             StartCoroutine(GateDelay());
+            if (gate.layer == LayerMask.NameToLayer("Indoors"))
+            { 
+                Debug.Log("Target is indoors.");
+            Camera.main.cullingMask = 1 << LayerMask.NameToLayer("Indoors");
+            Camera.main.backgroundColor = Color.black;
+            }
         }
     }
 

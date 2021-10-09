@@ -16,9 +16,6 @@ ModelImporter:
       74: -9037217421044010172
     second: metarig|attack_02
   - first:
-      74: -5702625966188577161
-    second: metarig|attack_02.001
-  - first:
       74: 7706780567339850972
     second: metarig|attack_03
   - first:
@@ -30,6 +27,9 @@ ModelImporter:
   - first:
       74: 2611075726810385300
     second: metarig|idle
+  - first:
+      74: -8284908221344111450
+    second: metarig|jump
   - first:
       74: -7408968806781539716
     second: metarig|walk

@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: RapidStrike
   animationName: attack_channel
   damage: 3
-  range: 1.3186555
+  range: 1.065
   boxStart: 0.1667
   boxEnd: 0.3
   nextAttack: -2

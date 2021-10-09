@@ -126,30 +126,22 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     {
         float startHeight = root.transform.position.y;
         float time = 0;
-        while (time < (stats.animator.GetCurrentAnimatorStateInfo(0).length / 2))
-        { 
-            root.transform.Translate(Vector3.up * Time.deltaTime * jumpSpeed, Space.World);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        while (time < stats.animator.GetCurrentAnimatorStateInfo(0).length)
+        GetComponent<CapsuleCollider>().enabled = false;
+        while (time < 0.9167f)
         {
-            root.transform.Translate(-Vector3.up * Time.deltaTime * jumpSpeed, Space.World);
+            
             time += Time.deltaTime;
             yield return null;
         }
-            
-        root.transform.position = new Vector3(transform.position.x, startHeight, transform.position.z);
-    }
-
-    public IEnumerator Stepping()
-    {
-        repeatStep = false;
-        step = true;
-        yield return new WaitForSeconds(stepDelay);
-        step = false;
-        yield return new WaitForSeconds(stepDelay);
-        repeatStep = true;
+        GetComponent<CapsuleCollider>().enabled = true;
+        GetComponent<NavMeshAgent>().SetDestination(transform.position);
+        GetComponent<NavMeshAgent>().speed = 0;
+        GetComponent<NavMeshAgent>().acceleration = 0;
+        while (time > 0.9167f && time < stats.animator.GetCurrentAnimatorStateInfo(0).length)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+        GetComponent<CapsuleCollider>().enabled = true;
     }
 }

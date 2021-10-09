@@ -16,6 +16,6 @@ MonoBehaviour:
   animationName: jump
   damage: 2
   range: 50
-  boxStart: 0.8
-  boxEnd: 0.95
+  boxStart: 0.9167
+  boxEnd: 1
   nextAttack: -1

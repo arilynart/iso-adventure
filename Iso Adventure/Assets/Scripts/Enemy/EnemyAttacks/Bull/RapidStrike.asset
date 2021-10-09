@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RapidStrike
   m_EditorClassIdentifier: 
   attackName: RapidStrike
-  animationName: attack_03
+  animationName: attack_channel
   damage: 3
-  range: 50
-  boxStart: 0.16
-  boxEnd: 0.23
+  range: 1.065
+  boxStart: 0.1667
+  boxEnd: 0.3
   nextAttack: -2

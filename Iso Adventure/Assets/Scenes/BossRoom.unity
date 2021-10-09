@@ -195,7 +195,7 @@ MonoBehaviour:
   root: {fileID: 8835378677146705408}
   step: 0
   repeatStep: 1
-  stepDelay: 0.16
+  stepDelay: 0.33333334
   attackCounter: 0
   jumpSpeed: 5
 --- !u!136 &60
@@ -4065,7 +4065,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh42512
+  m_Name: pb_Mesh30532
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

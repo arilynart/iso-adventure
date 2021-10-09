@@ -16,6 +16,6 @@ MonoBehaviour:
   animationName: attack_channel
   damage: 3
   range: 1.3186555
-  boxStart: 0.0833
-  boxEnd: 0.15
+  boxStart: 0.2083
+  boxEnd: 0.5
   nextAttack: -2

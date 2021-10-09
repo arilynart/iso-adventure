@@ -16,7 +16,6 @@ public class EnemyStats : MonoBehaviour
     public EnemyAttackSO[] lockedAttacks;
     public EnemyAttackSO activeAttack;
     public Animator animator;
-    NavMeshAgent agent;
 
 
     Rigidbody[] rigidBodies;
@@ -40,7 +39,6 @@ public class EnemyStats : MonoBehaviour
         attack = GetComponent<IEnemyAttack>();
         player = DeveloperConsoleBehavior.PLAYER.transform;
         animator = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
 
         activeAttack = attacks[0];
     }
@@ -92,7 +90,6 @@ public class EnemyStats : MonoBehaviour
     public void Die()
     {
         dead = true;
-        agent.enabled = false;
 
         Vector3 direction = player.position - transform.position;
         Debug.Log("Direction " + direction);

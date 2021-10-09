@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireballParticles : MonoBehaviour
 {
     ShootFireball fireball;
+    public ParticleSystem fireballHit;
 
     private void Start()
     {
@@ -15,7 +16,8 @@ public class FireballParticles : MonoBehaviour
     {
         if (fireball.hit == true)
         {
-            Destroy(gameObject, 2f);
+            fireballHit.Play();
+            Destroy(gameObject, 3f);
         }
     }
 }

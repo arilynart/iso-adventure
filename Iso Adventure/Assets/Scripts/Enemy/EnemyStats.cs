@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using Ludiq;
-using Bolt;
 using Arilyn.DeveloperConsole.Behavior;
 
 public class EnemyStats : MonoBehaviour
@@ -16,13 +13,12 @@ public class EnemyStats : MonoBehaviour
     public EnemyAttackSO[] lockedAttacks;
     public EnemyAttackSO activeAttack;
     public Animator animator;
-    NavMeshAgent agent;
+
 
 
     Rigidbody[] rigidBodies;
     Transform player;
 
-    public bool dead;
     public string attackName;
     public string animationName;
 
@@ -40,7 +36,6 @@ public class EnemyStats : MonoBehaviour
         attack = GetComponent<IEnemyAttack>();
         player = DeveloperConsoleBehavior.PLAYER.transform;
         animator = GetComponent<Animator>();
-        agent = GetComponent<NavMeshAgent>();
 
         activeAttack = attacks[0];
     }
@@ -91,9 +86,6 @@ public class EnemyStats : MonoBehaviour
 
     public void Die()
     {
-        dead = true;
-        agent.enabled = false;
-
         Vector3 direction = player.position - transform.position;
         Debug.Log("Direction " + direction);
         ActivateRagdoll(-direction * 5);
@@ -106,7 +98,7 @@ public class EnemyStats : MonoBehaviour
 
         EnemyEncounter.DEATHCOUNT++;
 
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 3);
     }
 
     public void DeactivateRagdoll(bool state)

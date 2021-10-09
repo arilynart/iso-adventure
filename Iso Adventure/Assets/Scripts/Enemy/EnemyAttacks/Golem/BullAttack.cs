@@ -20,8 +20,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     string animationName;
 
     bool active;
-    public bool step = false;
-    public bool repeatStep = true;
+    public bool jumpTurn = false;
 
     public float stepDelay;
 
@@ -124,6 +123,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
 
     public IEnumerator Jumping()
     {
+        jumpTurn = true;
         float startHeight = root.transform.position.y;
         float time = 0;
         GetComponent<CapsuleCollider>().enabled = false;
@@ -133,6 +133,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
             time += Time.deltaTime;
             yield return null;
         }
+        jumpTurn = false;
         GetComponent<CapsuleCollider>().enabled = true;
         GetComponent<NavMeshAgent>().SetDestination(transform.position);
         GetComponent<NavMeshAgent>().speed = 0;

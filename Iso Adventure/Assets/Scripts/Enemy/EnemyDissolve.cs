@@ -5,31 +5,43 @@ using UnityEngine;
 public class EnemyDissolve : MonoBehaviour
     
 {
-    //Renderer renderer;
     EnemyStats enemyStats;
-    Material materials;
-    Renderer rend;
-    //MaterialPropertyBlock block = new MaterialPropertyBlock();
+    public GameObject go;
+    public Material material;
     void Start()
     {
-        Renderer rend = GetComponent<Renderer>();
-        //Material index starts at 0, but the Zombie has two materials (one for head, one for body) - change to, []
-        materials = GetComponent<Renderer>().materials[1];
-        //Fetch the Material from the Renderer of the GameObject
-        //m_Material = GetComponent<Renderer>().material;
-        //Debug.Log("Material(s):" + m_Material);
-        /*block.GetTexture("_MainTex", string);
-        Debug.Log("Texture: " + tex);*/
-
+        enemyStats = transform.parent.GetComponentInParent<EnemyStats>();
+        go = this.gameObject;
+        material = GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame
     void Update()
     {
-        enemyStats = transform.parent.GetComponentInParent<EnemyStats>();
         if (enemyStats.hp <= 0)
         {
-            Destroy(materials);
+            StartCoroutine(ActivateDissolve(2f, 0f, 2f));
         }
+    }
+
+    IEnumerator ActivateDissolve(float v_start, float v_end, float duration)
+    {
+        float elapsed = 0;
+
+        while (elapsed < 2)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            material.SetFloat("DissolveAmount", (Mathf.Lerp(v_start, v_end, timer / duration)));
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        material.SetFloat("DissolveAmount", v_end);
     }
 }

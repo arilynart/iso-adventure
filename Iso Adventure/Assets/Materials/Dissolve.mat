@@ -88,7 +88,7 @@ Material:
     m_Floats:
     - Boolean: 0
     - Edge_Width: 0.46
-    - Health: 0.24
+    - Health: 0.38
     - Noise_Scale: 33.7
     - _AlphaClip: 0
     - _Blend: 0

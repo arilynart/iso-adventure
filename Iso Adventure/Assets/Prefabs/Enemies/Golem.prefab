@@ -475,6 +475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1334780920196616152}
   - component: {fileID: 5366131726260226476}
+  - component: {fileID: 6829108207402625131}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Attack
@@ -516,7 +517,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 0914e9dca3e3feb4e850c548557b02d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -621,6 +622,21 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0011294726, y: 0.010459403, z: -0.000027267262}
     m_Extent: {x: 0.028987283, y: 0.03010141, z: 0.024033712}
   m_DirtyAABB: 0
+--- !u!114 &6829108207402625131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2169680075229400090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36efa9a0dfd40e41a30c855835c4188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyStats: {fileID: 6900365417415235387}
+  go: {fileID: 0}
+  material: {fileID: 0}
 --- !u!1 &2182096564627598857
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,6 +2702,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7f34b3517382d584c9acbd3ca7734a89, type: 2}
   activeAttack: {fileID: 0}
   animator: {fileID: 0}
+  dead: 0
   attackName: 
   animationName: 
   damage: 0

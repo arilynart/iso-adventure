@@ -15,6 +15,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     //public System.Random rnd = new System.Random();
 
     EnemyStats stats;
+    public EnemyDissolve dissolve;
 
     string attackName;
     string animationName;
@@ -38,7 +39,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     void Awake()
     {
         stats = GetComponent<EnemyStats>();
-
+        dissolve = GetComponentInChildren<EnemyDissolve>();
     }
 
 
@@ -64,6 +65,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         }
         else if (stats.activeAttack == stats.attacks[1])
         {
+            StartCoroutine(dissolve.ActivateDissolve(2, 0, 1.5f, 0));
             ActivateSlows();
             attackCounter = 0;
         }
@@ -77,6 +79,10 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
             {
                 stats.nextAttack = 3;
             }
+        }
+        else if (stats.activeAttack == stats.lockedAttacks[2])
+        {
+            StartCoroutine(dissolve.ActivateDissolve(0, 2, 0.2f, 0));
         }
 
     }

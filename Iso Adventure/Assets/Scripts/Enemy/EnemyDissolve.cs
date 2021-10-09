@@ -5,12 +5,11 @@ using UnityEngine;
 public class EnemyDissolve : MonoBehaviour
     
 {
-    EnemyStats enemyStats;
+    public EnemyStats enemyStats;
     public GameObject go;
     public Material material;
     void Start()
     {
-        enemyStats = transform.parent.GetComponentInParent<EnemyStats>();
         go = this.gameObject;
         material = GetComponent<Renderer>().material;
     }
@@ -20,15 +19,15 @@ public class EnemyDissolve : MonoBehaviour
     {
         if (enemyStats.hp <= 0)
         {
-            StartCoroutine(ActivateDissolve(2f, 0f, 2f));
+            StartCoroutine(ActivateDissolve(2f, 0f, 2f, 2));
         }
     }
 
-    IEnumerator ActivateDissolve(float v_start, float v_end, float duration)
+    public IEnumerator ActivateDissolve(float v_start, float v_end, float duration, float delay)
     {
         float elapsed = 0;
 
-        while (elapsed < 2)
+        while (elapsed < delay)
         {
             elapsed += Time.deltaTime;
             yield return null;

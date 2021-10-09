@@ -29,6 +29,7 @@ public class NPC : MonoBehaviour
         PlayerController controller = other.GetComponent<PlayerController>();
         if (controller.interactTrigger)
         {
+            controller.interactTrigger = false;
             dialogueSystem.SetController(controller);
             enabled = true;
             dialogueSystem.npcName = npcName;

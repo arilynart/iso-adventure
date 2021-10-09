@@ -97,7 +97,8 @@ public class PlayerController : MonoBehaviour
 
         controls.Gameplay.Interact.performed += ctx => interacting = true;
         controls.Gameplay.Interact.canceled += ctx => interacting = false;
-        controls.Gameplay.Interact.started += ctx => StartCoroutine(InteractTrigger());
+        controls.Gameplay.Interact.started += ctx => interactTrigger = true;
+        controls.Gameplay.Interact.canceled += ctx => interactTrigger = false;
 
         controls.Gameplay.Pause.started += ctx => PauseMenu.PAUSE();
 
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
     }
 
-    IEnumerator InteractTrigger()
+/*    IEnumerator InteractTrigger()
     {
         if ((bool)Variables.Object(gameObject).Get("animLock") == true) yield break;
         if (onLadder)
@@ -123,9 +124,9 @@ public class PlayerController : MonoBehaviour
         }
 
         interactTrigger = true;
-        yield return null;
+        yield return new WaitForEndOfFrame();
         interactTrigger = false;
-    }
+    }*/
 
     void Start()
     {

@@ -13,7 +13,8 @@ public class FireballParticles : MonoBehaviour
 
     private void Update()
     {
-        if (fireball.hit == true){
+        if (fireball.hit == true)
+        {
             Destroy(gameObject, 2f);
         }
     }

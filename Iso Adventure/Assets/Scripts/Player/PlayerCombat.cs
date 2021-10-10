@@ -13,7 +13,8 @@ public class PlayerCombat : MonoBehaviour
 
     [SerializeField]
     private GameObject fireball;
-    
+    [SerializeField]
+    private GameObject sword;
 
     public Animator animator;
     public GameObject hurtBox;
@@ -50,6 +51,7 @@ public class PlayerCombat : MonoBehaviour
         if (controller.grounded && !controller.onLadder)
         {
             if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
+            sword.SetActive(true);
             if (controller.MouseActivityCheck())
             {
                 transform.LookAt(controller.GetLookPoint());
@@ -113,8 +115,8 @@ public class PlayerCombat : MonoBehaviour
 
     public IEnumerator PlayAnimation(float hurtBoxStart, float hurtBoxEnd)
     {
+        
         float time = 0;
-
         while (time < animator.GetCurrentAnimatorStateInfo(0).length)
         {
             if (hurtBoxStart >= 0 || hurtBoxEnd >= 0)
@@ -126,7 +128,7 @@ public class PlayerCombat : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-
+        sword.SetActive(false);
         ReturnAnimation();
     }
 

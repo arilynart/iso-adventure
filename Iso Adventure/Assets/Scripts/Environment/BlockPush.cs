@@ -9,10 +9,12 @@ public class BlockPush : MonoBehaviour
     public float movespeed;
     bool moving;
     Rigidbody rb;
+    Vector3 startPos;
 
     private void Start()
     {
         trajectory = Vector3.zero;
+        startPos = transform.position;
     }
 
     void Update()
@@ -66,5 +68,13 @@ public class BlockPush : MonoBehaviour
             }
         }
         return new Vector3(dirX, 0, dirZ);
+    }
+
+    public void Restart()
+    {
+        transform.position = startPos;
+        gameObject.SetActive(true);
+        moving = false;
+        trajectory = Vector3.zero;
     }
 }

@@ -33,9 +33,12 @@ public class BlockGateController : MonoBehaviour, ITorchController
         Debug.Log("torch lit");
         foreach (Transform child in transform)
         {
-            if (child.GetComponent<BlockButton>().activated)
+            if (child.GetComponent<BlockButton>())
             {
-                CurrentTorches++;
+                if (child.GetComponent<BlockButton>().activated)
+                {
+                    CurrentTorches++;
+                }
             }
         }
         if (CurrentTorches >= RequiredTorches)

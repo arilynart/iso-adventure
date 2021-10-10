@@ -29,6 +29,10 @@ public class ShootFireball : MonoBehaviour
 
                 hitInfo.collider.GetComponent<BlockPush>().Slide(DeveloperConsoleBehavior.PLAYER.transform.forward);
             }
+            else if (hitInfo.collider.GetComponent<BlockReset>())
+            {
+                hitInfo.collider.GetComponent<BlockReset>().Restart();
+            }
             hit = true;
             transform.DetachChildren();
             Destroy(gameObject);

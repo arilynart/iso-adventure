@@ -7,7 +7,19 @@ public class EnemyDissolve : MonoBehaviour
 {
     public EnemyStats enemyStats;
     public GameObject go;
+    public GameObject particleOnMesh;
     public Material material;
+    ParticleSystem dissolveParticle;
+
+    private void Awake()
+    {
+        dissolveParticle = particleOnMesh.GetComponent<ParticleSystem>();
+        Debug.Log("Particle system: " + dissolveParticle);
+        if (dissolveParticle.isPlaying) dissolveParticle.Stop();
+        Debug.Log("Is Particle System Playing: " + dissolveParticle.isPlaying);
+
+    }
+
     void Start()
     {
         go = this.gameObject;
@@ -37,10 +49,14 @@ public class EnemyDissolve : MonoBehaviour
 
         while (timer < duration)
         {
+            if (!dissolveParticle.isPlaying) dissolveParticle.Play();
+            Debug.Log("Is Particle System Playing: " + dissolveParticle.isPlaying);
             material.SetFloat("DissolveAmount", (Mathf.Lerp(v_start, v_end, timer / duration)));
             timer += Time.deltaTime;
             yield return null;
         }
+        if (dissolveParticle.isPlaying) dissolveParticle.Stop();
+        Debug.Log("Is Particle System Playing: " + dissolveParticle.isPlaying);
         material.SetFloat("DissolveAmount", v_end);
     }
 }

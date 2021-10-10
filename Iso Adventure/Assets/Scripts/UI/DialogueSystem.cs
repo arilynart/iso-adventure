@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Ludiq;
+using Bolt;
 public class DialogueSystem : MonoBehaviour
 {
     PlayerController controller;
@@ -39,7 +41,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void Update()
     {
-        if (interacting)
+        if (interacting && target != null)
         {
             interactable.transform.position = Camera.main.WorldToScreenPoint(target.position);
         }
@@ -74,6 +76,8 @@ public class DialogueSystem : MonoBehaviour
 
     IEnumerator StartDialogue()
     {
+        Variables.Object(controller.gameObject).Set("animLock", true);
+        controller.moving = false;
         if (outOfRange) yield break;
         Debug.Log("Dialogue Pressed " + dialogueLines.Length);
 
@@ -102,13 +106,13 @@ public class DialogueSystem : MonoBehaviour
 
         }
         dialogueEnded = true;
-
-/*
-        while (true)
-        {
-            if (controller.interacting) break;
-            else yield return null;
-        }*/
+        Variables.Object(controller.gameObject).Set("animLock", false);
+        /*
+                while (true)
+                {
+                    if (controller.interacting) break;
+                    else yield return null;
+                }*/
         //dialogueEnded = false;
         dialogueActive = false;
         DropDialogue();
@@ -145,7 +149,10 @@ public class DialogueSystem : MonoBehaviour
         while (true)
         {
             if (controller.interactTrigger)
+            {
+                controller.interactTrigger = false;
                 break;
+            }
             else yield return null;
         }
         currentDialogueIndex++;

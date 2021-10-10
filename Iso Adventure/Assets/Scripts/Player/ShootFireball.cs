@@ -23,7 +23,18 @@ public class ShootFireball : MonoBehaviour
                 Debug.Log("Fireball hit torch");
                 hitInfo.collider.GetComponent<Torch>().EnableTorch();
             }
+            else if (hitInfo.collider.GetComponent<BlockPush>())
+            {
+                Debug.Log("Direction: " + trajectory);
+
+                hitInfo.collider.GetComponent<BlockPush>().Slide(DeveloperConsoleBehavior.PLAYER.transform.forward);
+            }
+            else if (hitInfo.collider.GetComponent<BlockReset>())
+            {
+                hitInfo.collider.GetComponent<BlockReset>().Restart();
+            }
             hit = true;
+            transform.DetachChildren();
             Destroy(gameObject);
         }
     }
@@ -31,25 +42,28 @@ public class ShootFireball : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerStay(Collider other)
     {
-        if (!other.GetComponent<EnemyStats>() && other.tag != "Player")
+
+        if (other.GetComponent<EnemyStats>())
+        {
+            Debug.Log("Fireball Hit " + other.name);
+
+            EnemyStats stats = other.GetComponent<EnemyStats>();
+
+            //calling damage method on collided enemy
+            stats.TakeDamage(DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().manaDamage);
+            //Detach particle emitter to finish its lifetime
+
+        }
+/*        else if (!other.GetComponent<EnemyStats>() && other.tag != "Player")
         {
             hit = true;
-            
+
             return;
-        }
-        if (other.tag == "Player")
+        }*/
+        else if (other.tag == "Player")
         {
             return;
         }
-
-
-        Debug.Log("Fireball Hit " + other.name);
-        
-        EnemyStats stats = other.GetComponent<EnemyStats>();
-
-        //calling damage method on collided enemy
-        stats.TakeDamage(DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().attackDamage);
-        //Detach particle emitter to finish its lifetime
         hit = true;
         transform.DetachChildren();
         Destroy(gameObject);

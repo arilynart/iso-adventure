@@ -9,6 +9,7 @@ public class EnemyDissolve : MonoBehaviour
     public GameObject go;
     public GameObject particleOnMesh;
     public Material material;
+    bool dissolving;
     ParticleSystem dissolveParticle;
 
     private void Awake()
@@ -29,9 +30,10 @@ public class EnemyDissolve : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyStats.hp <= 0)
+        if (enemyStats.hp <= 0 && !dissolving)
         {
             StartCoroutine(ActivateDissolve(2f, 0f, 2f, 2));
+            dissolving = true;
         }
     }
 
@@ -46,16 +48,16 @@ public class EnemyDissolve : MonoBehaviour
         }
 
         float timer = 0f;
-
+        dissolveParticle.Play();
         while (timer < duration)
         {
-            if (!dissolveParticle.isPlaying) dissolveParticle.Play();
+            
             Debug.Log("Is Particle System Playing: " + dissolveParticle.isPlaying);
             material.SetFloat("DissolveAmount", (Mathf.Lerp(v_start, v_end, timer / duration)));
             timer += Time.deltaTime;
             yield return null;
         }
-        if (dissolveParticle.isPlaying) dissolveParticle.Stop();
+        dissolveParticle.Stop();
         Debug.Log("Is Particle System Playing: " + dissolveParticle.isPlaying);
         material.SetFloat("DissolveAmount", v_end);
     }

@@ -10,18 +10,9 @@ public class HealthBar : MonoBehaviour
 
     void OnEnable()
     {
-        PlayerHealth.MAX_HP = PlayerHealth.LIFE_UNLOCKED * healthPerLife;
         PlayerHealth.OnHealthChanged += OnHealthChanged;
 
-        int i = 0;
-        foreach (Image img in life)
-        {
-            if (i < PlayerHealth.LIFE_UNLOCKED)
-                img.transform.parent.gameObject.SetActive(true);
-            else
-                img.transform.parent.gameObject.SetActive(false);
-            i++;
-        }
+        ResetBar();
     }
 
     private void OnDisable()
@@ -73,5 +64,22 @@ public class HealthBar : MonoBehaviour
         life[health].fillAmount = lifeFill / (float)healthPerLife;
 
         
+    }
+    
+    public void ResetBar()
+    {
+        PlayerHealth.MAX_HP = PlayerHealth.LIFE_UNLOCKED * healthPerLife;
+        int i = 0;
+        foreach (Image img in life)
+        {
+            if (i < PlayerHealth.LIFE_UNLOCKED)
+            {
+                img.transform.parent.gameObject.SetActive(true);
+                img.fillAmount = 1;
+            }
+            else
+                img.transform.parent.gameObject.SetActive(false);
+            i++;
+        }
     }
 }

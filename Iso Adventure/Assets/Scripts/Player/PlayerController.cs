@@ -73,16 +73,16 @@ public class PlayerController : MonoBehaviour
     {
         
         controls = new PlayerControls();
-        Debug.Log("Controls set");
+        //Debug.Log("Controls set");
 
-        Debug.Log("Movement performance set.");
+        //Debug.Log("Movement performance set.");
         controls.Gameplay.Move.performed += ctx => OnMovement(ctx.ReadValue<Vector2>());
-        Debug.Log("Movement cancellation set.");
+        //Debug.Log("Movement cancellation set.");
         controls.Gameplay.Move.canceled += ctx => OnMovement(Vector2.zero); 
 
         playerDodge = GetComponent<PlayerDodge>();
         controls.Gameplay.Dodge.started += ctx => playerDodge.Dodge();
-        Debug.Log("Dodge performance set.");
+        //Debug.Log("Dodge performance set.");
 
         combat = GetComponent<PlayerCombat>();
         controls.Gameplay.Attack.started += ctx => combat.BasicAttack();
@@ -111,38 +111,23 @@ public class PlayerController : MonoBehaviour
         }
 
         DeveloperConsoleBehavior.PLAYER = this;
-
-        //DontDestroyOnLoad(gameObject);
     }
-
-/*    IEnumerator InteractTrigger()
-    {
-        if ((bool)Variables.Object(gameObject).Get("animLock") == true) yield break;
-        if (onLadder)
-        {
-            LeaveLadder();
-        }
-
-        interactTrigger = true;
-        yield return new WaitForEndOfFrame();
-        interactTrigger = false;
-    }*/
 
     void Start()
     {
         idleCount = 301;
         //forward is the way we're looking
         forward = Camera.main.transform.forward;
-        Debug.Log("Forward direction set.");
+        //Debug.Log("Forward direction set.");
         //but it has no y value
         forward.y = 0;
-        Debug.Log("Forward y value set.");
+        //Debug.Log("Forward y value set.");
         //normalize the value to 1 or 0
         forward = Vector3.Normalize(forward);
-        Debug.Log("Forward normalized: " + forward);
-        //rotation calculations I don't understand
+        //Debug.Log("Forward normalized: " + forward);
+        //the right direction is 90 degrees from our forward
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-        Debug.Log("Forward direction set.");
+        //Debug.Log("Right direction set.");
     }
 
     private void Update()

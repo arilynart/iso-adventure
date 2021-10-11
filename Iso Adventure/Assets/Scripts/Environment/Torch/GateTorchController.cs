@@ -50,4 +50,9 @@ public class GateTorchController : MonoBehaviour, ITorchController
         gate.GetComponent<GateController>().Open();
     }
 
+    public void CloseTorch()
+    {
+
+    }
+
 }

@@ -23,6 +23,11 @@ public class BlockButton : MonoBehaviour
     {
         if (!other.GetComponent<BlockPush>()) return;
         activated = false;
+        if (controller.CurrentTorches >= controller.RequiredTorches)
+        {
+            controller.CurrentTorches = 0;
+            controller.CloseTorch();
+        }
     }
 
     public void Activate()

@@ -21,6 +21,7 @@ public class BlockPush : MonoBehaviour
     {
         if (moving)
         {
+            if (Physics.Raycast(transform.position, trajectory, 0.6f, DeveloperConsoleBehavior.PLAYER.ground)) return;
             transform.position += trajectory * movespeed * Time.deltaTime;
         }
     }

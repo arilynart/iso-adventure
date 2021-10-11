@@ -145,7 +145,7 @@ public class DialogueSystem : MonoBehaviour
         }
         
         dialogueEnded = true;
-
+        controller.interactTrigger = false;
         while (true)
         {
             if (controller.interactTrigger)
@@ -164,10 +164,11 @@ public class DialogueSystem : MonoBehaviour
     public IEnumerator WaitForInteract()
     {
         dialoguePause = true;
-
+        controller.interactTrigger = false;
         while (dialoguePause)
         {
-            if (controller.interacting)
+            if (controller.interactTrigger)
+                controller.interactTrigger = false;
                 dialoguePause = false;
             yield return null;
         }

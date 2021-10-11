@@ -19,12 +19,16 @@ public class BlockGateController : MonoBehaviour, ITorchController
         set { currentTorches = value; }
     }
 
+    public bool open;
+
     [SerializeField]
     private GameObject gate;
+    private GateController gateController;
 
     void Start()
     {
         CurrentTorches = 0;
+        gateController = gate.GetComponent<GateController>();
     }
 
     public void LightTorch()
@@ -45,11 +49,12 @@ public class BlockGateController : MonoBehaviour, ITorchController
         {
             FullTorch();
         }
-
+        
     }
 
     public void FullTorch()
     {
+        open = true;
         Camera.main.GetComponent<Cutscene>().CutsceneStart(gate.transform, 3f);
         StartCoroutine(GateDelay());
     }
@@ -57,7 +62,11 @@ public class BlockGateController : MonoBehaviour, ITorchController
     IEnumerator GateDelay()
     {
         yield return new WaitForSeconds(1);
-        gate.GetComponent<GateController>().Open();
+        gateController.Open();
     }
 
+    public void CloseTorch()
+    {
+        gateController.Close();
+    }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8888194238818304042}
   - component: {fileID: 8888194238818304043}
   - component: {fileID: 8888194238818304046}
+  - component: {fileID: 7401376939251849481}
   m_Layer: 6
   m_Name: PushBlock
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 0914e9dca3e3feb4e850c548557b02d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,3 +129,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
+--- !u!114 &7401376939251849481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888194238818304036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63af3711ed673942a74938b50062ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -17,7 +17,7 @@ public class BlockButton : MonoBehaviour
         if (!other.GetComponent<BlockPush>()) return;
         activated = true;
         Activate();
-        other.transform.position = transform.position;
+        other.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     private void OnTriggerExit(Collider other)

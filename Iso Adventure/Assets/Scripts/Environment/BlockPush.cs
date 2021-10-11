@@ -7,8 +7,7 @@ public class BlockPush : MonoBehaviour
 {
     public Vector3 trajectory;
     public float movespeed;
-    bool moving;
-    Rigidbody rb;
+    public bool moving;
     Vector3 startPos;
 
     private void Start()

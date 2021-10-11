@@ -17,7 +17,7 @@ public class BlockPush : MonoBehaviour
         startPos = transform.position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (moving)
         {
@@ -34,38 +34,48 @@ public class BlockPush : MonoBehaviour
     public void Slide(Vector3 direction)
     {
         trajectory = LockDirection(direction);
-        if (Physics.Raycast(transform.position, trajectory, 0.6f, DeveloperConsoleBehavior.PLAYER.ground)) return;
+        if (Physics.Raycast(transform.position, trajectory, 0.7f, DeveloperConsoleBehavior.PLAYER.ground)) return;
 
         moving = true;
     }
 
     Vector3 LockDirection(Vector3 dir)
     {
+        Debug.Log("Sliding block.");
         float dirX = 0;
         float dirZ = 0;
-        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.z)) {
-            if (dir.x > 0)
+
+        float fwdDot = Vector3.Dot(dir, Vector3.forward);
+        float rightDot = Vector3.Dot(dir, Vector3.right);
+        float fwdPwr = Mathf.Abs(fwdDot);
+        float rightPwr = Mathf.Abs(rightDot);
+        if (rightPwr > fwdPwr) {
+            if (rightDot > 0)
+            {
+
+                dirX = -1;
+                dirZ = 0;
+
+            }
+            else
             {
                 dirX = 1;
                 dirZ = 0;
             }
-            else
-            {
-                dirX = -1;
-                dirZ = 0;
-            }
         }
-        else if(Mathf.Abs(dir.z) > Mathf.Abs(dir.x))
+        else if(fwdPwr > rightPwr)
         {
-            if (dir.z > 0)
-            {
-                dirZ = 1;
-                dirX = 0;
-            }
-            else
+            if (fwdDot > 0)
             {
                 dirZ = -1;
                 dirX = 0;
+            }
+            else
+            {
+                dirZ = 1;
+                dirX = 0;
+
+
             }
         }
         return new Vector3(dirX, 0, dirZ);

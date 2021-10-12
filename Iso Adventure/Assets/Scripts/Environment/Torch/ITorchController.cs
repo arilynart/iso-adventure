@@ -19,4 +19,6 @@ public interface ITorchController
 
     void FullTorch();
 
+    void CloseTorch();
+
 }

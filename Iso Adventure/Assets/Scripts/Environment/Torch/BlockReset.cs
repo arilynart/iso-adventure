@@ -26,6 +26,5 @@ public class BlockReset : MonoBehaviour
         {
             child.GetComponent<BlockPush>().Restart();
         }
-        controller.CurrentTorches = 0;
     }
 }

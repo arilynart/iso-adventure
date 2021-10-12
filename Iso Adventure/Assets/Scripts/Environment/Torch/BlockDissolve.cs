@@ -15,7 +15,9 @@ public class BlockDissolve : MonoBehaviour
     {
         if (!other.GetComponent<BlockPush>()) return;
 
-        other.gameObject.SetActive(false);
+        StartCoroutine(other.GetComponent<Dissolver>().ActivateDissolve(2, 0, 1, 0));
+        other.GetComponent<BlockPush>().moving = false;
+        Destroy(other.gameObject, 1);
         controller.LightTorch();
     }
 }

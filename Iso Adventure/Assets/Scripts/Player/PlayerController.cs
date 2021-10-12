@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     PlayerBlink blink;
     PlayerMana mana;
     Ladder activeLadder;
+    CameraRotate camRot;
 
     public GameObject mousePoint;
 
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     public float slopeForce;
     public float maxGroundAngle = 120;
     float angle;
+    float angleOffset;
     public float groundAngle;
     float forwardGroundAngle;
 
@@ -78,7 +80,8 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Movement performance set.");
         controls.Gameplay.Move.performed += ctx => OnMovement(ctx.ReadValue<Vector2>());
         //Debug.Log("Movement cancellation set.");
-        controls.Gameplay.Move.canceled += ctx => OnMovement(Vector2.zero); 
+        controls.Gameplay.Move.canceled += ctx => OnMovement(Vector2.zero);
+        controls.Gameplay.Move.canceled += ctx => SetCamera();
 
         playerDodge = GetComponent<PlayerDodge>();
         controls.Gameplay.Dodge.started += ctx => playerDodge.Dodge();
@@ -104,6 +107,8 @@ public class PlayerController : MonoBehaviour
 
         mana = GetComponent<PlayerMana>();
 
+        camRot = Camera.main.GetComponent<CameraRotate>();
+
         if (DeveloperConsoleBehavior.PLAYER != null && DeveloperConsoleBehavior.PLAYER != this)
         {
             Destroy(gameObject);
@@ -116,18 +121,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         idleCount = 301;
-        //forward is the way we're looking
-        forward = Camera.main.transform.forward;
-        //Debug.Log("Forward direction set.");
-        //but it has no y value
-        forward.y = 0;
-        //Debug.Log("Forward y value set.");
-        //normalize the value to 1 or 0
-        forward = Vector3.Normalize(forward);
-        //Debug.Log("Forward normalized: " + forward);
-        //the right direction is 90 degrees from our forward
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-        //Debug.Log("Right direction set.");
+
+        SetCamera();
     }
 
     private void Update()
@@ -196,8 +191,29 @@ public class PlayerController : MonoBehaviour
         if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
 
         Move();
+
+        if (onLadder) return;
+
         Rotate();
 
+    }
+
+    public void SetCamera()
+    {
+        //forward is the way we're looking
+        forward = Camera.main.transform.forward;
+        //Debug.Log("Forward direction set.");
+        //but it has no y value
+        forward.y = 0;
+        //Debug.Log("Forward y value set.");
+        //normalize the value to 1 or 0
+        forward = Vector3.Normalize(forward);
+        //Debug.Log("Forward normalized: " + forward);
+        //the right direction is 90 degrees from our forward
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        //Debug.Log("Right direction set.");
+
+        angleOffset = camRot.rotation;
     }
 
     public void OnMovement(/*InputAction.CallbackContext value*/ Vector2 value)
@@ -329,9 +345,8 @@ public class PlayerController : MonoBehaviour
 
     void Rotate()
     {
-        if (onLadder) return;
         //lerp to the target rotation
-        targetRotation = Quaternion.Euler(0, angle+45, 0);
+        targetRotation = Quaternion.Euler(0, angle + angleOffset, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
 
         Debug.Log("Rotating: " + transform.rotation);

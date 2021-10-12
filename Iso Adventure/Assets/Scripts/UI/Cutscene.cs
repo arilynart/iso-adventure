@@ -26,7 +26,7 @@ public class Cutscene : MonoBehaviour
 
     IEnumerator CutscenePlay(Transform target, float duration)
     {
-        follow.lerpTime = 0.01f;
+        follow.lerpTime = 0.03f;
         Transform oldPos = follow.target;
         DeveloperConsoleBehavior.PLAYER.controls.Disable();
         

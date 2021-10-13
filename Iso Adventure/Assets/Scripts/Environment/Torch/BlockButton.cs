@@ -15,8 +15,11 @@ public class BlockButton : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.GetComponent<BlockPush>()) return;
+
         activated = true;
         Activate();
+
+        //lock block to this and disable movement
         other.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         other.GetComponent<BlockPush>().enabled = false;
     }
@@ -24,8 +27,10 @@ public class BlockButton : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!other.GetComponent<BlockPush>()) return;
+
         activated = false;
         other.GetComponent<BlockPush>().enabled = true;
+
         if (controller.CurrentTorches >= controller.RequiredTorches)
         {
             controller.CurrentTorches = 0;

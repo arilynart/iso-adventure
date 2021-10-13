@@ -11,6 +11,8 @@ public class FadeToBlack : MonoBehaviour
     public Color color;
 
     public static FadeToBlack FADER;
+    static bool FADING;
+    public static bool FADEAWAY;
       
     private void Awake()
     {
@@ -30,23 +32,36 @@ public class FadeToBlack : MonoBehaviour
         //black.color = color;
     }
 
+    public static void FADEOUT()
+    {
+        if (!FADER.black || FADING) return;
+
+        FADING = true;
+        FADEAWAY = true;
+        FADER.black.DOColor(new Color(0, 0, 0, 1), 0.5f).OnComplete(() => FADEIN(0.5f, 0.2f));
+    }
+
     public static void FADEOUT(string scene)
     {
-        if (!FADER.black) return;
+        if (!FADER.black || FADING) return;
+
+        FADING = true;
         FADER.black.DOColor(new Color(0, 0, 0, 1), 1).OnComplete(() => SCENELOAD(scene));
         //
     }
 
-    public static void FADEIN()
+    public static void FADEIN(float fadeTime, float fadeDelay)
     {
         if (!FADER.black) return;
-        FADER.StartCoroutine(FADETIME());
+
+        FADEAWAY = false;
+        FADER.StartCoroutine(FADETIME(fadeTime, fadeDelay));
     }
 
-    static IEnumerator FADETIME()
+    static IEnumerator FADETIME(float fadeTime, float fadeDelay)
     {
-        yield return new WaitForSeconds(0.5f);
-        FADER.black.DOColor(new Color(0, 0, 0, 0), 1);
+        yield return new WaitForSeconds(fadeDelay);
+        FADER.black.DOColor(new Color(0, 0, 0, 0), fadeTime).OnComplete(() => FADING = false);
 
     }
 
@@ -58,7 +73,7 @@ public class FadeToBlack : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        FADEIN();
+        FADEIN(1, 3);
     }
 
     private void OnEnable()

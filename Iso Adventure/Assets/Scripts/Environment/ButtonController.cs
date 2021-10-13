@@ -24,7 +24,9 @@ public class ButtonController : MonoBehaviour
         PlayerController controller = other.GetComponent<PlayerController>();
         if (controller.interactTrigger)
         {
+            //reset interact trigger
             controller.interactTrigger = false;
+
             Camera.main.GetComponent<Cutscene>().CutsceneStart(gate.transform, 3f);
             dialogueSystem.DropDialogue();
             area.enabled = false;

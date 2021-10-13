@@ -33,6 +33,7 @@ public class Cutscene : MonoBehaviour
         float time = 0;
         while (time < duration)
         {
+            CameraFollow.LOCK = false;
             follow.target = target;
             time += Time.deltaTime;
             yield return null;

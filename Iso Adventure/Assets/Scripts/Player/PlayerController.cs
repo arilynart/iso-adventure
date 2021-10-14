@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
     float forwardGroundAngle;
 
     public LayerMask ground;
+    public LayerMask indoors;
     public LayerMask mouseLayer;
 
     RaycastHit hitInfo;
@@ -128,6 +129,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
+        //set a mov variable every frame to the current controller input
+
+        Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
+        CalculateDirection(mov);
+        CheckGround();
+        CalculateGroundAngle();
+        CalculateForward();
+        DrawDebugLines();
+
+        if (!grounded)
+        {
+            animator.SetBool("Falling", true);
+        }
+        else
+        {
+            animator.SetBool("Falling", false);
+        }
+
         if (!GodCommand.GODMODE) return;
 
         invuln = true;
@@ -139,9 +159,7 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        //set a mov variable every frame to the current controller input
-        Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
+    {        
         //print("Move: " + move);
         //Debug.Log("Idle: " + idleCount);
         if (lastMousePos == Mouse.current.position.ReadValue())
@@ -162,20 +180,6 @@ public class PlayerController : MonoBehaviour
         }
         lastMousePos = Mouse.current.position.ReadValue();
 
-        CalculateDirection(mov);
-        CalculateGroundAngle();
-        CheckGround();
-        CalculateForward();
-        DrawDebugLines();
-
-        if (collision == false)
-        {
-            animator.SetBool("Falling", true);
-        }
-        else
-        {
-            animator.SetBool("Falling", false);
-        }
         if (MouseActivityCheck())
         {
             MouseRotate();
@@ -280,16 +284,18 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Checking  if grounded...");
         //are we on the ground? raycast of length "height" to determine if so
-        if (Physics.Raycast(transform.position + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfo, height + heightPadding, ground) || groundAngle > 90)
+        if (Physics.Raycast(transform.position + new Vector3(0, height, 0), -Vector3.up, out hitInfo, height + heightPadding, ground))
         {
-
-/*            if (Vector3.Distance(transform.position, hitInfo.point) < height)
-            {
-                Debug.Log("Cube fell below floor, correcting...");
-                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * height, 5 * Time.deltaTime);
-            }*/
             grounded = true;
 
+        }
+        else if (Physics.Raycast(transform.position + new Vector3(0, height, 0), -Vector3.up, out hitInfo, height + heightPadding, indoors))
+        {
+            grounded = true;
+        }
+        else if (groundAngle != 90 && groundAngle > 0)
+        {
+            grounded = true;
         }
         else
         {

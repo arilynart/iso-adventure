@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Arilyn.DeveloperConsole.Behavior;
 
 public class HealthBar : MonoBehaviour
 {
     public Image[] life;
     public int healthPerLife = 3;
 
+    private void Start()
+    {
+        ResetBar();
+    }
+
     void OnEnable()
     {
         PlayerHealth.OnHealthChanged += OnHealthChanged;
-
-        ResetBar();
     }
 
     private void OnDisable()
@@ -69,6 +73,7 @@ public class HealthBar : MonoBehaviour
     public void ResetBar()
     {
         PlayerHealth.MAX_HP = PlayerHealth.LIFE_UNLOCKED * healthPerLife;
+        DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerHealth>().hp = PlayerHealth.MAX_HP;
         int i = 0;
         foreach (Image img in life)
         {

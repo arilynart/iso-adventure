@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     PlayerController controller;
     PlayerCombat combat;
     PlayerMana mana;
+    HealthBar healthBar;
 
     public System.DateTime invulnTime = System.DateTime.MinValue;
 
@@ -39,8 +40,11 @@ public class PlayerHealth : MonoBehaviour
         controller = GetComponent<PlayerController>();
         combat = GetComponent<PlayerCombat>();
         mana = GetComponent<PlayerMana>();
+        healthBar = FindObjectOfType<HealthBar>();
 
         hp = MAX_HP;
+        healthBar.ResetBar();
+        
     }
 
     public void HealDamage(int amount)
@@ -82,6 +86,7 @@ public class PlayerHealth : MonoBehaviour
             
             Debug.Log("You are dead.");
             string scene = SceneManager.GetActiveScene().name;
+            CameraFollow.LOCK = false;
             FadeToBlack.FADEOUT(scene);
         }
         else

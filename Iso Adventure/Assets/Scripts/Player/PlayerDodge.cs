@@ -69,7 +69,7 @@ public class PlayerDodge : MonoBehaviour
         Debug.Log("Moving Dodge");
         //reset timer
         float time = 0f;
-        StartCoroutine(health.Invulnerability(duration - dashTime));
+        StartCoroutine(health.Invulnerability(dashTime));
         Physics.IgnoreLayerCollision(3, 7, true);
         Physics.IgnoreLayerCollision(3, 11, true);
 
@@ -77,7 +77,7 @@ public class PlayerDodge : MonoBehaviour
         {
             
             //for the first 0.3s of the dodge
-            if (time <= 0.3f)
+            if (time <= dashTime)
             {
                 rb.velocity = controller.point * dashSpeed;
                 Debug.Log(" O1Velocity: " + transform.position);
@@ -88,22 +88,23 @@ public class PlayerDodge : MonoBehaviour
             }
             else
             {
+                //afterwards, we aren't dodging.
                 Physics.IgnoreLayerCollision(3, 7, false);
                 Physics.IgnoreLayerCollision(3, 11, false);
                 CustomEvent.Trigger(gameObject, "ReturnDodge");
-                //afterwards, we aren't dodging.
+                
                 dashDelay = true;
+                
             }
-            if (time < 0.39 && time > 0.29)
-            {
-                rb.velocity = Vector3.zero;
-            }
+
+            if (time < dashTime + 0.05f && time > dashTime) rb.velocity = Vector3.zero;
 
             //Increase the timer
             time += Time.deltaTime;
 
             yield return null;
         }
+        
         dashDelay = false;
     }
 }

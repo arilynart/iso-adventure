@@ -4,6 +4,7 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform target;
     public static Transform LOCKTARGET;
+    public static Camera MAINCAMERA;
 
     Vector3 camPosition;
     Vector3 targetPosition;
@@ -13,6 +14,11 @@ public class CameraFollow : MonoBehaviour
     //public float smoothSpeed = 0.125f;
     public Vector3 offset;
     public float lerpTime = 0.1f;
+
+    private void Start()
+    {
+        MAINCAMERA = Camera.main;
+    }
 
     void LateUpdate()
     {

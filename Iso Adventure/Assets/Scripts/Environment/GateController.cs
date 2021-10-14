@@ -6,13 +6,8 @@ public class GateController : MonoBehaviour
 {
     public GameObject door;
     public Transform doorPoint;
-    public Vector3 startPoint;
+    Vector3 startPoint = new Vector3(-1, 0.6256f, 0.0517f);
     public float gateSpeed = 3f;
-
-    private void Start()
-    {
-        startPoint = door.transform.position;
-    }
 
 
     public void Open()
@@ -40,6 +35,7 @@ public class GateController : MonoBehaviour
 
     IEnumerator Closing()
     {
+        Debug.Log("Closing Gate");
         float time = 0;
 
         while (time < gateSpeed)

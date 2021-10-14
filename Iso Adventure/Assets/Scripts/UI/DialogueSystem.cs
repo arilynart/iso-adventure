@@ -43,7 +43,7 @@ public class DialogueSystem : MonoBehaviour
     {
         if (interacting && target != null)
         {
-            interactable.transform.position = Camera.main.WorldToScreenPoint(target.position);
+            interactable.transform.position = CameraFollow.MAINCAMERA.WorldToScreenPoint(target.position);
         }
     }
 

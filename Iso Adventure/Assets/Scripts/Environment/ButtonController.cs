@@ -27,15 +27,15 @@ public class ButtonController : MonoBehaviour
             //reset interact trigger
             controller.interactTrigger = false;
 
-            Camera.main.GetComponent<Cutscene>().CutsceneStart(gate.transform, 3f);
+            CameraFollow.MAINCAMERA.GetComponent<Cutscene>().CutsceneStart(gate.transform, 3f);
             dialogueSystem.DropDialogue();
             area.enabled = false;
             StartCoroutine(GateDelay());
             if (gate.layer == LayerMask.NameToLayer("Indoors"))
             { 
                 Debug.Log("Target is indoors.");
-            Camera.main.cullingMask = 1 << LayerMask.NameToLayer("Indoors");
-            Camera.main.backgroundColor = Color.black;
+                CameraFollow.MAINCAMERA.cullingMask = 1 << LayerMask.NameToLayer("Indoors");
+                CameraFollow.MAINCAMERA.backgroundColor = Color.black;
             }
         }
     }

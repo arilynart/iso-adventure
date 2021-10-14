@@ -10,6 +10,6 @@ public class CameraRotateTrigger : MonoBehaviour
     {
         if (!other.GetComponent<PlayerController>()) return;
 
-        StartCoroutine(Camera.main.GetComponent<CameraRotate>().Rotation(state));
+        StartCoroutine(CameraFollow.MAINCAMERA.GetComponent<CameraRotate>().Rotation(state));
     }
 }

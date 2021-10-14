@@ -7,7 +7,7 @@ public class CameraRotate : MonoBehaviour
 {
     public int rotState;
     CameraFollow follow;
-    float turnTime = 2f;
+    float turnTime = 4f;
 
     public float rotation;
 
@@ -28,7 +28,7 @@ public class CameraRotate : MonoBehaviour
     {
         //lerp to the target rotation
         Quaternion targetRotation = Quaternion.Euler(30, rotation, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.02f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.015f);
 
         Debug.Log("Rotating: " + transform.rotation);
     }

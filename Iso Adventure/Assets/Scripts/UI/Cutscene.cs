@@ -15,8 +15,8 @@ public class Cutscene : MonoBehaviour
     void Start()
     {
         follow = GetComponent<CameraFollow>();
-        defaultMask = Camera.main.cullingMask;
-        skyColor = Camera.main.backgroundColor;
+        defaultMask = CameraFollow.MAINCAMERA.cullingMask;
+        skyColor = CameraFollow.MAINCAMERA.backgroundColor;
     }
 
     public void CutsceneStart(Transform target, float duration)
@@ -41,7 +41,7 @@ public class Cutscene : MonoBehaviour
         follow.target = oldPos;
         follow.lerpTime = 0.1f;
         DeveloperConsoleBehavior.PLAYER.controls.Enable();
-        Camera.main.cullingMask = defaultMask;
-        Camera.main.backgroundColor = skyColor;
+        CameraFollow.MAINCAMERA.cullingMask = defaultMask;
+        CameraFollow.MAINCAMERA.backgroundColor = skyColor;
     }
 }

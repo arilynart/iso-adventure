@@ -16,55 +16,26 @@ public class EnemyController : MonoBehaviour
     public GameObject hurtBox;
     public LayerMask playerLayer;
 
-    Transform target;
+    //Transform target;
     public NavMeshAgent agent;
 
-        private void Start()
-        {
-            //Find and target player in instance
-            //target = PlayerManager.instance.player.transform;
-            //Get Nav Mesh
-            agent = GetComponent<NavMeshAgent>();
-            stats = GetComponent<EnemyStats>();
-            animator = GetComponent<Animator>();
-        }
-    /*
-        void FixedUpdate()
-        {
-            //Distance from enemy to player
-            float distance = Vector3.Distance(target.position, transform.position);
+    private void Awake()
+    {
+        //Find and target player in instance
+        //target = PlayerManager.instance.player.transform;
+        //Get Nav Mesh
+        /*agent = GetComponent<NavMeshAgent>();
+        agent.enabled = false;*/
+        stats = GetComponent<EnemyStats>();
+        animator = GetComponent<Animator>();
+        //gameObject.SetActive(false);
+    }
 
-            if (distance <= lookRadius)
-            {
-                agent.isStopped = false;
-                agent.SetDestination(target.position);
-                animator.SetFloat("Speed", distance);
-                //Debug.Log("Speed: " + distance);
-
-                if (distance <= agent.stoppingDistance)
-                {
-                    // Face Target
-                    FaceTarget();
-                    // Attack
-                    Attack();
-                }
-            }
-
-            if (distance > lookRadius)
-            {
-                agent.isStopped = true;
-                distance = 0;
-                animator.SetFloat("Speed", distance);
-                deactivateHurtbox();
-            }
-        }*/
-
-    /*    void FaceTarget()
-        {
-            Vector3 direction = (target.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        }*/
+    public void Spawn()
+    {
+        //agent.enabled = true;
+        gameObject.SetActive(true);
+    }
 
     public void Attack()
     {

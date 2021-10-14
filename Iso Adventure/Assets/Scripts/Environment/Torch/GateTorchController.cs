@@ -40,7 +40,7 @@ public class GateTorchController : MonoBehaviour, ITorchController
 
     public void FullTorch()
     {
-        Camera.main.GetComponent<Cutscene>().CutsceneStart(gate.transform, 3f);
+        CameraFollow.MAINCAMERA.GetComponent<Cutscene>().CutsceneStart(gate.transform, 3f);
         StartCoroutine(GateDelay());
     }
 

@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
         mana = GetComponent<PlayerMana>();
 
-        camRot = Camera.main.GetComponent<CameraRotate>();
+        camRot = CameraFollow.MAINCAMERA.GetComponent<CameraRotate>();
 
         if (DeveloperConsoleBehavior.PLAYER != null && DeveloperConsoleBehavior.PLAYER != this)
         {
@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
     public void SetCamera()
     {
         //forward is the way we're looking
-        forward = Camera.main.transform.forward;
+        forward = CameraFollow.MAINCAMERA.transform.forward;
         //Debug.Log("Forward direction set.");
         //but it has no y value
         forward.y = 0;
@@ -360,7 +360,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 GetLookPoint()
     {
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = CameraFollow.MAINCAMERA.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out hit, 100, mouseLayer))
         {

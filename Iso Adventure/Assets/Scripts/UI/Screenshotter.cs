@@ -8,8 +8,8 @@ public class Screenshotter : MonoBehaviour
     public void TakeScreenshot()
     {
         // Force a render to the target texture.
-        Camera.main.targetTexture = renderTexture;
-        Camera.main.Render();
+        CameraFollow.MAINCAMERA.targetTexture = renderTexture;
+        CameraFollow.MAINCAMERA.Render();
 
         // Texture.ReadPixels reads from whatever texture is active. Ours needs to
         // be active. But let's remember the old one so we can restore it later.
@@ -25,7 +25,7 @@ public class Screenshotter : MonoBehaviour
         File.WriteAllBytes("screenshot.png", raster.EncodeToPNG());
 
         // Restore previous settings.
-        Camera.main.targetTexture = null;
+        CameraFollow.MAINCAMERA.targetTexture = null;
         RenderTexture.active = oldRenderTexture;
 
         Debug.Log("Screenshot saved.");

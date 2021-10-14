@@ -40,19 +40,19 @@ public class CameraRotate : MonoBehaviour
             case 0:
                 follow.offset = rot0;
                 rotState = 0;
-                return 40;
+                return 45;
             case 1:
                 follow.offset = rot1;
                 rotState = 1;
-                return 130;
+                return 135;
             case 2:
                 follow.offset = rot2;
                 rotState = 2;
-                return 220;
+                return 225;
             case 3:
                 follow.offset = rot3;
                 rotState = 3;
-                return 310;
+                return 315;
         }
         return 40;
     }

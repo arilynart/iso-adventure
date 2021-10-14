@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Arilyn.DeveloperConsole.Behavior;
 
 public class ManaBar : MonoBehaviour
 {
@@ -13,15 +14,7 @@ public class ManaBar : MonoBehaviour
         PlayerMana.MAX_MANA = PlayerMana.MANA_UNLOCKED * manaPerContainer;
         PlayerMana.OnManaChanged += OnManaChanged;
 
-        int i = 0;
-        foreach (Image img in containers)
-        {
-            if (i < PlayerMana.MANA_UNLOCKED)
-                img.transform.parent.gameObject.SetActive(true);
-            else
-                img.transform.parent.gameObject.SetActive(false);
-            i++;
-        }
+        ResetBar();
     }
 
     private void OnDisable()
@@ -73,5 +66,23 @@ public class ManaBar : MonoBehaviour
         containers[manaC].fillAmount = manaFill / (float)manaPerContainer;
 
 
+    }
+
+    public void ResetBar()
+    {
+        PlayerMana.MAX_MANA = PlayerMana.MANA_UNLOCKED * manaPerContainer;
+        DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerMana>().mana = PlayerMana.MAX_MANA;
+        int i = 0;
+        foreach (Image img in containers)
+        {
+            if (i < PlayerMana.MANA_UNLOCKED)
+            {
+                img.transform.parent.gameObject.SetActive(true);
+                img.fillAmount = 1;
+            }
+            else
+                img.transform.parent.gameObject.SetActive(false);
+            i++;
+        }
     }
 }

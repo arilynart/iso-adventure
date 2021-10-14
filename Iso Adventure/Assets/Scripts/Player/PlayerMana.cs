@@ -20,6 +20,8 @@ public class PlayerMana : MonoBehaviour
     }
     public static int MANA_UNLOCKED = 2;
 
+    ManaBar manaBar;
+
     public delegate void ManaBarDelegate(int mana);
     public static event ManaBarDelegate OnManaChanged;
 
@@ -27,8 +29,10 @@ public class PlayerMana : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        manaBar = FindObjectOfType<ManaBar>();
 
         mana = MAX_MANA;
+        manaBar.ResetBar();
     }
 
     public void AddMana(int amount)
@@ -45,4 +49,6 @@ public class PlayerMana : MonoBehaviour
         mana = Mathf.Clamp(mana, 0, MAX_MANA);
         OnManaChanged(mana);
     }
+
+
 }

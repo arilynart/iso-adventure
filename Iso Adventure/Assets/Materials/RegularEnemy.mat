@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7029437758711253778
+--- !u!114 &-4688843689177297104
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: White
+  m_Name: RegularEnemy
   m_Shader: {fileID: -6465566751694194690, guid: c5739f3c0a900d748a273ce714191269,
     type: 3}
   m_ShaderKeywords: 
@@ -99,7 +99,7 @@ Material:
     - EdgeThickness: 0.5
     - Glossiness: 10
     - RimAmount: 0.7
-    - RimThreshold: 1
+    - RimThreshold: 0.1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -111,13 +111,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
     - _Metallic: 0
-    - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.02
+    - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -125,12 +124,11 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - AmbientColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
-    - Edge_Color: {r: 0.99215686, g: 0, b: 0.8231514, a: 0}
+    - Edge_Color: {r: 0.990566, g: 0, b: 0.7528814, a: 0}
     - MainColor: {r: 1, g: 1, b: 1, a: 0}
     - RimColor: {r: 1, g: 1, b: 1, a: 0}
     - SpecularColor: {r: 1, g: 1, b: 1, a: 0}

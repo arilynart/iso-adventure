@@ -2195,7 +2195,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 5
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -2357,7 +2357,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   dashSpeed: 12
   dashDuration: 0.7
-  dashTime: 0.5
+  dashTime: 0.3
   dodge: 0
   dashDelay: 0
   rb: {fileID: 0}

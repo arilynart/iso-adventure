@@ -9,12 +9,14 @@ public class ManaBar : MonoBehaviour
     public Image[] containers;
     public int manaPerContainer = 4;
 
+    private void Start()
+    {
+        ResetBar();
+    }
+
     void OnEnable()
     {
-        PlayerMana.MAX_MANA = PlayerMana.MANA_UNLOCKED * manaPerContainer;
         PlayerMana.OnManaChanged += OnManaChanged;
-
-        ResetBar();
     }
 
     private void OnDisable()

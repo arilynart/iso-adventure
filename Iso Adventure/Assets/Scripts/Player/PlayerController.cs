@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mousePoint;
 
     public Vector2 move;
+    Vector2 moveLast;
     Vector2 lastMousePos;
 
     Vector3 forward, right;
@@ -83,7 +84,6 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Move.performed += ctx => OnMovement(ctx.ReadValue<Vector2>());
         //Debug.Log("Movement cancellation set.");
         controls.Gameplay.Move.canceled += ctx => OnMovement(Vector2.zero);
-        controls.Gameplay.Move.canceled += ctx => SetCamera();
 
         playerDodge = GetComponent<PlayerDodge>();
         controls.Gameplay.Dodge.started += ctx => playerDodge.Dodge();
@@ -129,10 +129,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-
-        //set a mov variable every frame to the current controller input
-
-        Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
+        if (MoveDiff()) SetCamera();
+        moveLast = new Vector2(move.x, move.y);
+        Vector2 mov = moveLast * Time.deltaTime;
         CalculateDirection(mov);
         CheckGround();
         CalculateGroundAngle();
@@ -203,28 +202,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void SetCamera()
+    public void OnMovement(Vector2 value)
     {
-        //forward is the way we're looking
-        forward = CameraFollow.MAINCAMERA.transform.forward;
-        //Debug.Log("Forward direction set.");
-        //but it has no y value
-        forward.y = 0;
-        //Debug.Log("Forward y value set.");
-        //normalize the value to 1 or 0
-        forward = Vector3.Normalize(forward);
-        //Debug.Log("Forward normalized: " + forward);
-        //the right direction is 90 degrees from our forward
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-        //Debug.Log("Right direction set.");
-
-        angleOffset = camRot.rotation;
-    }
-
-    public void OnMovement(/*InputAction.CallbackContext value*/ Vector2 value)
-    {
-        Vector2 inputMovement = value/*.ReadValue<Vector2>()*/;
-        move = inputMovement;
+        move = value;
     }
 
     void CalculateDirection(Vector2 m)
@@ -372,6 +352,32 @@ public class PlayerController : MonoBehaviour
     public bool MouseActivityCheck()
     {
         return !idle;
+    }
+
+    public void SetCamera()
+    {
+        //forward is the way we're looking
+        forward = CameraFollow.MAINCAMERA.transform.forward;
+        //Debug.Log("Forward direction set.");
+        //but it has no y value
+        forward.y = 0;
+        //Debug.Log("Forward y value set.");
+        //normalize the value to 1 or 0
+        forward = Vector3.Normalize(forward);
+        //Debug.Log("Forward normalized: " + forward);
+        //the right direction is 90 degrees from our forward
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        //Debug.Log("Right direction set.");
+
+        angleOffset = camRot.rotation;
+    }
+
+    public bool MoveDiff()
+    {
+        if (move.x < moveLast.x - 0.05f || move.x > moveLast.x + 0.05f ||
+            move.y < moveLast.y - 0.05f || move.y > moveLast.y + 0.05f)
+            return true;
+        return false;
     }
 
     public void ClimbLadder(Vector3 pos, Ladder lad)

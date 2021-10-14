@@ -9,11 +9,14 @@ public class HealthBar : MonoBehaviour
     public Image[] life;
     public int healthPerLife = 3;
 
+    private void Start()
+    {
+        ResetBar();
+    }
+
     void OnEnable()
     {
         PlayerHealth.OnHealthChanged += OnHealthChanged;
-
-        ResetBar();
     }
 
     private void OnDisable()

@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 head;
     public Vector3 point;
+    public Vector3 headPoint;
 
     Quaternion targetRotation;
 
@@ -64,6 +65,7 @@ public class PlayerController : MonoBehaviour
     float forwardGroundAngle;
 
     public LayerMask ground;
+    public LayerMask indoors;
     public LayerMask mouseLayer;
 
     RaycastHit hitInfo;
@@ -127,6 +129,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
+        //set a mov variable every frame to the current controller input
+
+        Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
+        CalculateDirection(mov);
+        CheckGround();
+        CalculateGroundAngle();
+        CalculateForward();
+        DrawDebugLines();
+
+        if (!grounded)
+        {
+            animator.SetBool("Falling", true);
+        }
+        else
+        {
+            animator.SetBool("Falling", false);
+        }
+
         if (!GodCommand.GODMODE) return;
 
         invuln = true;
@@ -138,9 +159,7 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        //set a mov variable every frame to the current controller input
-        Vector2 mov = new Vector2(move.x, move.y) * Time.deltaTime;
+    {        
         //print("Move: " + move);
         //Debug.Log("Idle: " + idleCount);
         if (lastMousePos == Mouse.current.position.ReadValue())
@@ -161,20 +180,6 @@ public class PlayerController : MonoBehaviour
         }
         lastMousePos = Mouse.current.position.ReadValue();
 
-        CalculateDirection(mov);
-        CalculateGroundAngle();
-        CheckGround();
-        CalculateForward();
-        DrawDebugLines();
-
-        if (collision == false)
-        {
-            animator.SetBool("Falling", true);
-        }
-        else
-        {
-            animator.SetBool("Falling", false);
-        }
         if (MouseActivityCheck())
         {
             MouseRotate();
@@ -243,13 +248,15 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Calculating Point...");
 
         head = Vector3.Normalize(rightMovement + upMovement);
+        
         //Debug.Log("Head calculated: " + head);
         if (!grounded)
         {
             point = transform.forward;
+            headPoint = transform.forward;
             return;
         }
-
+        headPoint = Vector3.Cross(Quaternion.Euler(new Vector3(0, 90, 0)) * head, hitInfo.normal);
         point = Vector3.Cross(transform.right, hitInfo.normal);
 
         //Debug.Log("Point calculated: " + point);
@@ -269,18 +276,6 @@ public class PlayerController : MonoBehaviour
         groundAngle = Vector3.Angle(hitInfo.normal, transform.forward);
         forwardGroundAngle = Vector3.Angle(hitInfoF.normal, transform.forward);
 
-        if (Physics.Raycast(transform.position + transform.forward + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfoF, height + heightPadding, ground))
-        {
-            if (groundAngle != 90f || forwardGroundAngle != 90f)
-            {
-                playerDodge.velocity = false;
-            }
-            else
-            {
-                playerDodge.velocity = true;
-            }
-        }
-
         //Debug.Log("Ground Angle calculated: " + groundAngle);
         //Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
     }
@@ -289,16 +284,18 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Checking  if grounded...");
         //are we on the ground? raycast of length "height" to determine if so
-        if (Physics.Raycast(transform.position + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfo, height + heightPadding, ground) || groundAngle > 90)
+        if (Physics.Raycast(transform.position + new Vector3(0, height, 0), -Vector3.up, out hitInfo, height + heightPadding, ground))
         {
-
-/*            if (Vector3.Distance(transform.position, hitInfo.point) < height)
-            {
-                Debug.Log("Cube fell below floor, correcting...");
-                transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * height, 5 * Time.deltaTime);
-            }*/
             grounded = true;
 
+        }
+        else if (Physics.Raycast(transform.position + new Vector3(0, height, 0), -Vector3.up, out hitInfo, height + heightPadding, indoors))
+        {
+            grounded = true;
+        }
+        else if (groundAngle != 90 && groundAngle > 0)
+        {
+            grounded = true;
         }
         else
         {
@@ -328,7 +325,7 @@ public class PlayerController : MonoBehaviour
 
         if (onLadder && !exitLadder)
         {
-            point = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
+            headPoint = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
 
         }
         else
@@ -337,7 +334,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
-        transform.position += point * moveSpeed * Time.deltaTime;
+        transform.position += headPoint * moveSpeed * Time.deltaTime;
         //Debug.Log("Moving: " + transform.position);
         moving = true;
         //Debug.Log("Moving: " + moving);

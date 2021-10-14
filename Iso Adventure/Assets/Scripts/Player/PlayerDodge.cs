@@ -13,14 +13,12 @@ public class PlayerDodge : MonoBehaviour
     public Animator animator;
 
     public float dashSpeed = 8f;
-    public float dashDuration = 0.8f;
+    public float dashDuration = 0.7f;
     public float dashTime = 0.5f;
 
     public bool dodge;
     public bool dashDelay;
-    public bool velocity;
 
-    RaycastHit hitInfo;
     public Rigidbody rb;
 
     private void Start()
@@ -35,18 +33,6 @@ public class PlayerDodge : MonoBehaviour
         Debug.Log("Dodge set to false.");
     }
 
-    private void FixedUpdate()
-    {
-        DodgeMove();
-    }
-
-    void DodgeMove()
-    {
-
-
-
-    }
-
     public void Dodge()
     {
         if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
@@ -57,15 +43,15 @@ public class PlayerDodge : MonoBehaviour
         {
             controller.moving = false;
             if (controller.groundAngle != 90)
-                GetComponent<Rigidbody>().AddForce(0, -controller.slopeForce, 0);
+                GetComponent<Rigidbody>().AddForce(0, -controller.slopeForce * 50, 0);
 
             Debug.Log("Dodge available.");
             if (controller.move != Vector2.zero)
             {
                 Debug.Log("Moving, snapping direction.");
                 //snap player rotation to inputted direction
-                controller.point = controller.head;
-                transform.forward = controller.head;
+                controller.point = controller.headPoint;
+                transform.forward = controller.headPoint;
             }
 
             if (controller.groundAngle > controller.maxGroundAngle) return;
@@ -93,24 +79,12 @@ public class PlayerDodge : MonoBehaviour
             //for the first 0.3s of the dodge
             if (time <= 0.3f)
             {
-                if (velocity)
-                    {
+                rb.velocity = controller.point * dashSpeed;
+                Debug.Log(" O1Velocity: " + transform.position);
 
-                        rb.velocity = controller.point * dashSpeed;
-                        Debug.Log(" O1Velocity: " + transform.position);
-
-                    }
-                    //move player during dodge
-                    else
-                    {
-                        transform.position += controller.point * dashSpeed * Time.deltaTime;
-                        Debug.Log(" O1Position: " + transform.position);
-                    }
-                    //we are dodging
-                    Debug.Log("Dodge executing: " + time);
-                    //movement
-                    //dodge = true;
-
+                //we are dodging
+                Debug.Log("Dodge executing: " + time);
+                //movement
             }
             else
             {
@@ -118,8 +92,6 @@ public class PlayerDodge : MonoBehaviour
                 Physics.IgnoreLayerCollision(3, 11, false);
                 CustomEvent.Trigger(gameObject, "ReturnDodge");
                 //afterwards, we aren't dodging.
-                Debug.Log("Delay executing: " + time);
-                //dodge = false;
                 dashDelay = true;
             }
             if (time < 0.39 && time > 0.29)
@@ -132,7 +104,6 @@ public class PlayerDodge : MonoBehaviour
 
             yield return null;
         }
-        //finish movement and remove dodge status.
         dashDelay = false;
     }
 }

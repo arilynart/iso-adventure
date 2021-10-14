@@ -2260,6 +2260,7 @@ MonoBehaviour:
   move: {x: 0, y: 0}
   head: {x: 0, y: 0, z: 0}
   point: {x: 0, y: 0, z: 0}
+  headPoint: {x: 0, y: 0, z: 0}
   animator: {fileID: 5812596624847002532}
   debug: 1
   collision: 0
@@ -2273,14 +2274,17 @@ MonoBehaviour:
   idleTimer: 180
   moveSpeed: 3.5
   turnSpeed: 10
-  height: 10
-  heightPadding: 1
+  height: 0.1
+  heightPadding: 0.05
   slopeForce: 10
   maxGroundAngle: 120
   groundAngle: 0
   ground:
     serializedVersion: 2
     m_Bits: 64
+  indoors:
+    serializedVersion: 2
+    m_Bits: 1024
   mouseLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -2352,11 +2356,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   dashSpeed: 12
-  dashDuration: 0.8
+  dashDuration: 0.7
   dashTime: 0.5
   dodge: 0
   dashDelay: 0
-  velocity: 0
   rb: {fileID: 0}
 --- !u!114 &686479989491633995
 MonoBehaviour:

@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;
     public float lerpTime = 0.1f;
 
-    private void Start()
+    private void Awake()
     {
         MAINCAMERA = Camera.main;
     }

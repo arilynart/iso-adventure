@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 head;
     public Vector3 point;
+    public Vector3 headPoint;
 
     Quaternion targetRotation;
 
@@ -243,13 +244,15 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Calculating Point...");
 
         head = Vector3.Normalize(rightMovement + upMovement);
+        
         //Debug.Log("Head calculated: " + head);
         if (!grounded)
         {
             point = transform.forward;
+            headPoint = transform.forward;
             return;
         }
-
+        headPoint = Vector3.Cross(Quaternion.Euler(new Vector3(0, 90, 0)) * head, hitInfo.normal);
         point = Vector3.Cross(transform.right, hitInfo.normal);
 
         //Debug.Log("Point calculated: " + point);
@@ -268,18 +271,6 @@ public class PlayerController : MonoBehaviour
 
         groundAngle = Vector3.Angle(hitInfo.normal, transform.forward);
         forwardGroundAngle = Vector3.Angle(hitInfoF.normal, transform.forward);
-
-        if (Physics.Raycast(transform.position + transform.forward + new Vector3(0, height + heightPadding, 0), -Vector3.up, out hitInfoF, height + heightPadding, ground))
-        {
-            if (groundAngle != 90f || forwardGroundAngle != 90f)
-            {
-                playerDodge.velocity = false;
-            }
-            else
-            {
-                playerDodge.velocity = true;
-            }
-        }
 
         //Debug.Log("Ground Angle calculated: " + groundAngle);
         //Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
@@ -328,7 +319,7 @@ public class PlayerController : MonoBehaviour
 
         if (onLadder && !exitLadder)
         {
-            point = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
+            headPoint = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
 
         }
         else
@@ -337,7 +328,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
-        transform.position += point * moveSpeed * Time.deltaTime;
+        transform.position += headPoint * moveSpeed * Time.deltaTime;
         //Debug.Log("Moving: " + transform.position);
         moving = true;
         //Debug.Log("Moving: " + moving);

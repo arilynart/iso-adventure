@@ -72,7 +72,7 @@ public class ZombieCharacterControl : MonoBehaviour
         float v = Input.GetAxis("Vertical");
         float h = Input.GetAxis("Horizontal");
 
-        Transform camera = Camera.main.transform;
+        Transform camera = CameraFollow.MAINCAMERA.transform;
 
         m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
         m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);

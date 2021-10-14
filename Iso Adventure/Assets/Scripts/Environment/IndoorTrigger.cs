@@ -5,24 +5,28 @@ using UnityEngine;
 public class IndoorTrigger : MonoBehaviour
 {
     public static bool INDOORS = false;
+    public bool cameraLock;
 
     int normalMask;
     Color skyColor;
 
     private void Start()
     {
-        normalMask = Camera.main.cullingMask;
-        skyColor = Camera.main.backgroundColor;
+        normalMask = CameraFollow.MAINCAMERA.cullingMask;
+        skyColor = CameraFollow.MAINCAMERA.backgroundColor;
     }
     private void OnTriggerStay(Collider other)
     {
         if (!other.GetComponent<PlayerController>()) return;
 
         if (!FadeToBlack.FADEAWAY) {
-            CameraFollow.LOCKTARGET = transform;
-            CameraFollow.LOCK = true;
-            Camera.main.cullingMask = (1 << LayerMask.NameToLayer("Indoors") | 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Indoor Enemy") | 1 << LayerMask.NameToLayer("Indoor Ragdolls"));
-            Camera.main.backgroundColor = Color.black;
+            if (cameraLock)
+            {
+                CameraFollow.LOCKTARGET = transform;
+                CameraFollow.LOCK = true;
+            }
+            CameraFollow.MAINCAMERA.cullingMask = (1 << LayerMask.NameToLayer("Indoors") | 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Indoor Enemy") | 1 << LayerMask.NameToLayer("Indoor Ragdolls"));
+            CameraFollow.MAINCAMERA.backgroundColor = Color.black;
             INDOORS = true;
         }
     }
@@ -50,9 +54,11 @@ public class IndoorTrigger : MonoBehaviour
 
         if (!INDOORS)
         {
-            CameraFollow.LOCK = false;
-            Camera.main.cullingMask = normalMask;
-            Camera.main.backgroundColor = skyColor;
+            if (cameraLock)
+                CameraFollow.LOCK = false;
+
+            CameraFollow.MAINCAMERA.cullingMask = normalMask;
+            CameraFollow.MAINCAMERA.backgroundColor = skyColor;
         }
 
     }

@@ -13,6 +13,8 @@ public class FadeToBlack : MonoBehaviour
     public static FadeToBlack FADER;
     static bool FADING;
     public static bool FADEAWAY;
+
+    public float initialFade = 2;
       
     private void Awake()
     {
@@ -73,7 +75,7 @@ public class FadeToBlack : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        FADEIN(1, 3);
+        FADEIN(1, initialFade);
     }
 
     private void OnEnable()

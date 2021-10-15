@@ -105,6 +105,7 @@ public class PlayerCombat : MonoBehaviour
 
         //Make fireball and assign trajectory
         GameObject ball = Instantiate(fireball, transform.position + new Vector3(0,0.5f,0), transform.rotation);
+        ball.transform.forward = transform.forward;
         ball.GetComponent<ShootFireball>().trajectory = trajectory;
         StartCoroutine(DestroyFireball(ball));
 

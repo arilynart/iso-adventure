@@ -26,8 +26,13 @@ public class ShootFireball : MonoBehaviour
             else if (hitInfo.collider.GetComponent<BlockPush>())
             {
                 Debug.Log("Direction: " + trajectory);
+                BlockPush blockpush = hitInfo.collider.GetComponent<BlockPush>();
+                Debug.Log("Raycast Hit");
 
-                hitInfo.collider.GetComponent<BlockPush>().Slide(DeveloperConsoleBehavior.PLAYER.transform.forward);
+                Vector3 localPoint = hitInfo.transform.InverseTransformPoint(hitInfo.point);
+                Vector3 localDir = localPoint.normalized;
+
+                blockpush.Slide(localDir);
             }
             else if (hitInfo.collider.GetComponent<BlockReset>())
             {
@@ -54,12 +59,6 @@ public class ShootFireball : MonoBehaviour
             //Detach particle emitter to finish its lifetime
 
         }
-/*        else if (!other.GetComponent<EnemyStats>() && other.tag != "Player")
-        {
-            hit = true;
-
-            return;
-        }*/
         else if (other.tag == "Player")
         {
             return;

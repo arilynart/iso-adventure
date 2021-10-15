@@ -157,7 +157,7 @@ Material:
     - MainColor: {r: 1, g: 1, b: 1, a: 0}
     - RimColor: {r: 1, g: 1, b: 1, a: 0}
     - SpecularColor: {r: 1, g: 1, b: 1, a: 0}
-    - _BaseColor: {r: 0.33535066, g: 0.37559924, b: 0.4528302, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

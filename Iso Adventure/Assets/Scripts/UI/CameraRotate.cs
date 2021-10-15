@@ -11,15 +11,15 @@ public class CameraRotate : MonoBehaviour
 
     public float rotation;
 
-    Vector3 rot0 = new Vector3(-5, 6, -6);
-    Vector3 rot1 = new Vector3(-5, 5, 4);
-    Vector3 rot2 = new Vector3(4, 5, 5);
-    Vector3 rot3 = new Vector3(-5, -2.5f, 4);
+    Vector3 rot0 = new Vector3(-6, 5.7f, -6);
+    Vector3 rot1 = new Vector3(-4.6f, 4.5f, 4.3f);
+    Vector3 rot2 = new Vector3(5, 5, 5);
+    Vector3 rot3 = new Vector3(-4, -2.4f, 4);
 
     private void Start()
     {
         follow = GetComponent<CameraFollow>();
-        rotation = 40;
+        rotation = 45;
         rotState = 0;
         follow.offset = rot0;
     }

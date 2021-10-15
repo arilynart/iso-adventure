@@ -31,12 +31,7 @@ public class SlowPost : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        
-    }
-
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!other.GetComponent<PlayerController>()) return;
 

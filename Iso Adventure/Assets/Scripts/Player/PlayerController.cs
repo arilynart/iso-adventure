@@ -308,10 +308,6 @@ public class PlayerController : MonoBehaviour
             headPoint = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
 
         }
-        else
-        {
-
-        }
 
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += headPoint * moveSpeed * Time.deltaTime;

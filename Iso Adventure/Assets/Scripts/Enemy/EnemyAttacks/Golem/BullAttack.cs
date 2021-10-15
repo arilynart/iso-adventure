@@ -16,6 +16,8 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
 
     EnemyStats stats;
     public EnemyDissolve dissolve;
+    NavMeshAgent agent;
+    CapsuleCollider capCollider;
 
     string attackName;
     string animationName;
@@ -40,6 +42,8 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     {
         stats = GetComponent<EnemyStats>();
         dissolve = GetComponentInChildren<EnemyDissolve>();
+        agent = GetComponent<NavMeshAgent>();
+        capCollider = GetComponent<CapsuleCollider>();
     }
 
 
@@ -66,6 +70,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         else if (stats.activeAttack == stats.attacks[1])
         {
             StartCoroutine(dissolve.ActivateDissolve(2, 0, 1.5f, 0));
+            capCollider.enabled = false;
             ActivateSlows();
             attackCounter = 0;
         }
@@ -82,6 +87,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         }
         else if (stats.activeAttack == stats.lockedAttacks[2])
         {
+            capCollider.enabled = true;
             StartCoroutine(dissolve.ActivateDissolve(0, 2, 0.2f, 0));
         }
 
@@ -130,9 +136,10 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
     public IEnumerator Jumping()
     {
         jumpTurn = true;
-        float startHeight = root.transform.position.y;
         float time = 0;
-        GetComponent<CapsuleCollider>().enabled = false;
+        agent.speed = 20;
+        agent.acceleration = 20;
+        capCollider.enabled = false;
         while (time < 0.9167f)
         {
             
@@ -140,15 +147,14 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
             yield return null;
         }
         jumpTurn = false;
-        GetComponent<CapsuleCollider>().enabled = true;
-        GetComponent<NavMeshAgent>().SetDestination(transform.position);
-        GetComponent<NavMeshAgent>().speed = 0;
-        GetComponent<NavMeshAgent>().acceleration = 0;
+        capCollider.enabled = true;
+        agent.SetDestination(transform.position);
+        agent.speed = 0;
+        agent.acceleration = 0;
         while (time > 0.9167f && time < stats.animator.GetCurrentAnimatorStateInfo(0).length)
         {
             time += Time.deltaTime;
             yield return null;
         }
-        GetComponent<CapsuleCollider>().enabled = true;
     }
 }

@@ -148,11 +148,11 @@ Material:
     - MainColor: {r: 1, g: 1, b: 1, a: 0}
     - RimColor: {r: 1, g: 1, b: 1, a: 0}
     - SpecularColor: {r: 1, g: 1, b: 1, a: 0}
-    - _BaseColor: {r: 0.28627452, g: 0.9137255, b: 0.7137255, a: 1}
+    - _BaseColor: {r: 0.2627451, g: 0.8627451, b: 0.7019608, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 3.6886053, b: 0.39167795, a: 1}
+    - _EmissionColor: {r: 0.27981344, g: 0.89073944, b: 0.7321785, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

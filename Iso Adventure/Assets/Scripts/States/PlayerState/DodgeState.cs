@@ -13,16 +13,12 @@ namespace Arilyn.State.PlayerState
             if (machine.controller.groundAngle != 90)
                 machine.rb.AddForce(0, -machine.controller.slopeForce * 50, 0);
 
-            Debug.Log("Dodge available.");
             if (machine.controller.move != Vector2.zero)
             {
-                Debug.Log("Moving, snapping direction.");
                 //snap player rotation to inputted direction
                 machine.controller.point = machine.controller.headPoint;
                 machine.transform.forward = machine.controller.headPoint;
             }
-
-            if (machine.controller.groundAngle > machine.controller.maxGroundAngle) yield break;
             //Start movement
             machine.controller.animator.SetTrigger("DodgeTrigger");
             machine.StartCoroutine(DodgeMovement(machine.dashDuration));
@@ -57,7 +53,7 @@ namespace Arilyn.State.PlayerState
             machine.dashDelay = true;
             machine.ChangeState(new IdleState(machine));
 
-            yield return new WaitForSeconds(machine.dashDuration - machine.dashTime);
+            yield return new WaitForSeconds(duration - machine.dashTime);
 
             machine.dashDelay = false;
         }

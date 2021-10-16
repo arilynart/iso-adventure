@@ -29,7 +29,6 @@ public class AttackCollision : MonoBehaviour
         {
             Debug.Log("Hit Block");
             if (Physics.Raycast(transform.parent.position + raycastOffset, transform.parent.forward + raycastOffset, out hit, 5f, DeveloperConsoleBehavior.PLAYER.ground)) {
-                Debug.Log("Raycast Hit");
 
                 Vector3 localPoint = hit.transform.InverseTransformPoint(hit.point);
                 Vector3 localDir = localPoint.normalized;

@@ -71,7 +71,6 @@ namespace Arilyn.State.PlayerState
 
         public override void Interact()
         {
-            machine.controller.animator.SetBool("Speed", false);
             machine.controller.interactTrigger = true;
         }
     }

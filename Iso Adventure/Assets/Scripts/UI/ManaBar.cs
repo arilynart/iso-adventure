@@ -73,7 +73,7 @@ public class ManaBar : MonoBehaviour
     public void ResetBar()
     {
         PlayerMana.MAX_MANA = PlayerMana.MANA_UNLOCKED * manaPerContainer;
-        DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerMana>().mana = PlayerMana.MAX_MANA;
+        DeveloperConsoleBehavior.PLAYER.mana.mana = PlayerMana.MAX_MANA;
         int i = 0;
         foreach (Image img in containers)
         {

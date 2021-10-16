@@ -23,22 +23,21 @@ namespace Arilyn.State.PlayerState
                 case 0:
                     machine.controller.animator.SetTrigger("BasicAttackTrigger");
                     machine.StartCoroutine(PlayAnimation(0.13f, 0.32f));
-                    machine.noOfPresses = 1;
                     Debug.Log("You attack once!");
                     break;
                 case 1:
                     machine.controller.animator.SetTrigger("BasicAttackTrigger2");
                     machine.StartCoroutine(PlayAnimation(0.12f, 0.25f));
-                    machine.noOfPresses = 2;
                     Debug.Log("You attack twice!");
                     break;
                 case 2:
                     machine.controller.animator.SetTrigger("BasicAttackTrigger3");
                     machine.StartCoroutine(PlayAnimation(0.12f, 0.25f));
-                    machine.noOfPresses = 3;
                     Debug.Log("You attack thrice!");
                     break;
             }
+
+            machine.noOfPresses++;
             yield break;
         }
 

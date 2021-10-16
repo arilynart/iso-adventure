@@ -76,25 +76,26 @@ public class PlayerController : MonoBehaviour
         
         controls = new PlayerControls();
         machine = GetComponent<PlayerStateMachine>();
+        mana = GetComponent<PlayerMana>();
+        blink = GetComponent<PlayerBlink>();
+        health = GetComponent<PlayerHealth>();
         //Debug.Log("Controls set");
 
         //Debug.Log("Movement performance set.");
         controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         //Debug.Log("Movement cancellation set.");
         controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
+        controls.Gameplay.Move.canceled += ctx => moving = false;
 
         controls.Gameplay.Dodge.started += ctx => machine.Dodge();
         //Debug.Log("Dodge performance set.");
 
         controls.Gameplay.Attack.started += ctx => machine.BasicAttack();
         controls.Gameplay.Shoot.started += ctx => machine.Shoot();
-
-        health = GetComponent<PlayerHealth>();
+        
         controls.Gameplay.Heal.started += ctx => machine.Heal();
-
-        blink = GetComponent<PlayerBlink>();
+        
         controls.Gameplay.Blink.started += ctx => machine.Blink();
-
 
         controls.Gameplay.Interact.performed += ctx => interacting = true;
         controls.Gameplay.Interact.canceled += ctx => interacting = false;
@@ -102,10 +103,6 @@ public class PlayerController : MonoBehaviour
         controls.Gameplay.Interact.canceled += ctx => interactTrigger = false;
 
         controls.Gameplay.Pause.started += ctx => PauseMenu.PAUSE();
-
-        mana = GetComponent<PlayerMana>();
-
-        camRot = CameraFollow.MAINCAMERA.GetComponent<CameraRotate>();
 
         if (DeveloperConsoleBehavior.PLAYER != null && DeveloperConsoleBehavior.PLAYER != this)
         {
@@ -118,7 +115,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        idleCount = 301;
+        idleCount = 181;
+
+        camRot = CameraFollow.MAINCAMERA.GetComponent<CameraRotate>();
 
         SetCamera();
     }
@@ -271,7 +270,7 @@ public class PlayerController : MonoBehaviour
             headPoint = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
 
         }
-
+        moving = true;
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += headPoint * moveSpeed * Time.deltaTime;
         //Debug.Log("Moving: " + transform.position);

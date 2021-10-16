@@ -20,7 +20,7 @@ namespace Arilyn.DeveloperConsole.Commands
             }
             if (!GODMODE)
             {
-                BASEATTACK = DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().attackDamage;
+                BASEATTACK = DeveloperConsoleBehavior.PLAYER.machine.attackDamage;
             }
 
             GODMODE = !GODMODE;
@@ -29,7 +29,7 @@ namespace Arilyn.DeveloperConsole.Commands
             if (!GODMODE)
             {
                 DeveloperConsoleBehavior.PLAYER.invuln = false;
-                DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().attackDamage = BASEATTACK;
+                DeveloperConsoleBehavior.PLAYER.machine.attackDamage = BASEATTACK;
             }
 
             return true;

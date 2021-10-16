@@ -18,8 +18,8 @@ namespace Arilyn.DeveloperConsole.Commands
 
             if (args[0] == "attack")
             {
-                PlayerUnlocks.ATTACK = !PlayerUnlocks.ATTACK;
-                Debug.Log("Attack: " + PlayerUnlocks.ATTACK);
+                PlayerUnlocks.BASIC_ATTACK = !PlayerUnlocks.BASIC_ATTACK;
+                Debug.Log("Attack: " + PlayerUnlocks.BASIC_ATTACK);
             }
             else if (args[0] == "blink")
             {
@@ -33,7 +33,7 @@ namespace Arilyn.DeveloperConsole.Commands
             }
             else if (args[0] == "all")
             {
-                PlayerUnlocks.ATTACK = !PlayerUnlocks.ATTACK;
+                PlayerUnlocks.BASIC_ATTACK = !PlayerUnlocks.BASIC_ATTACK;
                 PlayerUnlocks.BLINK = !PlayerUnlocks.BLINK;
                 PlayerUnlocks.FIREBALL = !PlayerUnlocks.FIREBALL;
             }

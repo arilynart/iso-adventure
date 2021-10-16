@@ -16,7 +16,7 @@ public class CameraRotate : MonoBehaviour
     Vector3 rot2 = new Vector3(5, 5, 5);
     Vector3 rot3 = new Vector3(-4, -2.4f, 4);
 
-    private void Start()
+    private void Awake()
     {
         follow = GetComponent<CameraFollow>();
         rotation = 45;

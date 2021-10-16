@@ -73,7 +73,7 @@ public class HealthBar : MonoBehaviour
     public void ResetBar()
     {
         PlayerHealth.MAX_HP = PlayerHealth.LIFE_UNLOCKED * healthPerLife;
-        DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerHealth>().hp = PlayerHealth.MAX_HP;
+        DeveloperConsoleBehavior.PLAYER.health.hp = PlayerHealth.MAX_HP;
         int i = 0;
         foreach (Image img in life)
         {

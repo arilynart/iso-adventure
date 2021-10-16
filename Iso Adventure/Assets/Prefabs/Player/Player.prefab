@@ -124,7 +124,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 0.8612397, a: 1}
+  m_Color: {r: 0.2627451, g: 0.8627451, b: 0.7019608, a: 1}
   m_Intensity: 0.13
   m_Range: 4.18
   m_SpotAngle: 30
@@ -1041,8 +1041,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7997100062624983592}
   - component: {fileID: 2593256547311671686}
-  - component: {fileID: 3346492253904561034}
   - component: {fileID: 261469422513284754}
+  - component: {fileID: 824917597}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1179,19 +1179,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000044741668, y: 0.001588644, z: -0.0005949144}
     m_Extent: {x: 0.013724065, y: 0.011287626, z: 0.006642077}
   m_DirtyAABB: 0
---- !u!135 &3346492253904561034
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2180927209091037638}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.66
-  m_Center: {x: 0.00000008940697, y: 0.52, z: 0.7022599}
 --- !u!114 &261469422513284754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1204,6 +1191,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f9726f53b79d5498c725817ca77301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &824917597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2180927209091037638}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.32, y: 1.32, z: 1.32}
+  m_Center: {x: 0, y: 0.52, z: 0.8}
 --- !u!1 &2211718538869187464
 GameObject:
   m_ObjectHideFlags: 0
@@ -2293,15 +2293,12 @@ GameObject:
   - component: {fileID: 5812596624847002532}
   - component: {fileID: 9123792282378123372}
   - component: {fileID: 5477901638835078313}
-  - component: {fileID: 1818880091}
-  - component: {fileID: 1818880092}
   - component: {fileID: 5477901638835078308}
   - component: {fileID: 5477901638835078309}
   - component: {fileID: 5477901638835078306}
   - component: {fileID: 761596009300994114}
-  - component: {fileID: 5477901637876126268}
-  - component: {fileID: 231031613}
   - component: {fileID: 686479989491633995}
+  - component: {fileID: 1845587139}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2379,37 +2376,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &1818880091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5812596624839583768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1999370065, guid: dcd2196c4e9166f499793f2007fcda35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
-    _objectReferences:
-    - {fileID: 11400000, guid: fd0f54009bfcdf74da136694910b814f, type: 2}
---- !u!114 &1818880092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5812596624839583768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1465209106, guid: c8d0ad23af520fe46aabe2b1fecf6462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"animLock","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
 --- !u!114 &5477901638835078308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2434,11 +2400,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e19f0198ee55784fa208ba0c181363b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machine: {fileID: 0}
+  health: {fileID: 0}
+  blink: {fileID: 0}
+  mana: {fileID: 0}
   mousePoint: {fileID: 1669886859}
-  move: {x: 0, y: 0}
   head: {x: 0, y: 0, z: 0}
   point: {x: 0, y: 0, z: 0}
   headPoint: {x: 0, y: 0, z: 0}
+  move: {x: 0, y: 0}
   animator: {fileID: 5812596624847002532}
   debug: 1
   collision: 0
@@ -2495,50 +2465,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mana: 0
---- !u!114 &5477901637876126268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5812596624839583768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 918350b8b2487b74a8fd1540e44eda3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireball: {fileID: 9072670680698455181, guid: a2f999882d4b99a45835736a8b3a86d1,
-    type: 3}
-  sword: {fileID: 1853346176}
-  animator: {fileID: 5812596624847002532}
-  hurtBox: {fileID: 2180927209091037638}
-  noOfPresses: 0
-  maxComboDelay: 0.75
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  attackDamage: 1
-  manaDamage: 2
-  fireballCost: 4
---- !u!114 &231031613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5812596624839583768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6522d654c3f09144bac335c6551cce07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  dashSpeed: 12
-  dashDuration: 0.7
-  dashTime: 0.3
-  dodge: 0
-  dashDelay: 0
-  rb: {fileID: 0}
 --- !u!114 &686479989491633995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2553,6 +2479,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blinkCollider: {fileID: 1489580882}
   mouseBlink: 0
+--- !u!114 &1845587139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5812596624839583768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42093accf48926d43880093b583d9080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  rb: {fileID: 0}
+  dashSpeed: 12
+  dashDuration: 0.7
+  dashTime: 0.3
+  dashDelay: 0
+  fireball: {fileID: 9072670680698455181, guid: a2f999882d4b99a45835736a8b3a86d1,
+    type: 3}
+  sword: {fileID: 1853346176}
+  attackCollider: {fileID: 824917597}
+  maxComboDelay: 1.25
+  noOfPresses: 0
+  attackDamage: 1
+  manaDamage: 2
+  fireballCost: 4
 --- !u!1 &5869622038841096456
 GameObject:
   m_ObjectHideFlags: 0

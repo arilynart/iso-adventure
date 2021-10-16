@@ -18,7 +18,7 @@ namespace Arilyn.AbilityUnlock
             switch (ability)
             {
                 case Ability.Attack:
-                    PlayerUnlocks.ATTACK = true;
+                    PlayerUnlocks.BASIC_ATTACK = true;
                     break;
                 case Ability.Blink:
                     PlayerUnlocks.BLINK = true;

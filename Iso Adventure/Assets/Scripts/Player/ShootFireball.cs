@@ -55,7 +55,7 @@ public class ShootFireball : MonoBehaviour
             EnemyStats stats = other.GetComponent<EnemyStats>();
 
             //calling damage method on collided enemy
-            stats.TakeDamage(DeveloperConsoleBehavior.PLAYER.GetComponent<PlayerCombat>().manaDamage);
+            stats.TakeDamage(DeveloperConsoleBehavior.PLAYER.machine.manaDamage);
             //Detach particle emitter to finish its lifetime
 
         }

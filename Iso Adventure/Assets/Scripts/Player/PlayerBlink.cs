@@ -20,7 +20,6 @@ public class PlayerBlink : MonoBehaviour
 
     public void Blink()
     {
-        if (!PlayerUnlocks.BLINK) return;
         Debug.Log("Starting Blink");
         if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
 
@@ -32,7 +31,6 @@ public class PlayerBlink : MonoBehaviour
 
         //transform.position += targetPosition;
         StartCoroutine(BlinkDisable());
-
     }
 
     IEnumerator BlinkDisable()

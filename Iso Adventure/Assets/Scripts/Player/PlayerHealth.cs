@@ -9,7 +9,6 @@ using Bolt;
 public class PlayerHealth : MonoBehaviour
 {
     PlayerController controller;
-    PlayerCombat combat;
     PlayerMana mana;
     HealthBar healthBar;
 
@@ -38,7 +37,6 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         controller = GetComponent<PlayerController>();
-        combat = GetComponent<PlayerCombat>();
         mana = GetComponent<PlayerMana>();
         healthBar = FindObjectOfType<HealthBar>();
 
@@ -56,16 +54,6 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Hp adjusted. Current HP: " + hp);
     }
 
-    public void HealButton()
-    {
-        if (mana.mana < healCost) return;
-
-        HealDamage(healValue);
-        mana.AddMana(-healCost);
-        CustomEvent.Trigger(gameObject, "HealStart");
-        StartCoroutine(combat.PlayAnimation(-1, -1));
-    }
-
     public void TakeDamage(int amount)
     {
         if (controller.invuln)
@@ -81,8 +69,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (hp <= 0)
         {
-            CustomEvent.Trigger(gameObject, "PlayerDeath");
-
+            controller.machine.Death();
             
             Debug.Log("You are dead.");
             string scene = SceneManager.GetActiveScene().name;

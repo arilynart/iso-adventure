@@ -14,17 +14,15 @@ public class PlayerController : MonoBehaviour
     public static PlayerController CONTROL;
 
     public PlayerControls controls;
-    PlayerCombat combat;
-    PlayerHealth health;
-    PlayerDodge playerDodge;
-    PlayerBlink blink;
-    PlayerMana mana;
-    Ladder activeLadder;
+    public PlayerStateMachine machine;
+    public PlayerHealth health;
+    public PlayerBlink blink;
+    public PlayerMana mana;
     CameraRotate camRot;
 
     public GameObject mousePoint;
 
-    public Vector2 move;
+
     Vector2 moveLast;
     Vector2 lastMousePos;
 
@@ -34,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 head;
     public Vector3 point;
     public Vector3 headPoint;
+    public Vector2 move;
 
     Quaternion targetRotation;
 
@@ -63,14 +62,12 @@ public class PlayerController : MonoBehaviour
     float angle;
     float angleOffset;
     public float groundAngle;
-    float forwardGroundAngle;
 
     public LayerMask ground;
     public LayerMask indoors;
     public LayerMask mouseLayer;
 
     RaycastHit hitInfo;
-    RaycastHit hitInfoF;
 
 
     // Start is called before the first frame update
@@ -78,31 +75,30 @@ public class PlayerController : MonoBehaviour
     {
         
         controls = new PlayerControls();
+        machine = GetComponent<PlayerStateMachine>();
         //Debug.Log("Controls set");
 
         //Debug.Log("Movement performance set.");
-        controls.Gameplay.Move.performed += ctx => OnMovement(ctx.ReadValue<Vector2>());
+        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
         //Debug.Log("Movement cancellation set.");
-        controls.Gameplay.Move.canceled += ctx => OnMovement(Vector2.zero);
+        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
 
-        playerDodge = GetComponent<PlayerDodge>();
-        controls.Gameplay.Dodge.started += ctx => playerDodge.Dodge();
+        controls.Gameplay.Dodge.started += ctx => machine.Dodge();
         //Debug.Log("Dodge performance set.");
 
-        combat = GetComponent<PlayerCombat>();
-        controls.Gameplay.Attack.started += ctx => combat.BasicAttack();
-        controls.Gameplay.Shoot.started += ctx => combat.Shoot();
+        controls.Gameplay.Attack.started += ctx => machine.BasicAttack();
+        controls.Gameplay.Shoot.started += ctx => machine.Shoot();
 
         health = GetComponent<PlayerHealth>();
-        controls.Gameplay.Heal.started += ctx => health.HealButton();
+        controls.Gameplay.Heal.started += ctx => machine.Heal();
 
         blink = GetComponent<PlayerBlink>();
-        controls.Gameplay.Blink.started += ctx => blink.Blink();
+        controls.Gameplay.Blink.started += ctx => machine.Blink();
 
 
         controls.Gameplay.Interact.performed += ctx => interacting = true;
         controls.Gameplay.Interact.canceled += ctx => interacting = false;
-        controls.Gameplay.Interact.started += ctx => interactTrigger = true;
+        controls.Gameplay.Interact.started += ctx => machine.Interact();
         controls.Gameplay.Interact.canceled += ctx => interactTrigger = false;
 
         controls.Gameplay.Pause.started += ctx => PauseMenu.PAUSE();
@@ -129,30 +125,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (MoveDiff()) SetCamera();
-        moveLast = new Vector2(move.x, move.y);
-        Vector2 mov = moveLast * Time.deltaTime;
-        CalculateDirection(mov);
         CheckGround();
         CalculateGroundAngle();
-        CalculateForward();
         DrawDebugLines();
-
-        if (!grounded)
+        machine.Movement(move);
+        moveLast = new Vector2(move.x, move.y);
+        if (MoveDiff())
         {
-            animator.SetBool("Falling", true);
+            SetCamera();
         }
-        else
-        {
-            animator.SetBool("Falling", false);
-        }
+        Vector2 mov = moveLast * Time.deltaTime;
+        CalculateDirection(mov);
+        CalculateForward();
 
         if (!GodCommand.GODMODE) return;
 
         invuln = true;
-        combat.attackDamage = 99;
+        machine.attackDamage = 99;
         mana.mana = 99;
-        combat.manaDamage = 99;
+        machine.manaDamage = 99;
     }
 
 
@@ -183,28 +174,6 @@ public class PlayerController : MonoBehaviour
         {
             MouseRotate();
         }
-        
-
-        //if we're inputting a move and not dodging
-        if (move == Vector2.zero)
-        {
-            moving = false;
-            //Debug.Log("Moving: " + moving);
-            return;
-        }
-        if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
-
-        Move();
-
-        if (onLadder) return;
-
-        Rotate();
-
-    }
-
-    public void OnMovement(Vector2 value)
-    {
-        move = value;
     }
 
     void CalculateDirection(Vector2 m)
@@ -248,13 +217,11 @@ public class PlayerController : MonoBehaviour
         if (!grounded)
         {
             groundAngle = 90;
-            forwardGroundAngle = 90;
             return;
         }
 
 
         groundAngle = Vector3.Angle(hitInfo.normal, transform.forward);
-        forwardGroundAngle = Vector3.Angle(hitInfoF.normal, transform.forward);
 
         //Debug.Log("Ground Angle calculated: " + groundAngle);
         //Debug.Log("ForwardGround Angle calculated: " + forwardGroundAngle);
@@ -278,8 +245,7 @@ public class PlayerController : MonoBehaviour
             grounded = true;
         }
         else
-        {
-            
+        { 
             grounded = false;
         }
         //Debug.Log("Grounded: " + grounded);
@@ -292,15 +258,12 @@ public class PlayerController : MonoBehaviour
     
     public void Move()
     {
-        
-
-        //calculate forward rotation based on input and incline and assign to point variable
-        
+        Rotate();
         //if slope ahead compared to the current location is too high, return.
         if (groundAngle > maxGroundAngle) return;
         //Debug.Log("Slope is passable.");
 
-        if (groundAngle != 90 || forwardGroundAngle != 90)
+        if (groundAngle != 90)
             AddSlopeForce(slopeForce);
 
         if (onLadder && !exitLadder)
@@ -312,8 +275,6 @@ public class PlayerController : MonoBehaviour
         //move the player the direction they are facing in order to account for y-axis changes in terrain 
         transform.position += headPoint * moveSpeed * Time.deltaTime;
         //Debug.Log("Moving: " + transform.position);
-        moving = true;
-        //Debug.Log("Moving: " + moving);
     }
 
     void Rotate()
@@ -321,8 +282,6 @@ public class PlayerController : MonoBehaviour
         //lerp to the target rotation
         targetRotation = Quaternion.Euler(0, angle + angleOffset, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-
-        Debug.Log("Rotating: " + transform.rotation);
     }
     
     void MouseRotate()
@@ -378,8 +337,7 @@ public class PlayerController : MonoBehaviour
 
     public void ClimbLadder(Vector3 pos, Ladder lad)
     {
-        transform.position = pos; 
-        activeLadder = lad;
+        transform.position = pos;
         transform.LookAt(lad.LookPoint);
         exitLadder = false;
         onLadder = true;

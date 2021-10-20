@@ -20,7 +20,6 @@ namespace Arilyn.State.PlayerState
             if (machine.controller.grounded)
             {
                 machine.controller.moving = false;
-                machine.controller.animator.SetBool("Falling", false);
                 machine.ChangeState(new IdleState(machine));
             }
         }

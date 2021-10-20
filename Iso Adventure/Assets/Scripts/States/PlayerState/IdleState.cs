@@ -10,6 +10,7 @@ namespace Arilyn.State.PlayerState {
         public override IEnumerator EnterState()
         {
             machine.controller.animator.SetBool("Speed", false);
+            machine.controller.animator.SetBool("Falling", false);
             yield break;
         }
 

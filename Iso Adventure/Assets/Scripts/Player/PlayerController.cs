@@ -8,6 +8,7 @@ using Ludiq;
 using Bolt;
 using Arilyn.DeveloperConsole.Behavior;
 using Arilyn.DeveloperConsole.Commands;
+using Arilyn.State.PlayerState;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public PlayerHealth health;
     public PlayerBlink blink;
     public PlayerMana mana;
+    public Ladder currentLadder;
     CameraRotate camRot;
 
     public GameObject mousePoint;
@@ -127,15 +129,6 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         CalculateGroundAngle();
         DrawDebugLines();
-        machine.Movement(move);
-        moveLast = new Vector2(move.x, move.y);
-        if (MoveDiff())
-        {
-            SetCamera();
-        }
-        Vector2 mov = moveLast * Time.deltaTime;
-        CalculateDirection(mov);
-        CalculateForward();
 
         if (!GodCommand.GODMODE) return;
 
@@ -148,7 +141,8 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {        
+    {
+        machine.Movement(move);
         //print("Move: " + move);
         //Debug.Log("Idle: " + idleCount);
         if (lastMousePos == Mouse.current.position.ReadValue())
@@ -196,7 +190,14 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Calculating Point...");
 
         head = Vector3.Normalize(rightMovement + upMovement);
-        
+/*
+        if (move == Vector2.zero)
+        {
+            point = Vector3.zero;
+            headPoint = Vector3.zero;
+            return;
+        }*/
+
         //Debug.Log("Head calculated: " + head);
         if (!grounded)
         {
@@ -257,23 +258,29 @@ public class PlayerController : MonoBehaviour
     
     public void Move()
     {
-        Rotate();
-        //if slope ahead compared to the current location is too high, return.
-        if (groundAngle > maxGroundAngle) return;
-        //Debug.Log("Slope is passable.");
-
-        if (groundAngle != 90)
-            AddSlopeForce(slopeForce);
-
-        if (onLadder && !exitLadder)
+        if (move != Vector2.zero)
         {
-            headPoint = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
+            if (MoveDiff())
+            {
+                SetCamera();
+            }
+            moveLast = move;
+            Vector2 mov = moveLast * Time.deltaTime;
+            CalculateDirection(mov);
+            CalculateForward();
+            Rotate();
+            //if slope ahead compared to the current location is too high, return.
+            if (groundAngle > maxGroundAngle) return;
+            //Debug.Log("Slope is passable.");
 
+            if (groundAngle != 90)
+                AddSlopeForce(slopeForce);
+
+            moving = true;
+            //move the player the direction they are facing in order to account for y-axis changes in terrain 
+            transform.position += headPoint * moveSpeed * Time.deltaTime;
+            //Debug.Log("Moving: " + transform.position);
         }
-        moving = true;
-        //move the player the direction they are facing in order to account for y-axis changes in terrain 
-        transform.position += headPoint * moveSpeed * Time.deltaTime;
-        //Debug.Log("Moving: " + transform.position);
     }
 
     void Rotate()
@@ -334,20 +341,25 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    public void ClimbLadder(Vector3 pos, Ladder lad)
+    public void LadderMove()
     {
-        transform.position = pos;
-        transform.LookAt(lad.LookPoint);
-        exitLadder = false;
-        onLadder = true;
-        GetComponent<Rigidbody>().useGravity = false;
+        headPoint = new Vector3(0, move.y + Mathf.Abs(move.x), 0);
+        moving = true;
+        transform.position += headPoint * moveSpeed * Time.deltaTime;
+    }
+
+    public void StartLadder(Ladder ladder)
+    {
+        interactTrigger = false;
+        currentLadder = ladder;
+        machine.ChangeState(new LadderState(machine));
     }
 
     public void LeaveLadder()
     {
-        exitLadder = true;
         onLadder = false;
-        GetComponent<Rigidbody>().useGravity = true;
+        machine.rb.useGravity = true;
+        machine.ChangeState(new IdleState(machine));
     }
 
     void OnEnable()

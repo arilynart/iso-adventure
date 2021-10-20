@@ -20,8 +20,6 @@ public class PlayerBlink : MonoBehaviour
 
     public void Blink()
     {
-        Debug.Log("Starting Blink");
-        if ((bool)Variables.Object(gameObject).Get("animLock") == true) return;
 
         if (controller.MouseActivityCheck())
             mouseBlink = true;

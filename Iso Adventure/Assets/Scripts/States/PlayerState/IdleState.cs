@@ -7,6 +7,12 @@ namespace Arilyn.State.PlayerState {
     {
         public IdleState(PlayerStateMachine mch) : base(mch) { }
 
+        public override IEnumerator EnterState()
+        {
+            machine.controller.animator.SetBool("Speed", false);
+            yield break;
+        }
+
         public override void LocalUpdate()
         {
             if (!machine.controller.grounded)

@@ -10,6 +10,7 @@ namespace Arilyn.State.PlayerState
 
         public override IEnumerator EnterState()
         {
+            machine.controller.moving = true;
             machine.controller.animator.SetBool("Falling", true);
             yield break;
         }
@@ -18,6 +19,7 @@ namespace Arilyn.State.PlayerState
         {
             if (machine.controller.grounded)
             {
+                machine.controller.moving = false;
                 machine.controller.animator.SetBool("Falling", false);
                 machine.ChangeState(new IdleState(machine));
             }

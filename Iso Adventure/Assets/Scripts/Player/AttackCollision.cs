@@ -13,6 +13,7 @@ public class AttackCollision : MonoBehaviour
     private void Start()
     {
         controller = transform.parent.GetComponent<PlayerController>();
+        mana = controller.mana;
     }
     private void OnTriggerEnter(Collider other)
     {

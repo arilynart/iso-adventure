@@ -190,7 +190,14 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Calculating Point...");
 
         head = Vector3.Normalize(rightMovement + upMovement);
-        
+/*
+        if (move == Vector2.zero)
+        {
+            point = Vector3.zero;
+            headPoint = Vector3.zero;
+            return;
+        }*/
+
         //Debug.Log("Head calculated: " + head);
         if (!grounded)
         {
@@ -251,26 +258,29 @@ public class PlayerController : MonoBehaviour
     
     public void Move()
     {
-        moveLast = new Vector2(move.x, move.y);
-        if (MoveDiff())
+        if (move != Vector2.zero)
         {
-            SetCamera();
+            if (MoveDiff())
+            {
+                SetCamera();
+            }
+            moveLast = move;
+            Vector2 mov = moveLast * Time.deltaTime;
+            CalculateDirection(mov);
+            CalculateForward();
+            Rotate();
+            //if slope ahead compared to the current location is too high, return.
+            if (groundAngle > maxGroundAngle) return;
+            //Debug.Log("Slope is passable.");
+
+            if (groundAngle != 90)
+                AddSlopeForce(slopeForce);
+
+            moving = true;
+            //move the player the direction they are facing in order to account for y-axis changes in terrain 
+            transform.position += headPoint * moveSpeed * Time.deltaTime;
+            //Debug.Log("Moving: " + transform.position);
         }
-        Vector2 mov = move * Time.deltaTime;
-        CalculateDirection(mov);
-        CalculateForward();
-        Rotate();
-        //if slope ahead compared to the current location is too high, return.
-        if (groundAngle > maxGroundAngle) return;
-        //Debug.Log("Slope is passable.");
-
-        if (groundAngle != 90)
-            AddSlopeForce(slopeForce);
-
-        moving = true;
-        //move the player the direction they are facing in order to account for y-axis changes in terrain 
-        transform.position += headPoint * moveSpeed * Time.deltaTime;
-        //Debug.Log("Moving: " + transform.position);
     }
 
     void Rotate()

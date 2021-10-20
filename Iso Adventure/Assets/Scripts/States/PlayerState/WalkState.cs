@@ -31,7 +31,7 @@ namespace Arilyn.State.PlayerState
         {
             if (value == Vector2.zero)
             {
-                machine.controller.animator.SetBool("Speed", false);
+                
                 machine.ChangeState(new IdleState(machine));
             }
         }

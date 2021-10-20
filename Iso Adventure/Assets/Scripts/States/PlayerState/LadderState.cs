@@ -12,6 +12,8 @@ namespace Arilyn.State.PlayerState
         {
             machine.controller.transform.position = machine.controller.currentLadder.startPosition.position;
             machine.controller.transform.LookAt(machine.controller.currentLadder.LookPoint);
+            machine.controller.animator.SetBool("Speed", false);
+            machine.controller.animator.SetBool("Falling", false);
             machine.controller.onLadder = true;
             machine.rb.useGravity = false;
 
@@ -21,6 +23,11 @@ namespace Arilyn.State.PlayerState
         public override void LocalFixedUpdate()
         {
             machine.controller.LadderMove();
+        }
+
+        public override void Interact()
+        {
+            machine.controller.LeaveLadder();
         }
     }
 }

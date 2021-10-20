@@ -21,8 +21,7 @@ public class Ladder : MonoBehaviour
     {
         if (playerPresent && DeveloperConsoleBehavior.PLAYER.interactTrigger) 
         {
-            DeveloperConsoleBehavior.PLAYER.interactTrigger = false;
-            DeveloperConsoleBehavior.PLAYER.ClimbLadder(startPosition.position, this);
+            DeveloperConsoleBehavior.PLAYER.StartLadder(this);
             playerPresent = false;
         }
     }

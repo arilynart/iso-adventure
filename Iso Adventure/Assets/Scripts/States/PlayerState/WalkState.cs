@@ -11,6 +11,7 @@ namespace Arilyn.State.PlayerState
         public override IEnumerator EnterState()
         {
             machine.controller.animator.SetBool("Speed", true);
+            machine.controller.animator.SetLayerWeight(1, 1);
             yield break;
         }
 
@@ -18,6 +19,7 @@ namespace Arilyn.State.PlayerState
         {
             if (!machine.controller.grounded)
             {
+                ResetAnimation();
                 machine.ChangeState(new FallState(machine));
             }
         }
@@ -31,7 +33,7 @@ namespace Arilyn.State.PlayerState
         {
             if (value == Vector2.zero)
             {
-                
+                ResetAnimation();   
                 machine.ChangeState(new IdleState(machine));
             }
         }
@@ -40,38 +42,45 @@ namespace Arilyn.State.PlayerState
         {
             if (!machine.dashDelay)
             {
-                machine.controller.animator.SetBool("Speed", false);
+                ResetAnimation();
                 machine.ChangeState(new DodgeState(machine));
             }
         }
 
         public override void BasicAttack()
         {
-            machine.controller.animator.SetBool("Speed", false);
+            ResetAnimation();
             machine.ChangeState(new BasicAttackState(machine));
         }
 
         public override void Shoot()
         {
-            machine.controller.animator.SetBool("Speed", false);
+            ResetAnimation();
             machine.ChangeState(new ShootState(machine));
         }
 
         public override void Heal()
         {
-            machine.controller.animator.SetBool("Speed", false);
+            ResetAnimation();
             machine.ChangeState(new HealState(machine));
         }
 
         public override void Blink()
         {
-            machine.controller.animator.SetBool("Speed", false);
+            ResetAnimation();
             machine.controller.blink.Blink();
         }
 
         public override void Interact()
         {
+            ResetAnimation();
             machine.controller.interactTrigger = true;
+        }
+
+        void ResetAnimation()
+        {
+            machine.controller.animator.SetLayerWeight(1, 0);
+            machine.controller.animator.SetBool("Speed", false);
         }
     }
 }

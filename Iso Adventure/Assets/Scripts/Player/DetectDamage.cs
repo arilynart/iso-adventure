@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class DetectDamage : MonoBehaviour
 {
+    PlayerController controller;
+
+    private void Start()
+    {
+        controller = transform.parent.GetComponent<PlayerController>();
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (!other) return;
         //if (!GetComponent<EnemyStats>()) return;
-        if (!transform.parent.gameObject.GetComponent<PlayerController>()) return;
+        if (!controller) return;
 
-        if (other.tag == "Attack" && !transform.parent.gameObject.GetComponent<PlayerController>().invuln)
+        if (other.tag == "Attack" && !controller.invuln)
         {
-            
-            Debug.Log("Damage: " + other.transform.parent.GetComponent<EnemyStats>().activeAttack.damage);
-            transform.parent.gameObject.GetComponent<PlayerHealth>().TakeDamage(other.transform.parent.GetComponent<EnemyStats>().activeAttack.damage);
+            EnemyStats stats = other.transform.parent.GetComponent<EnemyStats>();
+            if (!stats) return;
+
+            controller.health.TakeDamage(stats.damage);
         }
     }
 }

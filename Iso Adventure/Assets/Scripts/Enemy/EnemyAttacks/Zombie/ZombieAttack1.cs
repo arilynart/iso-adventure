@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Arilyn.State.EnemyState.Soldier;
 
 public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
 {
-
-    EnemyStats stats;
+    EnemyStateMachine machine;
 
     string attackName;
     string animationName;
@@ -19,7 +19,9 @@ public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
 
     void Start()
     {
-        stats = GetComponent<EnemyStats>();
+        machine = GetComponent<EnemyStateMachine>();
+
+        machine.ChangeState(new WanderState(machine));
     }
 
     public void InitializeAttack(string name, string anim, int dmg, float rng, float start, float end, int next)

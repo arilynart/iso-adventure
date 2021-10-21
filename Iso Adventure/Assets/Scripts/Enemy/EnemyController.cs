@@ -2,33 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Ludiq;
-using Bolt;
+using Arilyn.State.EnemyState.Soldier;
 
 public class EnemyController : MonoBehaviour
 {
     public Animator animator;
-
     public EnemyStats stats;
-
-    public float lookRadius = 5f;
-    public float attackDelay = 5f;
     public GameObject hurtBox;
-    public LayerMask playerLayer;
-
-    //Transform target;
-    public NavMeshAgent agent;
+    public EnemyStateMachine machine;
 
     private void Awake()
     {
-        //Find and target player in instance
-        //target = PlayerManager.instance.player.transform;
-        //Get Nav Mesh
-        /*agent = GetComponent<NavMeshAgent>();
-        agent.enabled = false;*/
         stats = GetComponent<EnemyStats>();
         animator = GetComponent<Animator>();
-        //gameObject.SetActive(false);
+        machine = GetComponent<EnemyStateMachine>();
     }
 
     public void Spawn()
@@ -59,7 +46,7 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
 
-        CustomEvent.Trigger(gameObject, "EndEnemyAttack");
+        machine.ChangeState(new ChaseState(machine));
     }
 
     public void activateHurtbox()

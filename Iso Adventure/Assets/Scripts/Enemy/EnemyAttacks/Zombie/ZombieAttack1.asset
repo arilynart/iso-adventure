@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: Claw
   animationName: ZombieAttack
   damage: 1
-  range: 1.1
+  range: 1.68
   boxStart: 0.17
   boxEnd: 0.78
-  nextAttack: 0
+  nextAttack: -1

@@ -13,6 +13,11 @@ namespace Arilyn.State
             yield break;
         }
 
+        public virtual IEnumerator ExitState()
+        {
+            yield break;
+        }
+
         public virtual void LocalUpdate()
         {
 

@@ -69,9 +69,9 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         }
         else if (stats.activeAttack == stats.attacks[1])
         {
+            ActivateSlows();
             StartCoroutine(dissolve.ActivateDissolve(2, 0, 1.5f, 0));
             capCollider.enabled = false;
-            ActivateSlows();
             attackCounter = 0;
         }
         else if (stats.activeAttack == stats.attacks[2])

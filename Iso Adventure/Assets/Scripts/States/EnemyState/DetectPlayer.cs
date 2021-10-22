@@ -5,8 +5,8 @@ using Arilyn.DeveloperConsole.Behavior;
 
 public class DetectPlayer : MonoBehaviour
 {
-    public EnemyStateMachine machine;
-    public Transform attackPoint;
+    public IEnemyStateMachine machine;
+    public GameObject attackPoint;
 
     public float viewAngle = 360;
     public float viewDistance = 15;
@@ -15,27 +15,28 @@ public class DetectPlayer : MonoBehaviour
 
     private void Start()
     {
-        machine = transform.parent.GetComponent<EnemyStateMachine>();
+        machine = transform.parent.GetComponent<IEnemyStateMachine>();
+        attackPoint = transform.parent.GetComponent<EnemyController>().hurtBox;
     }
 
     private void Update()
     {
-        distanceToPlayer = Vector3.Distance(attackPoint.position, DeveloperConsoleBehavior.PLAYER.transform.position);
-        machine.attackDistance = distanceToPlayer;
-        if (machine.angleToPlayer < viewAngle && distanceToPlayer < viewDistance)
+        distanceToPlayer = Vector3.Distance(attackPoint.transform.position, DeveloperConsoleBehavior.PLAYER.transform.position);
+        machine.AttackDistance = distanceToPlayer;
+        if (machine.AngleToPlayer < viewAngle && distanceToPlayer < viewDistance)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), machine.lookRotation, out hit, 20f))
+            if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), machine.LookRotation, out hit, 20f))
             {
                 if (hit.transform.GetComponent<PlayerController>())
                 {
-                    machine.canSeePlayer = true;
+                    machine.CanSeePlayer = true;
                 }
             }
         }
         else
         {
-            machine.canSeePlayer = false;
+            machine.CanSeePlayer = false;
         }
     }
 

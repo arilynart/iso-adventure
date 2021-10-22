@@ -7052,8 +7052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6900365418580020903}
-  - component: {fileID: 6900365418580020901}
-  - component: {fileID: 6900365418580020900}
+  - component: {fileID: 7896954155837330790}
   m_Layer: 2
   m_Name: DetectPlayer
   m_TagString: Untagged
@@ -7075,7 +7074,7 @@ Transform:
   m_Father: {fileID: 2462759709258866216}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &6900365418580020901
+--- !u!114 &7896954155837330790
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7084,29 +7083,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6900365418580020902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -57143145, guid: a040fb66244a7f54289914d98ea4ef7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 84a2abffe70d40245b4ebc359217a34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
-    _objectReferences:
-    - {fileID: 11400000, guid: 49b9432e0531cd2499e63835fcb5a5eb, type: 2}
---- !u!114 &6900365418580020900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6900365418580020902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1465209106, guid: c8d0ad23af520fe46aabe2b1fecf6462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"distanceToPlayer","value":{"$content":10.0,"$type":"System.Single"},"$version":"A"},{"name":"angleToPlayer","value":{"$content":10.0,"$type":"System.Single"},"$version":"A"},{"name":"directionToPlayer","value":{"x":3.0,"y":3.0,"z":3.0,"$type":"UnityEngine.Vector3"},"$version":"A"},{"name":"attackPoint","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences:
-    - {fileID: 6900365417595523461}
+  attackPoint: {fileID: 0}
+  viewAngle: 360
+  viewDistance: 15
 --- !u!1 &6992113098522775953
 GameObject:
   m_ObjectHideFlags: 0
@@ -7307,12 +7289,11 @@ GameObject:
   - component: {fileID: 6900365417415235379}
   - component: {fileID: 6900365417415235378}
   - component: {fileID: 6900365417415235382}
-  - component: {fileID: 7508409567138107115}
-  - component: {fileID: 7508409567138107114}
   - component: {fileID: 6900365417415235376}
   - component: {fileID: 6900365417415235377}
   - component: {fileID: 6900365417415235381}
   - component: {fileID: 6900365417415235387}
+  - component: {fileID: 1894470193606723257}
   m_Layer: 7
   m_Name: Golem
   m_TagString: Enemy
@@ -7388,37 +7369,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7508409567138107115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7508409567138107117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1465209106, guid: c8d0ad23af520fe46aabe2b1fecf6462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"collection":{"$content":[{"name":"distanceToPlayer","value":{"$content":10.0,"$type":"System.Single"},"$version":"A"},{"name":"angleToPlayer","value":{"$content":5.0,"$type":"System.Single"},"$version":"A"},{"name":"directionToPlayer","value":{"x":3.0,"y":3.0,"z":3.0,"$type":"UnityEngine.Vector3"},"$version":"A"},{"name":"canSeePlayer","value":{"$content":false,"$type":"System.Boolean"},"$version":"A"},{"name":"attackDistance","value":{"$content":1.0,"$type":"System.Single"},"$version":"A"},{"name":"lookRotation","value":{"x":0.0,"y":0.0,"z":0.0,"$type":"UnityEngine.Vector3"},"$version":"A"},{"name":"aimRotation","value":{"$content":0.0,"$type":"System.Single"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
---- !u!114 &7508409567138107114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7508409567138107117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1999370065, guid: dcd2196c4e9166f499793f2007fcda35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
-    _objectReferences:
-    - {fileID: 11400000, guid: 81c812b428d03dc4d8147e5ddd720089, type: 2}
 --- !u!195 &6900365417415235376
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7455,13 +7405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   stats: {fileID: 0}
-  lookRadius: 3
-  attackDelay: 5
   hurtBox: {fileID: 6900365417595523461}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  agent: {fileID: 0}
 --- !u!114 &6900365417415235381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7518,6 +7462,20 @@ MonoBehaviour:
   boxStart: 0
   boxEnd: 0
   nextAttack: 0
+--- !u!114 &1894470193606723257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7508409567138107117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13346e98009113f47920fc61226a47e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionToPlayer: {x: 0, y: 0, z: 0}
+  player: {fileID: 0}
 --- !u!1 &7515127955084708247
 GameObject:
   m_ObjectHideFlags: 0

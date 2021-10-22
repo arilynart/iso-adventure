@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Arilyn.DeveloperConsole.Behavior;
 
-namespace Arilyn.State.EnemyState.Soldier
+namespace Arilyn.State.EnemyState.Golem
 {
     public class ChaseState : EnemyState
     {
@@ -13,7 +13,12 @@ namespace Arilyn.State.EnemyState.Soldier
         {
             machine.Animator.SetBool("Walking", true);
             machine.Controller.Attack();
-            yield break;
+            if (machine.Stats.activeAttack == machine.Stats.lockedAttacks[2])
+            {
+                Vector3 point = DeveloperConsoleBehavior.PLAYER.GetComponent<Collider>().ClosestPoint(machine.Transform.position);
+                machine.Transform.position = point;
+            }
+            yield return null;
         }
 
         public override void LocalUpdate()
@@ -33,8 +38,14 @@ namespace Arilyn.State.EnemyState.Soldier
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new WanderState(machine)));
             }
-            else if (machine.AttackDistance <  machine.Stats.range)
+            else if (machine.AttackDistance < machine.Stats.range)
             {
+                if (machine.Stats.activeAttack == machine.Stats.attacks[2] || machine.Stats.activeAttack == machine.Stats.lockedAttacks[2])
+                {
+                    machine.Transform.LookAt(DeveloperConsoleBehavior.PLAYER.transform);
+
+                    
+                }
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new AimState(machine)));
             }
         }

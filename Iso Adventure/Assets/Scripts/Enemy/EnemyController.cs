@@ -9,13 +9,13 @@ public class EnemyController : MonoBehaviour
     public Animator animator;
     public EnemyStats stats;
     public GameObject hurtBox;
-    public EnemyStateMachine machine;
+    public IEnemyStateMachine machine;
 
     private void Awake()
     {
         stats = GetComponent<EnemyStats>();
         animator = GetComponent<Animator>();
-        machine = GetComponent<EnemyStateMachine>();
+        machine = GetComponent<IEnemyStateMachine>();
     }
 
     public void Spawn()
@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
 
-        machine.ChangeState(new ChaseState(machine));
+        machine.BackToChase();
     }
 
     public void activateHurtbox()

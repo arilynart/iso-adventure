@@ -6,9 +6,9 @@ namespace Arilyn.State.EnemyState
 {
     public abstract class EnemyState : State
     {
-        public EnemyStateMachine machine;
+        public IEnemyStateMachine machine;
 
-        public EnemyState(EnemyStateMachine mch)
+        public EnemyState(IEnemyStateMachine mch)
         {
             machine = mch;
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Arilyn.State.EnemyState.Soldier
+namespace Arilyn.State.EnemyState.Golem
 {
     public class DeadState : EnemyState
     {

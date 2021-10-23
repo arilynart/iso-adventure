@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
-using Ludiq;
-using Bolt;
 using Arilyn.DeveloperConsole.Behavior;
 
 public class BullAttack : MonoBehaviour, IEnemyAttack
@@ -69,9 +67,9 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         }
         else if (stats.activeAttack == stats.attacks[1])
         {
+            ActivateSlows();
             StartCoroutine(dissolve.ActivateDissolve(2, 0, 1.5f, 0));
             capCollider.enabled = false;
-            ActivateSlows();
             attackCounter = 0;
         }
         else if (stats.activeAttack == stats.attacks[2])
@@ -92,8 +90,6 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         }
 
     }
-
-
 
     public void ActivateSlows()
     {
@@ -148,7 +144,7 @@ public class BullAttack : MonoBehaviour, IEnemyAttack
         }
         jumpTurn = false;
         capCollider.enabled = true;
-        agent.SetDestination(transform.position);
+        if (agent.enabled) agent.SetDestination(transform.position);
         agent.speed = 0;
         agent.acceleration = 0;
         while (time > 0.9167f && time < stats.animator.GetCurrentAnimatorStateInfo(0).length)

@@ -5,7 +5,7 @@ using Arilyn.State.EnemyState.Soldier;
 
 public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
 {
-    EnemyStateMachine machine;
+    SoldierStateMachine machine;
 
     string attackName;
     string animationName;
@@ -19,9 +19,9 @@ public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
 
     void Start()
     {
-        machine = GetComponent<EnemyStateMachine>();
+        machine = GetComponent<SoldierStateMachine>();
 
-        machine.ChangeState(new WanderState(machine));
+        StartCoroutine(machine.ChangeState(new WanderState(machine)));
     }
 
     public void InitializeAttack(string name, string anim, int dmg, float rng, float start, float end, int next)

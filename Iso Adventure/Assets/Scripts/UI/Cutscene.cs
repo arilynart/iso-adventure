@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Ludiq;
-using Bolt;
 using Arilyn.DeveloperConsole.Behavior;
 
 public class Cutscene : MonoBehaviour

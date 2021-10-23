@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using Ludiq;
-using Bolt;
 
 public class PlayerHealth : MonoBehaviour
 {

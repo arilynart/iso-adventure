@@ -6,11 +6,11 @@ namespace Arilyn.State.EnemyState.Soldier
 {
     public class DeadState : EnemyState
     {
-        public DeadState(EnemyStateMachine mch) : base(mch) { }
+        public DeadState(IEnemyStateMachine mch) : base(mch) { }
 
         public override IEnumerator EnterState()
         {
-            machine.agent.enabled = false;
+            machine.Agent.enabled = false;
             yield break;
         }
     }

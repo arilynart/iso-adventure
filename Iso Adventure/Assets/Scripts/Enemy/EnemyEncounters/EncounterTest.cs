@@ -65,7 +65,6 @@ public class EncounterTest : EnemyEncounter
 
     public override IEnumerator StartEncounter()
     {
-        base.StartEncounter();
 
         foreach (GameObject obj in doors)
         {

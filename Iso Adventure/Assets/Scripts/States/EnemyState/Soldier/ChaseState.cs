@@ -7,36 +7,35 @@ namespace Arilyn.State.EnemyState.Soldier
 {
     public class ChaseState : EnemyState
     {
-        public ChaseState(EnemyStateMachine mch) : base(mch) { }
+        public ChaseState(IEnemyStateMachine mch) : base(mch) { }
 
         public override IEnumerator EnterState()
         {
-            machine.agent.speed = 1.1f;
-            machine.animator.SetBool("Walking", true);
-            machine.controller.Attack();
+            machine.Animator.SetBool("Walking", true);
+            machine.Controller.Attack();
             yield break;
         }
 
         public override void LocalUpdate()
         {
-            if (machine.agent.enabled)
+            if (machine.Agent.enabled)
             {
-                machine.agent.SetDestination(DeveloperConsoleBehavior.PLAYER.transform.position);
+                machine.Agent.SetDestination(DeveloperConsoleBehavior.PLAYER.transform.position);
                 /*                Vector3 targetRot = Vector3.RotateTowards(machine.transform.forward, machine.lookRotation, 4 * Time.deltaTime, 0);
                                 Quaternion lookRotation = Quaternion.LookRotation(targetRot);
                                 machine.transform.rotation = lookRotation;*/
-                Quaternion lookRotation = Quaternion.LookRotation(machine.lookRotation);
-                machine.transform.rotation = Quaternion.Slerp(machine.transform.rotation, lookRotation, 5 * Time.deltaTime);
+                Quaternion lookRotation = Quaternion.LookRotation(machine.LookRotation);
+                machine.Transform.rotation = Quaternion.Slerp(machine.Transform.rotation, lookRotation, 5 * Time.deltaTime);
 
 
             }
-            if (!machine.canSeePlayer)
+            if (!machine.CanSeePlayer)
             {
-                machine.ChangeState(new WanderState(machine));
+                DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new WanderState(machine)));
             }
-            else if (machine.attackDistance <  machine.stats.range)
+            else if (machine.AttackDistance <  machine.Stats.range)
             {
-                machine.ChangeState(new AimState(machine));
+                DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new AimState(machine)));
             }
         }
     }

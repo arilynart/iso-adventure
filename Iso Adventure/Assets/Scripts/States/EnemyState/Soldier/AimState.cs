@@ -1,31 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Arilyn.DeveloperConsole.Behavior;
 
 namespace Arilyn.State.EnemyState.Soldier
 {
     public class AimState : EnemyState
     {
-        public AimState(EnemyStateMachine mch) : base(mch) { }
+        public AimState(IEnemyStateMachine mch) : base(mch) { }
+
+        bool executed = false;
 
         public override IEnumerator EnterState()
         {
-            machine.agent.speed = 5;
+            machine.Agent.speed = 5;
             yield break;
         }
 
         public override void LocalUpdate()
         {
-            if (machine.attackDistance <= machine.stats.range)
+            if (machine.AttackDistance <= machine.Stats.range && !executed)
             {
                 //Vector3 targetRot = Vector3.RotateTowards(machine.transform.forward, machine.lookRotation, 4 * Time.deltaTime, 0);
-                Quaternion lookRotation = Quaternion.LookRotation(machine.lookRotation);
-                machine.transform.rotation = Quaternion.Slerp(machine.transform.rotation, lookRotation, 5 * Time.deltaTime);
-                machine.ChangeState(new AttackState(machine));
+                Quaternion lookRotation = Quaternion.LookRotation(machine.LookRotation);
+                machine.Transform.rotation = Quaternion.Slerp(machine.Transform.rotation, lookRotation, 5 * Time.deltaTime);
+                DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new AttackState(machine)));
+                executed = true;
             }
             else
             {
-                machine.ChangeState(new ChaseState(machine));
+                DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
             }
         }
     }

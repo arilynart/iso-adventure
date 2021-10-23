@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Ludiq;
-using Bolt;
 
 public class BlinkCollider : MonoBehaviour
 {

@@ -2,35 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Arilyn.DeveloperConsole.Behavior;
 
 namespace Arilyn.State.EnemyState.Soldier
 {
     public class WanderState : EnemyState
     {
-        public WanderState(EnemyStateMachine mch) : base(mch) { }
+        public WanderState(IEnemyStateMachine mch) : base(mch) { }
 
         public override IEnumerator EnterState()
         {
-            machine.agent.speed = 0.8f;
-            AnimatorStateInfo info = machine.animator.GetCurrentAnimatorStateInfo(0);
+            machine.Agent.speed = 0.8f;
+            AnimatorStateInfo info = machine.Animator.GetCurrentAnimatorStateInfo(0);
             float normal = info.normalizedTime;
             if (normal != 0)
             {
-                machine.animator.Play("ZombieIdle");
+                machine.Animator.Play("ZombieIdle");
             }
             yield break;
         }
 
         public override void LocalUpdate()
         {
-            if (!machine.agent.pathPending && machine.agent.remainingDistance <= 2)
+            if (!machine.Agent.enabled) return;
+            if (!machine.Agent.pathPending && machine.Agent.remainingDistance <= 2)
             {
-                machine.StartCoroutine(WanderDelay(Random.Range(2, 4)));
+                DeveloperConsoleBehavior.PLAYER.StartCoroutine(WanderDelay(Random.Range(2, 4)));
             }
-            if (machine.canSeePlayer)
+            if (machine.CanSeePlayer)
             {
                 //change state to chase
-                machine.ChangeState(new ChaseState(machine));
+                DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
             }
         }
 
@@ -44,11 +46,11 @@ namespace Arilyn.State.EnemyState.Soldier
             }
             //find position to wander
             Vector3 targetPosition = (new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * 5);
-            targetPosition += machine.transform.position;
+            targetPosition += machine.Transform.position;
             NavMeshHit hit;
 
-            if (NavMesh.SamplePosition(targetPosition, out hit, 5, machine.agent.areaMask)) {
-                machine.agent.SetDestination(hit.position);
+            if (NavMesh.SamplePosition(targetPosition, out hit, 5, machine.Agent.areaMask)) {
+                if (machine.Agent.enabled) machine.Agent.SetDestination(hit.position);
             }
         }
     }

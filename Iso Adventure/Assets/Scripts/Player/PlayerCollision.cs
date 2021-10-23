@@ -1,6 +1,4 @@
 using UnityEngine;
-using Ludiq;
-using Bolt;
 
 public class PlayerCollision : MonoBehaviour
 {

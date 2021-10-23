@@ -15,7 +15,7 @@ namespace Arilyn.State.EnemyState.Soldier
         {
             machine.Agent.acceleration = 0;
             machine.Agent.speed = 0;
-            machine.Agent.SetDestination(machine.Transform.position);
+            if (machine.Agent.enabled) machine.Agent.SetDestination(machine.Transform.position);
 
             machine.Animator.Play(machine.Stats.animationName);
             DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.Controller.AttackAnimation(machine.Stats.boxStart, machine.Stats.boxEnd));

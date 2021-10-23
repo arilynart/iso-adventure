@@ -24,6 +24,7 @@ namespace Arilyn.State.EnemyState.Soldier
 
         public override void LocalUpdate()
         {
+            if (!machine.Agent.enabled) return;
             if (!machine.Agent.pathPending && machine.Agent.remainingDistance <= 2)
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(WanderDelay(Random.Range(2, 4)));
@@ -49,7 +50,7 @@ namespace Arilyn.State.EnemyState.Soldier
             NavMeshHit hit;
 
             if (NavMesh.SamplePosition(targetPosition, out hit, 5, machine.Agent.areaMask)) {
-                machine.Agent.SetDestination(hit.position);
+                if (machine.Agent.enabled) machine.Agent.SetDestination(hit.position);
             }
         }
     }

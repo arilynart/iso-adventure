@@ -15,13 +15,13 @@ namespace Arilyn.State.EnemyState.Golem
             if (machine.Stats.activeAttack == machine.Stats.attacks[2])
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.Transform.GetComponent<BullAttack>().Jumping());
-                machine.Agent.SetDestination(DeveloperConsoleBehavior.PLAYER.transform.position);
+                if (machine.Agent.enabled) machine.Agent.SetDestination(DeveloperConsoleBehavior.PLAYER.transform.position);
             }
             else
             {
                 machine.Agent.acceleration = 0;
                 machine.Agent.speed = 0;
-                machine.Agent.SetDestination(machine.Transform.position);
+                if (machine.Agent.enabled) machine.Agent.SetDestination(machine.Transform.position);
             }
 
             machine.Animator.Play(machine.Stats.animationName);

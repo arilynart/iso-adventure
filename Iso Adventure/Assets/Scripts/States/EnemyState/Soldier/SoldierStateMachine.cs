@@ -92,7 +92,10 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         Transform = transform;
         Acceleration = 8;
         Speed = 1.1f;
+    }
 
+    private void OnEnable()
+    {
         StartCoroutine(ChangeState(new WanderState(this)));
     }
 

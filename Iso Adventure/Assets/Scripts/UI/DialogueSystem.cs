@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Ludiq;
-using Bolt;
 public class DialogueSystem : MonoBehaviour
 {
     PlayerController controller;
@@ -76,7 +74,6 @@ public class DialogueSystem : MonoBehaviour
 
     IEnumerator StartDialogue()
     {
-        Variables.Object(controller.gameObject).Set("animLock", true);
         controller.moving = false;
         if (outOfRange) yield break;
         Debug.Log("Dialogue Pressed " + dialogueLines.Length);
@@ -106,7 +103,6 @@ public class DialogueSystem : MonoBehaviour
 
         }
         dialogueEnded = true;
-        Variables.Object(controller.gameObject).Set("animLock", false);
         /*
                 while (true)
                 {

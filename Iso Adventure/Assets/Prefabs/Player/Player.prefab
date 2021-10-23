@@ -467,7 +467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1853346177
 Transform:
   m_ObjectHideFlags: 0
@@ -2404,6 +2404,7 @@ MonoBehaviour:
   health: {fileID: 0}
   blink: {fileID: 0}
   mana: {fileID: 0}
+  currentLadder: {fileID: 0}
   mousePoint: {fileID: 1669886859}
   head: {x: 0, y: 0, z: 0}
   point: {x: 0, y: 0, z: 0}

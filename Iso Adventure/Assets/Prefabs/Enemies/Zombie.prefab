@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a2abffe70d40245b4ebc359217a34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  machine: {fileID: 0}
   attackPoint: {fileID: 6739654410005831161}
   viewAngle: 360
   viewDistance: 15
@@ -234,7 +233,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   stats: {fileID: 0}
   hurtBox: {fileID: 1554500867432664400}
-  machine: {fileID: 0}
 --- !u!195 &144026251298917177
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -284,8 +282,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.48, y: 1.37, z: 0.48}
-  m_Center: {x: 0, y: 0.7, z: 0}
+  m_Size: {x: 0.82, y: 1.37, z: 0.9445406}
+  m_Center: {x: 0, y: 0.6999999, z: 0.23227024}
 --- !u!114 &836252889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,15 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0f12ff8b01ac14db432530f83410d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  agent: {fileID: 0}
-  controller: {fileID: 0}
-  stats: {fileID: 0}
-  angleToPlayer: 0
-  attackDistance: 0
   directionToPlayer: {x: 0, y: 0, z: 0}
-  lookRotation: {x: 0, y: 0, z: 0}
-  canSeePlayer: 0
   player: {fileID: 0}
 --- !u!1 &213397694091138543
 GameObject:

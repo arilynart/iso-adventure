@@ -76,7 +76,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void Shoot()
     {
-        if (!PlayerUnlocks.FIREBALL || controller.mana.mana < fireballCost) return;
+        if (!PlayerUnlocks.FIREBALL || controller.mana.mana < fireballCost || PauseMenu.PAUSED) return;
 
         currentState.Shoot();
 

@@ -9,6 +9,8 @@ namespace Arilyn.State.EnemyState.Golem
     {
         public AimState(IEnemyStateMachine mch) : base(mch) { }
 
+        bool toggle = false;
+
         public override IEnumerator EnterState()
         {
             machine.Agent.speed = 5;
@@ -17,16 +19,18 @@ namespace Arilyn.State.EnemyState.Golem
 
         public override void LocalUpdate()
         {
-            if (machine.AttackDistance <= machine.Stats.range)
+            if (machine.AttackDistance <= machine.Stats.range && !toggle)
             {
                 //Vector3 targetRot = Vector3.RotateTowards(machine.transform.forward, machine.lookRotation, 4 * Time.deltaTime, 0);
                 Quaternion lookRotation = Quaternion.LookRotation(machine.LookRotation);
                 machine.Transform.rotation = Quaternion.Slerp(machine.Transform.rotation, lookRotation, 5 * Time.deltaTime);
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new AttackState(machine)));
+                toggle = true;
             }
-            else
+            else if (!toggle)
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
+                toggle = true;
             }
         }
     }

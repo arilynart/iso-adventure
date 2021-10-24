@@ -24,7 +24,7 @@ namespace Arilyn.State.EnemyState.Golem
                 if (machine.Agent.enabled) machine.Agent.SetDestination(machine.Transform.position);
             }
 
-            machine.Animator.Play(machine.Stats.animationName);
+            machine.Animator.SetTrigger(machine.Stats.animationName);
             DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.Controller.AttackAnimation(machine.Stats.boxStart, machine.Stats.boxEnd));
             yield return null;
         }
@@ -49,7 +49,7 @@ namespace Arilyn.State.EnemyState.Golem
                 }
 
             }
-
+            machine.Animator.ResetTrigger(machine.Stats.animationName);
             machine.Stats.NextAttack();
             yield return null;
         }

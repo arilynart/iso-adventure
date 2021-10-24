@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ZombieAttack1
   m_EditorClassIdentifier: 
   attackName: Claw
-  animationName: ZombieAttack
+  animationName: Attack
   damage: 1
   range: 1.68
   boxStart: 0.9167

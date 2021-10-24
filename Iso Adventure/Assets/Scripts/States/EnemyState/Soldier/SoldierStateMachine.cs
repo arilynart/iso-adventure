@@ -104,6 +104,7 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         if (currentState != null) 
             yield return StartCoroutine(currentState.ExitState());
         currentState = state;
+        yield return null;
         StartCoroutine(currentState.EnterState());
     }
 

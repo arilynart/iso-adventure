@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb4b772797da9440885e8bd939e9560, type: 3}
   m_Name: ColorCurves
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   master:
     m_OverrideState: 1
@@ -233,18 +233,18 @@ MonoBehaviour:
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   gaussianStart:
     m_OverrideState: 1
-    m_Value: 13.2
+    m_Value: 7
     min: 0
   gaussianEnd:
     m_OverrideState: 1
-    m_Value: 42.11
+    m_Value: 16
     min: 0
   gaussianMaxRadius:
     m_OverrideState: 1
-    m_Value: 0.985
+    m_Value: 1
     min: 0.5
     max: 1.5
   highQualitySampling:
@@ -308,14 +308,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
   m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.3420624, y: 0.2384165, z: 1, w: 0.015885621}
+    m_Value: {x: 0.3420624, y: 0.2384165, z: 1, w: 0.06760976}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.42479897, y: 0.7483054, z: 1, w: 0.5957107}
+    m_Value: {x: 0.42479897, y: 0.7483054, z: 1, w: 0.13019346}
   highlights:
     m_OverrideState: 0
     m_Value: {x: 0.29573953, y: 0.6527878, z: 1, w: 1}
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 1

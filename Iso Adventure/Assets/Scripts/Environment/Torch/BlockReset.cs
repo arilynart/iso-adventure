@@ -10,13 +10,6 @@ public class BlockReset : MonoBehaviour
     {
         controller = transform.parent.GetComponent<ITorchController>();
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<AttackCollision>())
-        {
-            Restart();
-        }
-    }
 
     public void Restart()
     {

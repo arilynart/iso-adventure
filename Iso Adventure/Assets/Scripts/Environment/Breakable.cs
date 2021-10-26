@@ -12,13 +12,11 @@ public class Breakable : MonoBehaviour
         hp = maxHp;
     }
 
-    private void OnTriggerEnter(Collider collision)
+    public void Hit()
     {
-        if (!collision.GetComponent<AttackCollision>()) return;
-
         hp--;
 
-        if (hp <=0)
+        if (hp <= 0)
         {
             Destroy(gameObject);
         }

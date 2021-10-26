@@ -7,6 +7,7 @@ namespace Arilyn.State.PlayerState
     public class BasicAttackState : PlayerState
     {
         public BasicAttackState(PlayerStateMachine mch): base(mch) { }
+        Vector3 raycastOffset = new Vector3(0, 0.5f, 0);
 
         public override IEnumerator EnterState()
         {
@@ -45,13 +46,58 @@ namespace Arilyn.State.PlayerState
         {
             machine.sword.SetActive(true);
             float time = 0;
+            Collider[] colliders = Physics.OverlapSphere(machine.attackPoint.position, 0.66f);
+            foreach (Collider col in colliders)
+            {
+                EnemyStats stats = col.GetComponent<EnemyStats>();
+                BlockPush push = col.GetComponent<BlockPush>();
+                Breakable breakable = col.GetComponent<Breakable>();
+                BlockReset reset = col.GetComponent<BlockReset>();
+                if (stats)
+                {
+
+                    //calling damage method on collided enemy
+                    stats.TakeDamage(machine.attackDamage);
+                    //mana restoration
+                    machine.controller.mana.AddMana(1);
+                }
+                else if (push)
+                {
+                    RaycastHit hit;
+                    Debug.Log("Hit Block");
+                    if (Physics.Raycast(machine.transform.position + raycastOffset, machine.transform.parent.forward + raycastOffset, out hit, 5f, machine.controller.ground))
+                    {
+
+                        Vector3 localPoint = hit.transform.InverseTransformPoint(hit.point);
+                        Vector3 localDir = localPoint.normalized;
+
+                        push.Slide(localDir);
+                    }
+
+                }
+                else if (breakable)
+                {
+                    breakable.Hit();
+                }
+                else if (reset)
+                {
+                    reset.Restart();
+                }
+            }
             while (time < machine.controller.animator.GetCurrentAnimatorStateInfo(0).length)
             {
-                if (hurtBoxStart >= 0 || hurtBoxEnd >= 0)
+/*                if (hurtBoxStart >= 0 || hurtBoxEnd >= 0)
                 {
-                    if (time >= hurtBoxStart && time < hurtBoxEnd) activateHurtbox();
-                    if (time > hurtBoxEnd) deactivateHurtbox();
-                }
+                    if (time >= hurtBoxStart && time < hurtBoxEnd)
+                    {
+
+
+                    }
+                    if (time >= hurtBoxEnd)
+                    {
+                        //deactivate hurtbox
+                    }
+                }*/
 
                 time += Time.deltaTime;
                 yield return null;
@@ -61,16 +107,6 @@ namespace Arilyn.State.PlayerState
             machine.controller.animator.ResetTrigger("BasicAttackTrigger2");
             machine.controller.animator.ResetTrigger("BasicAttackTrigger3");
             machine.ChangeState(new IdleState(machine));
-        }
-
-        public void activateHurtbox()
-        {
-            machine.attackCollider.enabled = true;
-        }
-
-        public void deactivateHurtbox()
-        {
-            machine.attackCollider.enabled = false;
         }
     }
 }

@@ -7,7 +7,7 @@ public class FireballParticles : MonoBehaviour
     ShootFireball fireball;
     public ParticleSystem fireballHit;
 
-    private void Start()
+    private void Awake()
     {
         fireball = transform.parent.GetComponent<ShootFireball>();
         fireball.hit = false;

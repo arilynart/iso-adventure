@@ -36,7 +36,20 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)
     {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        float time = 0;
+        while (time < animator.GetCurrentAnimatorStateInfo(0).length)
+        {
+            if (time >= hurtBoxStart && time < hurtBoxEnd)
+            {
+                activateHurtbox();
+            }
+            else
+            {
+                deactivateHurtbox();
+            }
+            time += Time.deltaTime;
+            yield return null;
+        }
 
         machine.BackToChase();
     }

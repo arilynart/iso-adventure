@@ -11,7 +11,7 @@ public class DetectDamage : MonoBehaviour
         controller = transform.parent.GetComponent<PlayerController>();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!other) return;
         //if (!GetComponent<EnemyStats>()) return;

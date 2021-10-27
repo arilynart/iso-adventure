@@ -10,7 +10,7 @@ namespace Arilyn.State.PlayerState
         Vector3 raycastOffset = new Vector3(0, 0.5f, 0);
 
         bool buffer = false;
-        bool trigger = false;
+        bool toggle = false;
 
         public override IEnumerator EnterState()
         {
@@ -25,18 +25,16 @@ namespace Arilyn.State.PlayerState
             machine.lastPressedTime = System.DateTime.Now;
             switch (machine.noOfPresses) {
                 case 0:
-                    machine.controller.animator.SetTrigger("BasicAttackTrigger");
-                    machine.StartCoroutine(PlayAnimation(0.13f, 0.32f));
+                    
+                    machine.StartCoroutine(PlayAnimation(0.13f, 0.32f, "BasicAttackTrigger"));
                     //Debug.Log("You attack once!");
                     break;
                 case 1:
-                    machine.controller.animator.SetTrigger("BasicAttackTrigger2");
-                    machine.StartCoroutine(PlayAnimation(0.12f, 0.25f));
+                    machine.StartCoroutine(PlayAnimation(0.12f, 0.25f, "BasicAttackTrigger2"));
                     //Debug.Log("You attack twice!");
                     break;
                 case 2:
-                    machine.controller.animator.SetTrigger("BasicAttackTrigger3");
-                    machine.StartCoroutine(PlayAnimation(0.12f, 0.25f));
+                    machine.StartCoroutine(PlayAnimation(0.12f, 0.25f, "BasicAttackTrigger3"));
                     //Debug.Log("You attack thrice!");
                     break;
             }
@@ -49,12 +47,13 @@ namespace Arilyn.State.PlayerState
         {
             if (buffer)
             {
-                trigger = true;
+                toggle = true;
             }
         }
 
-        IEnumerator PlayAnimation(float hurtBoxStart, float hurtBoxEnd)
+        IEnumerator PlayAnimation(float hurtBoxStart, float hurtBoxEnd, string trigger)
         {
+            machine.controller.animator.SetTrigger(trigger);
             machine.sword.SetActive(true);
             float time = 0;
             Collider[] colliders = Physics.OverlapSphere(machine.attackPoint.position, 0.66f);
@@ -103,15 +102,13 @@ namespace Arilyn.State.PlayerState
                 }
 
                 time += Time.deltaTime;
-                Debug.Log("AnimationTime: " + time);
+                //Debug.Log("AnimationTime: " + time);
                 yield return null;
             }
             yield return null;
             buffer = false;
-            machine.controller.animator.ResetTrigger("BasicAttackTrigger");
-            machine.controller.animator.ResetTrigger("BasicAttackTrigger2");
-            machine.controller.animator.ResetTrigger("BasicAttackTrigger3");
-            if (trigger)
+            machine.controller.animator.ResetTrigger(trigger);
+            if (toggle)
             {
                 machine.ChangeState(new BasicAttackState(machine));
             }

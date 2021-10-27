@@ -36,9 +36,10 @@ namespace Arilyn.State.EnemyState.Golem
 
 
             }
-            if (!machine.CanSeePlayer)
+            if (!machine.CanSeePlayer && !toggle)
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new WanderState(machine)));
+                toggle = true;
             }
             else if (machine.AttackDistance < machine.Stats.range && !toggle)
             {

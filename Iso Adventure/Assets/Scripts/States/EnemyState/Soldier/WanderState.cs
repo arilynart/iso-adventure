@@ -10,7 +10,7 @@ namespace Arilyn.State.EnemyState.Soldier
     {
         public WanderState(IEnemyStateMachine mch) : base(mch) { }
 
-        bool trigger = false;
+        bool toggle = false;
         bool wanderTrigger = false;
 
         public override IEnumerator EnterState()
@@ -35,11 +35,11 @@ namespace Arilyn.State.EnemyState.Soldier
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(WanderDelay(Random.Range(2, 4)));
                 
             }
-            if (machine.CanSeePlayer && !trigger)
+            if (machine.CanSeePlayer && !toggle)
             {
                 //change state to chase
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
-                trigger = true;
+                toggle = true;
             }
         }
 

@@ -9,6 +9,8 @@ namespace Arilyn.State.EnemyState.Soldier
     {
         public ChaseState(IEnemyStateMachine mch) : base(mch) { }
 
+        bool trigger = false;
+
         public override IEnumerator EnterState()
         {
             machine.Animator.SetBool("Walking", true);
@@ -29,13 +31,15 @@ namespace Arilyn.State.EnemyState.Soldier
 
 
             }
-            if (!machine.CanSeePlayer)
+            if (!machine.CanSeePlayer && !trigger)
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new WanderState(machine)));
+                trigger = true;
             }
-            else if (machine.AttackDistance <  machine.Stats.range)
+            else if (machine.AttackDistance <  machine.Stats.range && !trigger)
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new AimState(machine)));
+                trigger = true;
             }
         }
     }

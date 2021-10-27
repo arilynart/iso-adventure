@@ -61,9 +61,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void ChangeState(PlayerState state)
     {
-        if (currentState != null) StartCoroutine(currentState.ExitState());
         currentState = state;
         StartCoroutine(currentState.EnterState());
+        //Debug.Log("Current State: " + state);
     }
 
     public void Movement(Vector2 value)

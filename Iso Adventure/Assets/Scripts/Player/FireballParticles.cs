@@ -28,12 +28,9 @@ public class FireballParticles : MonoBehaviour
 
     void Explosion()
     {
-        if (fireball.hit == true)
-        {
-            fireballHit.Play();
-            Debug.Log("Particle: " + fireballHit);
-            Destroy(gameObject, 2f);
-        }
+        fireballHit.Play();
+        Debug.Log("Particle: " + fireballHit);
+        Destroy(gameObject, 2f);
     }
 }
 

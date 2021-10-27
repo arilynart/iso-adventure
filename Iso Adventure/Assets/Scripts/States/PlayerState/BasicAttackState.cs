@@ -9,6 +9,9 @@ namespace Arilyn.State.PlayerState
         public BasicAttackState(PlayerStateMachine mch): base(mch) { }
         Vector3 raycastOffset = new Vector3(0, 0.5f, 0);
 
+        bool buffer = false;
+        bool trigger = false;
+
         public override IEnumerator EnterState()
         {
             if (machine.controller.MouseActivityCheck())
@@ -24,22 +27,30 @@ namespace Arilyn.State.PlayerState
                 case 0:
                     machine.controller.animator.SetTrigger("BasicAttackTrigger");
                     machine.StartCoroutine(PlayAnimation(0.13f, 0.32f));
-                    Debug.Log("You attack once!");
+                    //Debug.Log("You attack once!");
                     break;
                 case 1:
                     machine.controller.animator.SetTrigger("BasicAttackTrigger2");
                     machine.StartCoroutine(PlayAnimation(0.12f, 0.25f));
-                    Debug.Log("You attack twice!");
+                    //Debug.Log("You attack twice!");
                     break;
                 case 2:
                     machine.controller.animator.SetTrigger("BasicAttackTrigger3");
                     machine.StartCoroutine(PlayAnimation(0.12f, 0.25f));
-                    Debug.Log("You attack thrice!");
+                    //Debug.Log("You attack thrice!");
                     break;
             }
 
             machine.noOfPresses++;
             yield break;
+        }
+
+        public override void BasicAttack()
+        {
+            if (buffer)
+            {
+                trigger = true;
+            }
         }
 
         IEnumerator PlayAnimation(float hurtBoxStart, float hurtBoxEnd)
@@ -86,27 +97,29 @@ namespace Arilyn.State.PlayerState
             }
             while (time < machine.controller.animator.GetCurrentAnimatorStateInfo(0).length)
             {
-/*                if (hurtBoxStart >= 0 || hurtBoxEnd >= 0)
+                if (time > machine.controller.animator.GetCurrentAnimatorStateInfo(0).length * 0.25f)
                 {
-                    if (time >= hurtBoxStart && time < hurtBoxEnd)
-                    {
-
-
-                    }
-                    if (time >= hurtBoxEnd)
-                    {
-                        //deactivate hurtbox
-                    }
-                }*/
+                    buffer = true;
+                }
 
                 time += Time.deltaTime;
+                Debug.Log("AnimationTime: " + time);
                 yield return null;
             }
-            machine.sword.SetActive(false);
+            yield return null;
+            buffer = false;
             machine.controller.animator.ResetTrigger("BasicAttackTrigger");
             machine.controller.animator.ResetTrigger("BasicAttackTrigger2");
             machine.controller.animator.ResetTrigger("BasicAttackTrigger3");
-            machine.ChangeState(new IdleState(machine));
+            if (trigger)
+            {
+                machine.ChangeState(new BasicAttackState(machine));
+            }
+            else
+            {
+                machine.ChangeState(new IdleState(machine));
+                machine.sword.SetActive(false);
+            }
         }
     }
 }

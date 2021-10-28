@@ -126,6 +126,16 @@ public class PlayerController : MonoBehaviour
     {
         CheckGround();
         CalculateGroundAngle();
+
+        if (MoveDiff())
+        {
+            SetCamera();
+        }
+        moveLast = move;
+        Vector2 mov = moveLast * Time.deltaTime;
+        CalculateDirection(mov);
+        CalculateForward();
+
         DrawDebugLines();
 
         if (!GodCommand.GODMODE) return;
@@ -258,14 +268,6 @@ public class PlayerController : MonoBehaviour
     {
         if (move != Vector2.zero)
         {
-            if (MoveDiff())
-            {
-                SetCamera();
-            }
-            moveLast = move;
-            Vector2 mov = moveLast * Time.deltaTime;
-            CalculateDirection(mov);
-            CalculateForward();
             Rotate();
             //if slope ahead compared to the current location is too high, return.
             if (groundAngle > maxGroundAngle) return;
@@ -378,7 +380,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!debug) return;
 
-        Debug.DrawLine(transform.position + new Vector3(0, (height + heightPadding) / 5, 0), transform.position + point + new Vector3(0, (height + heightPadding) / 5, 0), Color.blue);
+        Debug.DrawLine(transform.position + new Vector3(0, height + heightPadding, 0), transform.position + headPoint + new Vector3(0, height + heightPadding, 0), Color.blue);
         Debug.DrawLine(transform.position, transform.position - Vector3.up * height, Color.green);
     }
 }

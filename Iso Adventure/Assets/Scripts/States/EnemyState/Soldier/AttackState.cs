@@ -42,6 +42,13 @@ namespace Arilyn.State.EnemyState.Soldier
                 yield return null;
             }
 
+            Collider[] hits = Physics.OverlapBox(machine.Controller.hurtBox.transform.position, new Vector3(0.225f, 0.415f, 1.01f));
+
+            foreach (Collider hit in hits)
+            {
+                PlayerHealth health = hit.GetComponent<PlayerHealth>();
+            }
+
         }
     }
 }

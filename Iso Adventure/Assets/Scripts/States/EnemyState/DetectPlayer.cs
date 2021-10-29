@@ -16,7 +16,7 @@ public class DetectPlayer : MonoBehaviour
     private void Start()
     {
         machine = transform.parent.GetComponent<IEnemyStateMachine>();
-        attackPoint = transform.parent.GetComponent<EnemyController>().hurtBox;
+        attackPoint = transform.parent.GetComponent<EnemyController>().attackPoint;
     }
 
     private void Update()
@@ -26,7 +26,7 @@ public class DetectPlayer : MonoBehaviour
         if (machine.AngleToPlayer < viewAngle && distanceToPlayer < viewDistance)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), machine.LookRotation, out hit, 20f))
+            if (Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), machine.LookRotation, out hit, viewDistance * 1.2f))
             {
                 if (hit.transform.GetComponent<PlayerController>())
                 {

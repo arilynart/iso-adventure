@@ -7,7 +7,7 @@ public class FireballParticles : MonoBehaviour
     ShootFireball fireball;
     public ParticleSystem fireballHit;
 
-    private void Start()
+    private void Awake()
     {
         fireball = transform.parent.GetComponent<ShootFireball>();
         fireball.hit = false;
@@ -28,12 +28,9 @@ public class FireballParticles : MonoBehaviour
 
     void Explosion()
     {
-        if (fireball.hit == true)
-        {
-            fireballHit.Play();
-            Debug.Log("Particle: " + fireballHit);
-            Destroy(gameObject, 2f);
-        }
+        fireballHit.Play();
+        Debug.Log("Particle: " + fireballHit);
+        Destroy(gameObject, 2f);
     }
 }
 

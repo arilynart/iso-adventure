@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: Claw
   animationName: Attack
-  damage: 1
-  range: 1.68
-  boxStart: 0.9167
-  boxEnd: 1
+  damage: 2
+  range: 0.84
+  boxStart: 0.833
+  boxEnd: 1.2
   nextAttack: -1

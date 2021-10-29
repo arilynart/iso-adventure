@@ -9,6 +9,7 @@ public interface IEnemyStateMachine
     float AttackDistance { get; set; }
     float AngleToPlayer { get; set; }
     bool CanSeePlayer { get; set; }
+    bool Toggle { get; set; }
     Vector3 LookRotation { get; set; }
     NavMeshAgent Agent { get; set; }
     float Speed { get; set; }
@@ -20,5 +21,7 @@ public interface IEnemyStateMachine
 
     IEnumerator ChangeState(State state);
 
-    void BackToChase();
+    void Attack();
+
+    void AttackBox(EnemyAttackSO attack);
 }

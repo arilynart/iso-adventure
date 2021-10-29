@@ -20,7 +20,7 @@ public class PlayerStateMachine : MonoBehaviour
     [Header("Combat")]
     public GameObject fireball;
     public GameObject sword;
-    public BoxCollider attackCollider;
+    public Transform attackPoint;
     
     public float maxComboDelay = 1.25f;
 
@@ -30,6 +30,13 @@ public class PlayerStateMachine : MonoBehaviour
     public int fireballCost = 4;
 
     public System.DateTime lastPressedTime;
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        //basic attack
+        Gizmos.DrawWireSphere(attackPoint.position, 0.99f);
+    }
 
     private void Start()
     {
@@ -54,9 +61,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void ChangeState(PlayerState state)
     {
-        if (currentState != null) StartCoroutine(currentState.ExitState());
         currentState = state;
         StartCoroutine(currentState.EnterState());
+        //Debug.Log("Current State: " + state);
     }
 
     public void Movement(Vector2 value)

@@ -10,18 +10,11 @@ namespace Arilyn.State.EnemyState.Soldier
     {
         public WanderState(IEnemyStateMachine mch) : base(mch) { }
 
-        bool trigger = false;
         bool wanderTrigger = false;
 
         public override IEnumerator EnterState()
         {
             machine.Agent.speed = 0.8f;
-/*            AnimatorStateInfo info = machine.Animator.GetCurrentAnimatorStateInfo(0);
-            float normal = info.normalizedTime;
-            if (normal != 0)
-            {
-                machine.Animator.Play("ZombieIdle");
-            }*/
             yield break;
         }
 
@@ -32,14 +25,13 @@ namespace Arilyn.State.EnemyState.Soldier
             {
 
                 wanderTrigger = true;
-                DeveloperConsoleBehavior.PLAYER.StartCoroutine(WanderDelay(Random.Range(2, 4)));
+                machine.Controller.StartCoroutine(WanderDelay(Random.Range(2, 4)));
                 
             }
-            if (machine.CanSeePlayer && !trigger)
+            if (machine.CanSeePlayer)
             {
                 //change state to chase
-                DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
-                trigger = true;
+                machine.Controller.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
             }
         }
 
@@ -53,14 +45,17 @@ namespace Arilyn.State.EnemyState.Soldier
                 time += Time.deltaTime;
                 yield return null;
             }
-            machine.Animator.SetBool("Walking", true);
             //find position to wander
             Vector3 targetPosition = (new Vector3(Random.insideUnitCircle.x, 0, Random.insideUnitCircle.y) * 5);
             targetPosition += machine.Transform.position;
             NavMeshHit hit;
 
             if (NavMesh.SamplePosition(targetPosition, out hit, 5, machine.Agent.areaMask)) {
-                if (machine.Agent.enabled) machine.Agent.SetDestination(hit.position);
+                if (machine.Agent.enabled)
+                {
+                    machine.Agent.SetDestination(hit.position);
+                    machine.Animator.SetBool("Walking", true);
+                }
             }
             wanderTrigger = false;
         }

@@ -10,8 +10,6 @@ namespace Arilyn.State.EnemyState.Golem
     {
         public WanderState(IEnemyStateMachine mch) : base(mch) { }
 
-        bool toggle = false;
-
         public override IEnumerator EnterState()
         {
             machine.Agent.speed = machine.Speed;
@@ -27,12 +25,11 @@ namespace Arilyn.State.EnemyState.Golem
 
         public override void LocalUpdate()
         {
-            if (machine.CanSeePlayer && !toggle)
+            if (machine.CanSeePlayer)
             {
                 Debug.Log("Golem: Seen player, changing to chase");
                 //change state to chase
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
-                toggle = true;
             }
         }
     }

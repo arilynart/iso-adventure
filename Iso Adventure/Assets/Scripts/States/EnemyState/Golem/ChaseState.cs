@@ -9,8 +9,6 @@ namespace Arilyn.State.EnemyState.Golem
     {
         public ChaseState(IEnemyStateMachine mch) : base(mch) { }
 
-        bool toggle = false;
-
         public override IEnumerator EnterState()
         {
             machine.Animator.SetBool("Walking", true);
@@ -39,8 +37,9 @@ namespace Arilyn.State.EnemyState.Golem
             if (!machine.CanSeePlayer)
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new WanderState(machine)));
+
             }
-            else if (machine.AttackDistance < machine.Stats.range && !toggle)
+            else if (machine.AttackDistance < machine.Stats.range)
             {
                 if (machine.Stats.activeAttack == machine.Stats.attacks[2] || machine.Stats.activeAttack == machine.Stats.lockedAttacks[2])
                 {
@@ -49,7 +48,6 @@ namespace Arilyn.State.EnemyState.Golem
                     
                 }
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new AimState(machine)));
-                toggle = true;
             }
         }
     }

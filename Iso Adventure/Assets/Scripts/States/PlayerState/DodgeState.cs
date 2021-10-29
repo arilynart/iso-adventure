@@ -17,7 +17,7 @@ namespace Arilyn.State.PlayerState
             {
                 //snap player rotation to inputted direction
                 machine.controller.point = machine.controller.headPoint;
-                machine.transform.forward = machine.controller.headPoint;
+                machine.transform.forward = machine.controller.head;
             }
             //Start movement
             machine.controller.animator.SetTrigger("DodgeTrigger");

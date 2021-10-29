@@ -5791,6 +5791,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6327587174677092509}
+  - component: {fileID: 8242716197002147468}
+  - component: {fileID: 8042424163209681027}
   m_Layer: 0
   m_Name: forearm.L
   m_TagString: Untagged
@@ -5813,6 +5815,33 @@ Transform:
   m_Father: {fileID: 4050670979450117665}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8242716197002147468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184768402616408887}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.012649024, y: 0.029235097, z: 0.012401901}
+  m_Center: {x: 0.00085879146, y: 0.0069655683, z: 0.0005286351}
+--- !u!114 &8042424163209681027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184768402616408887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d78c99180ca28458da3c74b8d046eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 7508409567138107117}
+  stats: {fileID: 0}
 --- !u!1 &3242905378008110227
 GameObject:
   m_ObjectHideFlags: 0
@@ -6754,6 +6783,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2450738934766140060}
+  - component: {fileID: 3708044870710193408}
+  - component: {fileID: 7055269670210918312}
   m_Layer: 0
   m_Name: forearm.R
   m_TagString: Untagged
@@ -6776,6 +6807,33 @@ Transform:
   m_Father: {fileID: 3443032760431849033}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3708044870710193408
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566051837381076717}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.012649024, y: 0.029235097, z: 0.012401901}
+  m_Center: {x: 0.00085879146, y: 0.0069655683, z: 0.0005286351}
+--- !u!114 &7055269670210918312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566051837381076717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d78c99180ca28458da3c74b8d046eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 7508409567138107117}
+  stats: {fileID: 0}
 --- !u!1 &6611225963716233003
 GameObject:
   m_ObjectHideFlags: 0
@@ -7009,6 +7067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6900365417595523466}
   - component: {fileID: 6900365417595523458}
+  - component: {fileID: 8108199574603648744}
   m_Layer: 7
   m_Name: AttackPoint
   m_TagString: Attack
@@ -7043,6 +7102,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.13
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8108199574603648744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6900365417595523461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98d78c99180ca28458da3c74b8d046eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 7508409567138107117}
+  stats: {fileID: 0}
 --- !u!1 &6900365418580020902
 GameObject:
   m_ObjectHideFlags: 0
@@ -7404,8 +7477,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  stats: {fileID: 0}
-  hurtBox: {fileID: 6900365417595523461}
+  attackPoint: {fileID: 6900365417595523461}
+  colliders: []
 --- !u!114 &6900365417415235381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7476,6 +7549,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionToPlayer: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
+  FrontSphere: {fileID: 6900365417595523461}
+  ArmL: {fileID: 3184768402616408887}
+  ArmR: {fileID: 6566051837381076717}
 --- !u!1 &7515127955084708247
 GameObject:
   m_ObjectHideFlags: 0

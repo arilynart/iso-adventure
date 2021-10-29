@@ -10,13 +10,6 @@ public class BlockReset : MonoBehaviour
     {
         controller = transform.parent.GetComponent<ITorchController>();
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<AttackCollision>())
-        {
-            Restart();
-        }
-    }
 
     public void Restart()
     {
@@ -24,7 +17,8 @@ public class BlockReset : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            child.GetComponent<BlockPush>().Restart();
+            BlockPush push = child.GetComponent<BlockPush>();
+            push.Restart();
         }
     }
 }

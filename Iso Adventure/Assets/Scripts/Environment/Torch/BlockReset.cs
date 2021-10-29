@@ -17,7 +17,8 @@ public class BlockReset : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            child.GetComponent<BlockPush>().Restart();
+            BlockPush push = child.GetComponent<BlockPush>();
+            push.Restart();
         }
     }
 }

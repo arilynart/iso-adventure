@@ -26,15 +26,15 @@ namespace Arilyn.State.PlayerState
             switch (machine.noOfPresses) {
                 case 0:
                     
-                    machine.StartCoroutine(PlayAnimation(0.13f, 0.32f, "BasicAttackTrigger"));
+                    machine.StartCoroutine(PlayAnimation("BasicAttackTrigger"));
                     //Debug.Log("You attack once!");
                     break;
                 case 1:
-                    machine.StartCoroutine(PlayAnimation(0.12f, 0.25f, "BasicAttackTrigger2"));
+                    machine.StartCoroutine(PlayAnimation("BasicAttackTrigger2"));
                     //Debug.Log("You attack twice!");
                     break;
                 case 2:
-                    machine.StartCoroutine(PlayAnimation(0.12f, 0.25f, "BasicAttackTrigger3"));
+                    machine.StartCoroutine(PlayAnimation("BasicAttackTrigger3"));
                     //Debug.Log("You attack thrice!");
                     break;
             }
@@ -51,12 +51,12 @@ namespace Arilyn.State.PlayerState
             }
         }
 
-        IEnumerator PlayAnimation(float hurtBoxStart, float hurtBoxEnd, string trigger)
+        IEnumerator PlayAnimation(string trigger)
         {
             machine.controller.animator.SetTrigger(trigger);
             machine.sword.SetActive(true);
             float time = 0;
-            Collider[] colliders = Physics.OverlapSphere(machine.attackPoint.position, 0.66f);
+            Collider[] colliders = Physics.OverlapSphere(machine.attackPoint.position, 0.99f);
             foreach (Collider col in colliders)
             {
                 EnemyStats stats = col.GetComponent<EnemyStats>();
@@ -75,13 +75,14 @@ namespace Arilyn.State.PlayerState
                 {
                     RaycastHit hit;
                     Debug.Log("Hit Block");
-                    if (Physics.Raycast(machine.transform.position + raycastOffset, machine.transform.parent.forward + raycastOffset, out hit, 5f, machine.controller.ground))
+                    if (Physics.Raycast(machine.transform.position + raycastOffset, machine.transform.forward + raycastOffset, out hit, 10f, machine.controller.ground))
                     {
 
                         Vector3 localPoint = hit.transform.InverseTransformPoint(hit.point);
                         Vector3 localDir = localPoint.normalized;
 
                         push.Slide(localDir);
+                        break;
                     }
 
                 }
@@ -92,6 +93,7 @@ namespace Arilyn.State.PlayerState
                 else if (reset)
                 {
                     reset.Restart();
+                    break;
                 }
             }
             while (time < machine.controller.animator.GetCurrentAnimatorStateInfo(0).length)

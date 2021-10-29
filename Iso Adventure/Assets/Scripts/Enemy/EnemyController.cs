@@ -7,13 +7,13 @@ using Arilyn.State.EnemyState.Soldier;
 public class EnemyController : MonoBehaviour
 {
     public Animator animator;
-    public EnemyStats stats;
-    public GameObject hurtBox;
+    public GameObject attackPoint;
     public IEnemyStateMachine machine;
+
+    public List<Collider> colliders = new List<Collider>();
 
     private void Awake()
     {
-        stats = GetComponent<EnemyStats>();
         animator = GetComponent<Animator>();
         machine = GetComponent<IEnemyStateMachine>();
     }
@@ -26,51 +26,36 @@ public class EnemyController : MonoBehaviour
 
     public void Attack()
     {
-        if (stats.activeAttack == null) stats.ChooseAttack();
+        if (machine.Stats.activeAttack == null) machine.Stats.ChooseAttack();
 
-        stats.InitializeAttack();
+        machine.Stats.InitializeAttack();
         //Start attack animation
-        stats.attack.ExecuteAttack();
+        machine.Stats.attack.ExecuteAttack();
     }
 
-
-    public IEnumerator AttackAnimation(float hurtBoxStart, float hurtBoxEnd)
+    public void ActivateAttack()
     {
-        float time = 0;
-        while (time < animator.GetCurrentAnimatorStateInfo(0).length)
+        foreach (Collider col in colliders)
         {
-            if (time >= hurtBoxStart && time < hurtBoxEnd)
-            {
-                activateHurtbox();
-            }
-            else
-            {
-                deactivateHurtbox();
-            }
-            time += Time.deltaTime;
-            yield return null;
+            col.enabled = true;
         }
-
-        machine.BackToChase();
-    }
-
-    public void activateHurtbox()
-    {
-        hurtBox.GetComponent<Collider>().enabled = true;
         Debug.Log("Hurtbox on!");
     }
 
-    public void deactivateHurtbox()
+    public void DeactivateAttack()
     {
-        hurtBox.GetComponent<Collider>().enabled = false;
+        foreach (Collider col in colliders)
+        {
+            col.enabled = false;
+        }
         Debug.Log("Hurtbox off!");
         //stats.activeAttack = null;
     }
 
-/*    private void OnDrawGizmosSelected()
-    {
-        //Draws radius of lookRadius in Scene View
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
-    }*/
+    /*    private void OnDrawGizmosSelected()
+        {
+            //Draws radius of lookRadius in Scene View
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, lookRadius);
+        }*/
 }

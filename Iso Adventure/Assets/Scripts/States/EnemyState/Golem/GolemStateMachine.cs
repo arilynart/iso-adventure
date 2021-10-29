@@ -65,6 +65,12 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         get => canSeePlayer;
         set => canSeePlayer = value;
     }
+    private bool toggle;
+    public bool Toggle
+    {
+        get => toggle;
+        set => toggle = value;
+    }
     public PlayerController player;
 
     private float acceleration;
@@ -82,6 +88,10 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
 
     private State currentState;
 
+    public GameObject FrontSphere;
+    public GameObject ArmL;
+    public GameObject ArmR;
+
     private void Start()
     {
         player = DeveloperConsoleBehavior.PLAYER;
@@ -92,25 +102,9 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         Transform = transform;
         Acceleration = 8;
         Speed = 2.6f;
+        Toggle = false;
 
         StartCoroutine(ChangeState(new WanderState(this)));
-    }
-
-    public IEnumerator ChangeState(State state)
-    {
-        if (currentState != null)
-        {
-            yield return StartCoroutine(currentState.ExitState());
-            //StartCoroutine(currentState.ExitState());
-        }
-        currentState = state;
-        StartCoroutine(currentState.EnterState());
-        Debug.Log("Golem: Current State " + currentState);
-    }
-
-    public void BackToChase()
-    {
-        StartCoroutine(ChangeState(new ChaseState(this)));
     }
 
     private void Update()
@@ -122,6 +116,75 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         lookRotation = player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(transform.forward, lookRotation);
         if (currentState != null) currentState.LocalUpdate();
+    }
+
+    public IEnumerator ChangeState(State state)
+    {
+        if (Toggle) yield break;
+        Toggle = true;
+        if (currentState != null)
+        {
+            yield return StartCoroutine(currentState.ExitState());
+            //StartCoroutine(currentState.ExitState());
+        }
+        currentState = state;
+        yield return null;
+        Toggle = false;
+        StartCoroutine(currentState.EnterState());
+        
+        Debug.Log("Golem: Current State " + currentState);
+        
+    }
+
+    public void BackToChase()
+    {
+        StartCoroutine(ChangeState(new ChaseState(this)));
+    }
+
+    public void Attack()
+    {
+        StartCoroutine(AttackAnimation(Stats.boxStart, Stats.boxEnd));
+    }
+
+    IEnumerator AttackAnimation(float attackStart, float attackEnd)
+    {
+        AttackBox(Stats.activeAttack);
+        float time = 0;
+        while (time < attackStart)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+        Controller.ActivateAttack();
+        while (time < attackEnd)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+        Controller.DeactivateAttack();
+        while (time < Animator.GetCurrentAnimatorStateInfo(0).length)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+        StartCoroutine(ChangeState(new ChaseState(this)));
+
+    }
+
+    public void AttackBox(EnemyAttackSO attack)
+    {
+        Controller.colliders.Clear();
+        if (attack == Stats.attacks[0])
+            Controller.colliders.Add(ArmL.GetComponent<Collider>());
+        else if (attack == Stats.lockedAttacks[0])
+            Controller.colliders.Add(ArmR.GetComponent<Collider>());
+        else if (attack == Stats.lockedAttacks[1])
+        {
+            Controller.colliders.Add(ArmL.GetComponent<Collider>());
+            Controller.colliders.Add(ArmR.GetComponent<Collider>());
+        }
+        else
+            Controller.colliders.Add(FrontSphere.GetComponent<Collider>());
     }
 }
 

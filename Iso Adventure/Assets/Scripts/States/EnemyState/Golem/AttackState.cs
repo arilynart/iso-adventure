@@ -14,18 +14,18 @@ namespace Arilyn.State.EnemyState.Golem
         {
             if (machine.Stats.activeAttack == machine.Stats.attacks[2])
             {
-                DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.Transform.GetComponent<BullAttack>().Jumping());
                 if (machine.Agent.enabled) machine.Agent.SetDestination(DeveloperConsoleBehavior.PLAYER.transform.position);
+                machine.Controller.StartCoroutine(machine.Transform.GetComponent<BullAttack>().Jumping());
             }
             else
             {
+                if (machine.Agent.enabled) machine.Agent.SetDestination(machine.Transform.position);
                 machine.Agent.acceleration = 0;
                 machine.Agent.speed = 0;
-                if (machine.Agent.enabled) machine.Agent.SetDestination(machine.Transform.position);
             }
 
             machine.Animator.SetTrigger(machine.Stats.animationName);
-            DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.Controller.AttackAnimation(machine.Stats.boxStart, machine.Stats.boxEnd));
+            machine.Attack();
             yield return null;
         }
 

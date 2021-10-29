@@ -9,8 +9,6 @@ namespace Arilyn.State.EnemyState.Soldier
     {
         public AimState(IEnemyStateMachine mch) : base(mch) { }
 
-        bool toggle = false;
-
         public override IEnumerator EnterState()
         {
             machine.Agent.speed = 5;
@@ -19,18 +17,16 @@ namespace Arilyn.State.EnemyState.Soldier
 
         public override void LocalUpdate()
         {
-            if (machine.AttackDistance <= machine.Stats.range && !toggle)
+            if (machine.AttackDistance <= machine.Stats.range)
             {
                 //Vector3 targetRot = Vector3.RotateTowards(machine.transform.forward, machine.lookRotation, 4 * Time.deltaTime, 0);
                 Quaternion lookRotation = Quaternion.LookRotation(machine.LookRotation);
                 machine.Transform.rotation = Quaternion.Slerp(machine.Transform.rotation, lookRotation, 5 * Time.deltaTime);
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new AttackState(machine)));
-                toggle = true;
             }
-            else if (!toggle)
+            else
             {
                 DeveloperConsoleBehavior.PLAYER.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
-                toggle = true;
             }
         }
     }

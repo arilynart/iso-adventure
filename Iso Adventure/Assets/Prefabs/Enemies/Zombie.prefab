@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78480df5868c89d4db1b334e75ffdb10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 3
-  maxHp: 3
+  hp: 6
+  maxHp: 6
   attacks:
   - {fileID: 11400000, guid: c30d3f16ad3128b4789e2ef31e79c356, type: 2}
   lockedAttacks: []
@@ -5365,7 +5365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554500867432664400}
   m_LocalRotation: {x: -0, y: 0.034586985, z: -0, w: 0.9994017}
-  m_LocalPosition: {x: 0.351, y: 0.43, z: 0.785}
+  m_LocalPosition: {x: 0.15, y: 0.43, z: 0.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 144026251298917181}
@@ -5382,7 +5382,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.83, z: 2.02}
+  m_Size: {x: 0.72, y: 0.83, z: 2.02}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1558196813132173286
 GameObject:
@@ -6046,7 +6046,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0031171378, y: 0.0024591289, z: 0.0016918806}
+  m_ConnectedAnchor: {x: -0.0031171378, y: 0.002459118, z: 0.001691923}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:

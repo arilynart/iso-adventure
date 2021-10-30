@@ -14,7 +14,7 @@ public class ShootFireball : MonoBehaviour
 
     private void Update()
     {
-        transform.position += trajectory * speed;
+        transform.position += trajectory * speed * Time.timeScale;
         if (Physics.Raycast(transform.position, trajectory, out hitInfo, 0.25f, DeveloperConsoleBehavior.PLAYER.ground))
         {
             Debug.Log("Fireball collided with wall");

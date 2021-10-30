@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Arilyn.DeveloperConsole.Behavior;
 
-namespace Arilyn.State.EnemyState.Soldier
+namespace Arilyn.State.EnemyState.Shooter
 {
     public class ChaseState : EnemyState
     {
@@ -33,7 +33,7 @@ namespace Arilyn.State.EnemyState.Soldier
             {
                 machine.Controller.StartCoroutine(machine.ChangeState(new WanderState(machine)));
             }
-            else if (machine.AttackDistance <  machine.Stats.range)
+            else if (machine.AttackDistance < machine.Stats.range)
             {
                 machine.Controller.StartCoroutine(machine.ChangeState(new AimState(machine)));
             }

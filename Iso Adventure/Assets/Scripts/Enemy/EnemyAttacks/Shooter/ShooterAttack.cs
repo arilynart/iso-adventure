@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Arilyn.State.EnemyState.Soldier;
 
-public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
+public class ShooterAttack : MonoBehaviour, IEnemyAttack
 {
     string attackName;
     string animationName;
@@ -14,6 +13,13 @@ public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
     float boxEnd;
 
     int nextAttack;
+
+    ShooterStateMachine machine;
+
+    private void Start()
+    {
+        machine = GetComponent<ShooterStateMachine>();
+    }
 
     public void InitializeAttack(string name, string anim, int dmg, float rng, float start, float end, int next)
     {
@@ -29,7 +35,7 @@ public class ZombieAttack1 : MonoBehaviour, IEnemyAttack
     public void ExecuteAttack()
     {
         Debug.Log("Initializing attack: " + attackName + " " + animationName + " " + damage + " " + boxStart + " " + boxEnd + " " + nextAttack + " ");
-
+        machine.looking = true;
     }
 
 }

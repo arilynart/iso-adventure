@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56f7fdd5d6910bd4e9352901c36bd860, type: 3}
-  m_Name: ZombieAttack1
+  m_Name: Shoot
   m_EditorClassIdentifier: 
-  attackName: Slice
+  attackName: Shoot
   animationName: Attack
-  damage: 2
-  range: 0.84
-  boxStart: 0.833
-  boxEnd: 1.2
+  damage: 3
+  range: 15
+  boxStart: 0.9167
+  boxEnd: 1
   nextAttack: -1

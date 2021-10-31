@@ -5,14 +5,13 @@ using UnityEngine;
 public class EncounterTest : EnemyEncounter
 {
     public GameObject[] enemies;
+    public GameObject[] currentEnemies;
     public GameObject[] doors;
 
     public float zoom = 5;
     float baseZoom;
     float currentZoom;
     float targetZoom;
-
-    int deaths;
 
     public bool endRound;
     bool zoomOut;
@@ -49,7 +48,7 @@ public class EncounterTest : EnemyEncounter
 
     private void Update()
     {
-        if (DEATHCOUNT >= deaths)
+        if (DEATHCOUNT >= DEATHS)
         {
             endRound = true;
         }
@@ -78,20 +77,22 @@ public class EncounterTest : EnemyEncounter
         {
             round++;
             DEATHCOUNT = 0;
+            DEATHS = 0;
             endRound = false;
             Debug.Log("Starting Round: " + round);
             switch (round)
             {
                 case 1:
-                    deaths = 2;
                     enemies[0].GetComponent<EnemyController>().Spawn();
                     enemies[1].GetComponent<EnemyController>().Spawn();
+                    AGGRO_ENEMIES();
+
                     break;
                 case 2:
-                    deaths = 3;
                     enemies[2].GetComponent<EnemyController>().Spawn();
                     enemies[3].GetComponent<EnemyController>().Spawn();
                     enemies[4].GetComponent<EnemyController>().Spawn();
+                    AGGRO_ENEMIES();
                     break;
             }
             yield return new WaitUntil(() => endRound);

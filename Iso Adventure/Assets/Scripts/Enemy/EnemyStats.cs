@@ -88,6 +88,7 @@ public class EnemyStats : MonoBehaviour
     public void Die()
     {
         dead = true;
+        EnemyEncounter.REMOVE_ENEMY(gameObject);
 
         Vector3 direction = player.position - transform.position;
         Debug.Log("Direction " + direction);

@@ -22,6 +22,8 @@ public class EnemyController : MonoBehaviour
     {
         //agent.enabled = true;
         gameObject.SetActive(true);
+        EnemyEncounter.ADD_ENEMY(gameObject);
+        EnemyEncounter.DEATHS++;
     }
 
     public void Attack()

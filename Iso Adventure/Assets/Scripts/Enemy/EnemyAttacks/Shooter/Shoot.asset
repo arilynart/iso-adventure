@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: Shoot
   animationName: Attack
-  damage: 3
+  damage: 1
   range: 15
   boxStart: 0.9167
   boxEnd: 1

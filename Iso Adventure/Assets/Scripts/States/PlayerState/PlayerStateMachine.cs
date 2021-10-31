@@ -91,7 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void Heal()
     {
-        if (controller.mana.mana < controller.health.healCost) return;
+        if (controller.mana.mana < controller.health.healCost || controller.invuln) return;
 
         currentState.Heal();
     }

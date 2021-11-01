@@ -73,7 +73,6 @@ namespace Arilyn.State.PlayerState
 
         public override void Interact()
         {
-            ResetAnimation();
             machine.controller.interactTrigger = true;
         }
 

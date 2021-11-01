@@ -19,7 +19,7 @@ namespace Arilyn.State.PlayerState
         IEnumerator PlayAnimation()
         {
             float time = 0;
-            while (time < 1.22f)
+            while (time < 1.34f)
             {
                 if (machine.controller.invuln)
                 {

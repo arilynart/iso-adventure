@@ -48,6 +48,7 @@ public class PlayerStateMachine : MonoBehaviour
     private void Update()
     {
         currentState.LocalUpdate();
+        if (controller.grounded) controller.airDodge = false;
     }
 
     private void FixedUpdate()
@@ -73,7 +74,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void Dodge()
     {
-        currentState.Dodge();
+        if (!controller.airDodge) currentState.Dodge();
     }
 
     public void BasicAttack()

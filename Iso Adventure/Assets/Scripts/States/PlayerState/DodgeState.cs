@@ -9,7 +9,8 @@ namespace Arilyn.State.PlayerState
         public DodgeState(PlayerStateMachine mch) : base(mch) { }
 
         public override IEnumerator EnterState()
-        { 
+        {
+            machine.controller.airDodge = true;
             if (machine.controller.groundAngle != 90)
                 machine.rb.AddForce(0, -machine.controller.slopeForce * 50, 0);
 

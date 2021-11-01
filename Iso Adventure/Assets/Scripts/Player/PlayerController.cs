@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     public bool interactTrigger;
     public bool onLadder;
     public bool exitLadder;
+    public bool airDodge;
     bool idle;
 
     int idleCount;

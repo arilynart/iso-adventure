@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5d00cad9735cedb42a2fded30b7ef19d
+guid: 46ae41371f4b7524da0dc41ab39a1cd1
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
@@ -19,14 +19,8 @@ ModelImporter:
       74: -5324238279805231817
     second: metarig|Idle
   - first:
-      74: -887982601649841707
-    second: metarig|metarigAction
-  - first:
       74: -2483591982332496685
     second: metarig|Run
-  - first:
-      74: 2808714396835539526
-    second: metarig|Run.001
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -47,7 +41,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -89,7 +83,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 180
+    normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
@@ -112,7 +106,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1

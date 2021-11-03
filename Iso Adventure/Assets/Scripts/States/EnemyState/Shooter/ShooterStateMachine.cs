@@ -158,7 +158,7 @@ public class ShooterStateMachine : MonoBehaviour, IEnemyStateMachine
         looking = false;
 
         //change -transform.right to transform.forward once rig is fixed.
-        Vector3 trajectory = -head.transform.right;
+        Vector3 trajectory = head.transform.forward;
 
         GameObject ball = Instantiate(fireball, head.transform.position, head.transform.rotation);
         ball.layer = gameObject.layer;

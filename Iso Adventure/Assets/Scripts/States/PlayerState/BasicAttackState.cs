@@ -54,8 +54,16 @@ namespace Arilyn.State.PlayerState
         IEnumerator PlayAnimation(string trigger)
         {
             machine.controller.animator.SetTrigger(trigger);
+            machine.slash.SetActive(true);
+            machine.slashAnim.SetTrigger("slash");
             machine.sword.SetActive(true);
             float time = 0;
+            while (time < 0.1667f)
+            {
+                time += Time.deltaTime;
+                yield return null;
+            }
+            buffer = true;
             Collider[] colliders = Physics.OverlapSphere(machine.attackPoint.position, 0.99f);
             foreach (Collider col in colliders)
             {
@@ -96,12 +104,9 @@ namespace Arilyn.State.PlayerState
                     break;
                 }
             }
+
             while (time < machine.controller.animator.GetCurrentAnimatorStateInfo(0).length)
             {
-                if (time > machine.controller.animator.GetCurrentAnimatorStateInfo(0).length * 0.25f)
-                {
-                    buffer = true;
-                }
 
                 time += Time.deltaTime;
                 //Debug.Log("AnimationTime: " + time);
@@ -110,6 +115,8 @@ namespace Arilyn.State.PlayerState
             yield return null;
             buffer = false;
             machine.controller.animator.ResetTrigger(trigger);
+            machine.slash.SetActive(false);
+            machine.slashAnim.ResetTrigger("slash");
             if (toggle)
             {
                 machine.ChangeState(new BasicAttackState(machine));

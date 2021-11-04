@@ -63,7 +63,7 @@ namespace Arilyn.State.PlayerState
                 time += Time.deltaTime;
                 yield return null;
             }
-
+            buffer = true;
             Collider[] colliders = Physics.OverlapSphere(machine.attackPoint.position, 0.99f);
             foreach (Collider col in colliders)
             {
@@ -107,10 +107,6 @@ namespace Arilyn.State.PlayerState
 
             while (time < machine.controller.animator.GetCurrentAnimatorStateInfo(0).length)
             {
-                if (time > machine.controller.animator.GetCurrentAnimatorStateInfo(0).length * 0.25f)
-                {
-                    buffer = true;
-                }
 
                 time += Time.deltaTime;
                 //Debug.Log("AnimationTime: " + time);

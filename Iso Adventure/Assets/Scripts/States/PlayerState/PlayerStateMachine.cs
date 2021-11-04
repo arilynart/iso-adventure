@@ -20,8 +20,10 @@ public class PlayerStateMachine : MonoBehaviour
     [Header("Combat")]
     public GameObject fireball;
     public GameObject sword;
+    public GameObject slash;
     public Transform attackPoint;
-    
+    public Animator slashAnim;
+
     public float maxComboDelay = 1.25f;
 
     public int noOfPresses = 0;
@@ -42,6 +44,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
+        slashAnim = slash.GetComponent<Animator>();
         ChangeState(new IdleState(this));
     }
 

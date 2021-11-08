@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: Shoot
   animationName: Attack
   damage: 1
-  range: 15
+  range: 25
   boxStart: 0.9167
   boxEnd: 1
   nextAttack: -1

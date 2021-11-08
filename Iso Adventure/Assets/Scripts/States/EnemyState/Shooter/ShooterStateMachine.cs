@@ -102,7 +102,7 @@ public class ShooterStateMachine : MonoBehaviour, IEnemyStateMachine
         Stats = GetComponent<EnemyStats>();
         Transform = transform;
         Acceleration = 8;
-        Speed = 1.1f;
+        Speed = 5;
         Toggle = false;
     }
 
@@ -116,7 +116,7 @@ public class ShooterStateMachine : MonoBehaviour, IEnemyStateMachine
         angleToPlayer = Vector3.Angle(transform.forward, LookRotation);
         currentState.LocalUpdate();
 
-        if (looking) LookTarget.transform.position = Vector3.Lerp(LookTarget.transform.position, player.transform.position + new Vector3(0, 0.75f, 0), 0.1f);
+        if (looking) LookTarget.transform.position = player.transform.position;
     }
 
     private void OnEnable()

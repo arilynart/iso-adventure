@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   offset: {x: -5, y: 5, z: -5}
-  lerpTime: 0.1
+  lerpTime: 0.015
 --- !u!114 &1920717248
 MonoBehaviour:
   m_ObjectHideFlags: 0

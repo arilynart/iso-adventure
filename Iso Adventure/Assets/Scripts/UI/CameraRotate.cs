@@ -60,8 +60,6 @@ public class CameraRotate : MonoBehaviour
     public IEnumerator Rotation(int state)
     {
         if (rotState == state) yield break;
-
-        follow.lerpTime = 0.03f;
         rotation = RotationScale(state);
         float time = 0;
         while (time < turnTime)
@@ -70,6 +68,5 @@ public class CameraRotate : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        follow.lerpTime = 0.1f;
     }
 }

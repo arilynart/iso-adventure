@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 0}
   viewAngle: 360
-  viewDistance: 12
+  viewDistance: 14
 --- !u!1 &144026251298917176
 GameObject:
   m_ObjectHideFlags: 0

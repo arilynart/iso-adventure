@@ -28,8 +28,9 @@ namespace Arilyn.State.EnemyState.Shooter
                 machine.Controller.StartCoroutine(WanderDelay(Random.Range(2, 4)));
 
             }
-            if (machine.CanSeePlayer)
+            if (machine.CanSeePlayer && !machine.Toggle)
             {
+                machine.Controller.StopAllCoroutines();
                 //change state to chase
                 machine.Controller.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
             }

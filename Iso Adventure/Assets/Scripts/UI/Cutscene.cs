@@ -24,7 +24,6 @@ public class Cutscene : MonoBehaviour
 
     IEnumerator CutscenePlay(Transform target, float duration)
     {
-        follow.lerpTime = 0.03f;
         Transform oldPos = follow.target;
         DeveloperConsoleBehavior.PLAYER.controls.Disable();
         
@@ -37,7 +36,6 @@ public class Cutscene : MonoBehaviour
             yield return null;
         }
         follow.target = oldPos;
-        follow.lerpTime = 0.1f;
         DeveloperConsoleBehavior.PLAYER.controls.Enable();
         CameraFollow.MAINCAMERA.cullingMask = defaultMask;
         CameraFollow.MAINCAMERA.backgroundColor = skyColor;

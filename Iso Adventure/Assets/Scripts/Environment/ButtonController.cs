@@ -16,12 +16,12 @@ public class ButtonController : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (!other) return;
-        if (!other.GetComponent<PlayerController>()) return;
+        if (other.tag != "Interact") return;
         //enabled = true;
         dialogueSystem.EnterRangeOfInteractable(transform);
         //dialogueSystem.GateButton();
 
-        PlayerController controller = other.GetComponent<PlayerController>();
+        PlayerController controller = other.transform.parent.GetComponent<PlayerController>();
         if (controller.interactTrigger)
         {
             //reset interact trigger

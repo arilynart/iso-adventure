@@ -71,6 +71,9 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         get => toggle;
         set => toggle = value;
     }
+
+    bool dead = false;
+
     public PlayerController player;
 
     private float acceleration;
@@ -109,9 +112,10 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
 
     private void Update()
     {
-        if (stats.dead)
+        if (stats.dead && !dead)
         {
             StartCoroutine(ChangeState(new DeadState(this)));
+            dead = true;
         }
         lookRotation = player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(transform.forward, lookRotation);

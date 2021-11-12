@@ -11,6 +11,7 @@ namespace Arilyn.State.EnemyState.Golem
         public override IEnumerator EnterState()
         {
             machine.Agent.enabled = false;
+            machine.Animator.SetTrigger("die");
             yield break;
         }
     }

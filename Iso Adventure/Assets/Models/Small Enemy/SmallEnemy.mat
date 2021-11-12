@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SmallEnemyTestMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: c5739f3c0a900d748a273ce714191269,
+  m_Name: SmallEnemy
+  m_Shader: {fileID: -6465566751694194690, guid: 1e6e83d9deb23ef46902dff144b4eed0,
     type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Normal_Map:
-        m_Texture: {fileID: 2800000, guid: 3a9146380bf0a68409e4c1c7624d15c5, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:

@@ -13,7 +13,7 @@ public class EnemyFireball : MonoBehaviour
     public int damage = 0;
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         transform.position += trajectory * speed * Time.timeScale;
         if (Physics.Raycast(transform.position, trajectory, out hitInfo, 0.25f, DeveloperConsoleBehavior.PLAYER.ground))

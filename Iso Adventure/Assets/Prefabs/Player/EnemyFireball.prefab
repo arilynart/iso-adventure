@@ -9959,6 +9959,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trajectory: {x: 0, y: 0, z: 1}
-  speed: 0.04
+  speed: 0.16
   hit: 0
   damage: 0

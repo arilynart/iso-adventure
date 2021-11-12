@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RegularEnemy
-  m_Shader: {fileID: -6465566751694194690, guid: c5739f3c0a900d748a273ce714191269,
+  m_Shader: {fileID: -6465566751694194690, guid: 1e6e83d9deb23ef46902dff144b4eed0,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

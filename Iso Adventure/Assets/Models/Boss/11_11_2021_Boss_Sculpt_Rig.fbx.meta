@@ -1,26 +1,8 @@
 fileFormatVersion: 2
-guid: 80d609cad8361fa48a7194201ff12d19
+guid: 9701b592365936d4385c0a39ac7090ad
 ModelImporter:
   serializedVersion: 21100
-  internalIDToNameTable:
-  - first:
-      74: 2667949614841947897
-    second: Walk
-  - first:
-      74: -7005557325860981243
-    second: Attack 01
-  - first:
-      74: 6517714258327031822
-    second: Idle.001
-  - first:
-      74: -3771006814179459465
-    second: metarig|Attack 01
-  - first:
-      74: -5324238279805231817
-    second: metarig|Idle
-  - first:
-      74: 2933577835342229695
-    second: metarig|Walk
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -83,7 +65,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 50
+    normalSmoothAngle: 41
     normalImportMode: 1
     tangentImportMode: 2
     normalCalculationMode: 4
@@ -108,11 +90,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: f2b1798e4d9cdcb44a9fcf36f5405b71,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 

@@ -925,6 +925,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 1845587139, guid: 0616308f626330740800bf213bc4dd38, type: 3}
+      propertyPath: attackMoveSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845587139, guid: 0616308f626330740800bf213bc4dd38, type: 3}
+      propertyPath: fireballOffset.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 250201267972775093, guid: 0616308f626330740800bf213bc4dd38,
         type: 3}
       propertyPath: m_LocalPosition.y

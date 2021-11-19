@@ -14,6 +14,7 @@ public interface IEnemyStateMachine
     NavMeshAgent Agent { get; set; }
     float Speed { get; set; }
     float Acceleration { get; set; }
+    float StaggerDuration { get; set; }
     EnemyStats Stats { get; set; }
     Transform Transform { get; set; }
     Animator Animator { get; set; }
@@ -24,4 +25,6 @@ public interface IEnemyStateMachine
     void Attack();
 
     void AttackBox(EnemyAttackSO attack);
+
+    void Stagger();
 }

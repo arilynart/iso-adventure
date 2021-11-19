@@ -11,6 +11,7 @@ namespace Arilyn.State.PlayerState
 
         bool buffer = false;
         bool toggle = false;
+        float time = 0f;
 
         public override IEnumerator EnterState()
         {
@@ -18,8 +19,6 @@ namespace Arilyn.State.PlayerState
             {
                 machine.transform.LookAt(machine.controller.GetLookPoint());
             }
-            //detect enemies in range of attack
-
 
             //animation controls go here
             machine.lastPressedTime = System.DateTime.Now;
@@ -43,6 +42,12 @@ namespace Arilyn.State.PlayerState
             yield break;
         }
 
+        public override void LocalFixedUpdate()
+        {
+            if (time > 0.25f) return;
+            machine.rb.velocity += machine.controller.point * machine.attackMoveSpeed * 2;
+        }
+
         public override void BasicAttack()
         {
             if (buffer)
@@ -57,7 +62,6 @@ namespace Arilyn.State.PlayerState
             machine.slash.SetActive(true);
             machine.slashAnim.SetTrigger("slash");
             machine.sword.SetActive(true);
-            float time = 0;
             while (time < 0.1667f)
             {
                 time += Time.deltaTime;
@@ -107,12 +111,13 @@ namespace Arilyn.State.PlayerState
 
             while (time < machine.controller.animator.GetCurrentAnimatorStateInfo(0).length)
             {
-
+                machine.rb.velocity += machine.controller.point * machine.attackMoveSpeed;
                 time += Time.deltaTime;
                 //Debug.Log("AnimationTime: " + time);
                 yield return null;
             }
-            yield return null;
+            machine.rb.velocity = Vector3.zero;
+            //yield return null;
             buffer = false;
             machine.controller.animator.ResetTrigger(trigger);
             machine.slash.SetActive(false);

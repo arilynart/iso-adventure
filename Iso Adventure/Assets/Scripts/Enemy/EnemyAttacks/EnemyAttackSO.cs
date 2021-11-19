@@ -15,5 +15,5 @@ public class EnemyAttackSO : ScriptableObject
 
     public int nextAttack;
 
-
+    public bool parryable;
 }

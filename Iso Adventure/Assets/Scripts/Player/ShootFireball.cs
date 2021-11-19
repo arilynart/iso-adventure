@@ -12,7 +12,7 @@ public class ShootFireball : MonoBehaviour
     public RaycastHit hitInfo;
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         transform.position += trajectory * speed * Time.timeScale;
         if (Physics.Raycast(transform.position, trajectory, out hitInfo, 0.25f, DeveloperConsoleBehavior.PLAYER.ground))
@@ -59,7 +59,7 @@ public class ShootFireball : MonoBehaviour
             //Detach particle emitter to finish its lifetime
 
         }
-        else if (other.tag == "Player")
+        else if (other.tag == "Player" || other.tag == "Interact")
         {
             return;
         }

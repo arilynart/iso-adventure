@@ -51,7 +51,6 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         get => attackDistance;
         set => attackDistance = value;
     }
-
     public Vector3 directionToPlayer;
     private Vector3 lookRotation;
     public Vector3 LookRotation
@@ -85,7 +84,12 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         get => speed;
         set => speed = value;
     }
-
+    private float staggerDuration;
+    public float StaggerDuration
+    {
+        get => staggerDuration;
+        set => staggerDuration = value;
+    }
     private State currentState;
 
     public GameObject FrontSphere;
@@ -185,6 +189,11 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         }
         else
             Controller.colliders.Add(FrontSphere.GetComponent<Collider>());
+    }
+
+    public void Stagger()
+    {
+        //if the stagger bar is full then stun the boss.
     }
 }
 

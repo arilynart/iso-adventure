@@ -85,6 +85,12 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         get => speed;
         set => speed = value;
     }
+    private float staggerDuration;
+    public float StaggerDuration
+    {
+        get => staggerDuration;
+        set => staggerDuration = value;
+    }
 
     private State currentState;
 
@@ -171,5 +177,10 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         Controller.colliders.Clear();
         Controller.colliders.Add(attackBox.GetComponent<Collider>());
     }
-}
 
+    public void Stagger()
+    {
+        StopAllCoroutines();
+        ChangeState(new StaggerState(this));
+    }
+}

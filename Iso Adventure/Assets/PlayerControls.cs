@@ -89,6 +89,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Parry"",
+                    ""type"": ""Button"",
+                    ""id"": ""97029b98-af06-4f30-b9ae-ca65401aa58a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -292,19 +300,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0c72b327-3117-4c4d-a8e6-2bf4873f846d"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""ba487c78-3aa2-47b7-a131-20a0c806c584"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -342,6 +339,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard;Gamepad"",
                     ""action"": ""Screenshot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d762280f-5c6b-4955-9339-048679baa3d7"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Parry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a8ef038-c1b8-410b-be6d-9257fbe509be"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -384,6 +403,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_Screenshot = m_Gameplay.FindAction("Screenshot", throwIfNotFound: true);
+        m_Gameplay_Parry = m_Gameplay.FindAction("Parry", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -442,6 +462,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Shoot;
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_Screenshot;
+    private readonly InputAction m_Gameplay_Parry;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -455,6 +476,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @Screenshot => m_Wrapper.m_Gameplay_Screenshot;
+        public InputAction @Parry => m_Wrapper.m_Gameplay_Parry;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -491,6 +513,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Screenshot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnScreenshot;
                 @Screenshot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnScreenshot;
                 @Screenshot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnScreenshot;
+                @Parry.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnParry;
+                @Parry.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnParry;
+                @Parry.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnParry;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -522,6 +547,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Screenshot.started += instance.OnScreenshot;
                 @Screenshot.performed += instance.OnScreenshot;
                 @Screenshot.canceled += instance.OnScreenshot;
+                @Parry.started += instance.OnParry;
+                @Parry.performed += instance.OnParry;
+                @Parry.canceled += instance.OnParry;
             }
         }
     }
@@ -555,5 +583,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnScreenshot(InputAction.CallbackContext context);
+        void OnParry(InputAction.CallbackContext context);
     }
 }

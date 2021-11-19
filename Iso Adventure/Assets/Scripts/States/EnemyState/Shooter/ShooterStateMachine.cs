@@ -85,7 +85,12 @@ public class ShooterStateMachine : MonoBehaviour, IEnemyStateMachine
         get => speed;
         set => speed = value;
     }
-
+    private float staggerDuration;
+    public float StaggerDuration
+    {
+        get => staggerDuration;
+        set => staggerDuration = value;
+    }
     private State currentState;
 
     public GameObject LookTarget;
@@ -183,14 +188,20 @@ public class ShooterStateMachine : MonoBehaviour, IEnemyStateMachine
         StartCoroutine(ChangeState(new ChaseState(this)));
     }
 
-    public void AttackBox(EnemyAttackSO attack) { }
-
     IEnumerator DestroyFireball(GameObject ball)
     {
         yield return new WaitForSeconds(5);
 
         if (ball)
             Destroy(ball);
+    }
+
+    public void AttackBox(EnemyAttackSO attack) { }
+
+    public void Stagger()
+    {
+        StopAllCoroutines();
+
     }
 }
 

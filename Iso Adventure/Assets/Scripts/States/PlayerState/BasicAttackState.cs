@@ -58,6 +58,7 @@ namespace Arilyn.State.PlayerState
 
         IEnumerator PlayAnimation(string trigger)
         {
+            time = 0;
             machine.controller.animator.SetTrigger(trigger);
             machine.slash.SetActive(true);
             machine.slashAnim.SetTrigger("slash");
@@ -111,7 +112,6 @@ namespace Arilyn.State.PlayerState
 
             while (time < machine.controller.animator.GetCurrentAnimatorStateInfo(0).length)
             {
-                machine.rb.velocity += machine.controller.point * machine.attackMoveSpeed;
                 time += Time.deltaTime;
                 //Debug.Log("AnimationTime: " + time);
                 yield return null;

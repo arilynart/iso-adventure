@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 1509090810}
   m_Layer: 3
   m_Name: BlinkPoint
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2567,7 +2567,11 @@ MonoBehaviour:
   slash: {fileID: 8281268211138503953}
   attackPoint: {fileID: 4245534928480448346}
   slashAnim: {fileID: 0}
+  fireballOffset: {x: 0, y: 0.5, z: 0}
   maxComboDelay: 1.25
+  attackMoveSpeed: 0.4
+  parryDuration: 0.15
+  parrying: 0
   noOfPresses: 0
   attackDamage: 1
   manaDamage: 2

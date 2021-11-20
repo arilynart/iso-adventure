@@ -19,3 +19,4 @@ MonoBehaviour:
   boxStart: 0.4167
   boxEnd: 0.5833
   nextAttack: -1
+  parryable: 1

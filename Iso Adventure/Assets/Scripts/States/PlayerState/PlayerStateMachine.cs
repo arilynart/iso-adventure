@@ -27,6 +27,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     public float maxComboDelay = 1.25f;
     public float attackMoveSpeed = 1f;
+    public float parryDuration = 0.15f;
+
+    public bool parrying;
 
     public int noOfPresses = 0;
     public int attackDamage = 1;
@@ -136,8 +139,8 @@ public class PlayerStateMachine : MonoBehaviour
 
         //Make fireball and assign trajectory
         GameObject ball = Instantiate(fireball, transform.position + fireballOffset, transform.rotation);
-        ball.transform.forward = trajectory + fireballOffset;
-        ball.GetComponent<ShootFireball>().trajectory = trajectory + fireballOffset;
+        ball.transform.forward = trajectory;
+        ball.GetComponent<ShootFireball>().trajectory = trajectory;
         StartCoroutine(DestroyFireball(ball));
     }
 

@@ -12,19 +12,19 @@ namespace Arilyn.State.EnemyState.Soldier
 
         public override IEnumerator EnterState()
         {
+            Debug.Log("Entered Stagger State");
             machine.Agent.speed = 0f;
             machine.Agent.acceleration = 0f;
+            machine.Animator.ResetTrigger("ReturnStagger");
             machine.Animator.SetTrigger("Stagger");
-            float time = 0;
-            while (time < machine.StaggerDuration)
-            {
-                time += Time.deltaTime;
-                yield return null;
-            }
+
+            yield return new WaitForSeconds(machine.StaggerDuration);
+
             machine.Agent.speed = machine.Speed;
             machine.Agent.acceleration = machine.Acceleration;
             machine.Animator.ResetTrigger("Stagger");
-            machine.ChangeState(new ChaseState(machine));
+            machine.Animator.SetTrigger("ReturnStagger");
+            machine.Controller.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
         }
     }
 }

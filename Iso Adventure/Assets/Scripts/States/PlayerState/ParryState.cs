@@ -10,7 +10,24 @@ namespace Arilyn.State.PlayerState
 
         public override IEnumerator EnterState()
         {
-            yield break;
+            machine.controller.animator.SetTrigger("Parry");
+            float time = 0;
+            machine.parrying = true;
+            while (time < machine.parryDuration)
+            {
+                Debug.Log("Parry active.");
+                time += Time.deltaTime;
+                yield return null;
+            }
+            machine.parrying = false;
+            Debug.Log("Parry deactivated.");
+            while (time < machine.controller.animator.GetCurrentAnimatorStateInfo(0).length)
+            {
+                time += Time.deltaTime;
+                yield return null;
+            }
+            machine.controller.animator.ResetTrigger("Parry");
+            machine.ChangeState(new IdleState(machine));
         }
     }
 }

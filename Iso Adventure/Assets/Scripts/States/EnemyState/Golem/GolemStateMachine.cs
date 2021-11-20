@@ -70,6 +70,12 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         get => toggle;
         set => toggle = value;
     }
+    private bool parryable;
+    public bool Parryable
+    {
+        get => parryable;
+        set => parryable = value;
+    }
     public PlayerController player;
 
     private float acceleration;
@@ -160,6 +166,13 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
             yield return null;
         }
         Controller.ActivateAttack();
+        Parryable = true;
+        while (time < attackStart + DeveloperConsoleBehavior.PLAYER.machine.parryDuration)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+        Parryable = false;
         while (time < attackEnd)
         {
             time += Time.deltaTime;

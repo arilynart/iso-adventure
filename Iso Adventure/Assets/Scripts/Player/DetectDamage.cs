@@ -5,22 +5,28 @@ using UnityEngine;
 public class DetectDamage : MonoBehaviour
 {
     public GameObject parent;
-    public EnemyStats stats;
+    public IEnemyStateMachine machine;
 
     private void OnEnable()
     {
-        stats = parent.GetComponent<EnemyStats>();
+        machine = parent.GetComponent<IEnemyStateMachine>();
     }
 
     private void OnTriggerStay(Collider other)
     {
-        //if (!GetComponent<EnemyStats>()) return;
-        if (!stats) return;
+
         PlayerController controller = other.GetComponent<PlayerController>();
         if (!controller) return;
-        if (!controller.invuln)
+
+        if (controller.machine.parrying && machine.Parryable)
         {
-            controller.health.TakeDamage(stats.damage);
+            controller.health.Invulnerability(1);
+            machine.Stagger();
+            machine.Controller.DeactivateAttack();
+        }
+        else if (!controller.invuln)
+        {
+            controller.health.TakeDamage(machine.Stats.damage);
         }
     }
 }

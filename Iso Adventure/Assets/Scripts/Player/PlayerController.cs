@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour
         
         controls.Gameplay.Blink.started += ctx => machine.Blink();
 
+        controls.Gameplay.Parry.started += ctx => machine.Parry();
+
         controls.Gameplay.Interact.performed += ctx => interacting = true;
         controls.Gameplay.Interact.canceled += ctx => interacting = false;
         controls.Gameplay.Interact.started += ctx => machine.Interact();

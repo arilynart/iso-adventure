@@ -71,6 +71,12 @@ public class ShooterStateMachine : MonoBehaviour, IEnemyStateMachine
         get => toggle;
         set => toggle = value;
     }
+    private bool parryable;
+    public bool Parryable
+    {
+        get => parryable;
+        set => parryable = value;
+    }
     public PlayerController player;
 
     private float acceleration;

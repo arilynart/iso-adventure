@@ -16,7 +16,11 @@ namespace Arilyn.State.EnemyState.Golem
             if (machine.Stats.activeAttack == machine.Stats.lockedAttacks[2])
             {
                 Vector3 point = DeveloperConsoleBehavior.PLAYER.GetComponent<Collider>().ClosestPoint(machine.Transform.position);
-                machine.Transform.position = point;
+                machine.Transform.position = point - (machine.LookRotation / 5);
+            }
+            else if (machine.Stats.activeAttack == machine.Stats.attacks[1])
+            {
+                machine.Transform.GetComponent<Collider>().enabled = false;
             }
             yield return null;
         }

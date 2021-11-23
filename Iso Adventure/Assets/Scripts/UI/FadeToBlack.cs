@@ -76,6 +76,7 @@ public class FadeToBlack : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         FADEIN(1, initialFade);
+        StaggerGauge.RESET_STAGGER();
     }
 
     private void OnEnable()

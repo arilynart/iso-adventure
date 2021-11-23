@@ -50,6 +50,10 @@ namespace Arilyn.State.EnemyState.Golem
 
             }
             machine.Animator.ResetTrigger(machine.Stats.animationName);
+            if (machine.Stats.activeAttack == machine.Stats.attacks[1])
+            {
+                machine.Transform.GetComponent<Collider>().enabled = true;
+            }
             machine.Stats.NextAttack();
             yield return null;
         }

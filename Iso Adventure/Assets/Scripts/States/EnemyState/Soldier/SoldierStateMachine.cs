@@ -197,6 +197,7 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         Debug.Log("Stagger soldier.");
         Parryable = false;
         StopAllCoroutines();
+        Controller.DeactivateAttack();
         Toggle = false;
         StartCoroutine(ChangeState(new StaggerState(this)));
     }

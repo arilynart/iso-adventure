@@ -9,6 +9,8 @@ public class HealthBar : MonoBehaviour
     public Image[] life;
     public int healthPerLife = 3;
 
+
+
     private void Start()
     {
         ResetBar();

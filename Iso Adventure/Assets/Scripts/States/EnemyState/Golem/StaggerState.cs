@@ -12,19 +12,23 @@ namespace Arilyn.State.EnemyState.Golem
 
         public override IEnumerator EnterState()
         {
+            Debug.Log("Entered Stagger State");
             machine.Agent.speed = 0f;
             machine.Agent.acceleration = 0f;
+            machine.Animator.ResetTrigger("ReturnStagger");
             machine.Animator.SetTrigger("Stagger");
-            float time = 0;
-            while (time < machine.StaggerDuration)
+            while (StaggerGauge.STAGGER > 0)
             {
-                time += Time.deltaTime;
+                StaggerGauge.ADD_STAGGER(-(1 / machine.StaggerDuration) * Time.deltaTime);
                 yield return null;
             }
+
             machine.Agent.speed = machine.Speed;
             machine.Agent.acceleration = machine.Acceleration;
             machine.Animator.ResetTrigger("Stagger");
-            machine.ChangeState(new ChaseState(machine));
+            machine.Animator.SetTrigger("ReturnStagger");
+            machine.Controller.StartCoroutine(machine.ChangeState(new ChaseState(machine)));
+            StaggerGauge.RESET_STAGGER();
         }
     }
 }

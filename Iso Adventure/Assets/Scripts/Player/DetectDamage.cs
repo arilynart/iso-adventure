@@ -26,13 +26,13 @@ public class DetectDamage : MonoBehaviour
         StartCoroutine(ParryTime());
     }
 
-    private void OnTriggerExit(Collider other)
+/*    private void OnTriggerExit(Collider other)
     {
         PlayerController pc = other.GetComponent<PlayerController>();
         if (!pc || !triggered) return;
 
         triggered = false;
-    }
+    }*/
     IEnumerator ParryTime()
     {
         Debug.Log(this + " Starting Parry Coroutine");
@@ -52,7 +52,7 @@ public class DetectDamage : MonoBehaviour
                     {
                         //parry
                         Debug.Log(this + " Player is facing forward");
-                        StartCoroutine(controller.health.Invulnerability(1));
+                        StartCoroutine(controller.health.Invulnerability(0.25f));
                         machine.Stagger();
                         machine.Controller.DeactivateAttack();
                         break;

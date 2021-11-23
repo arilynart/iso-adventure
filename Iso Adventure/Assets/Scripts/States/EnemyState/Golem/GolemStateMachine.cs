@@ -112,6 +112,7 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         Transform = transform;
         Acceleration = 8;
         Speed = 2.6f;
+        StaggerDuration = 7f;
         Toggle = false;
 
         StartCoroutine(ChangeState(new WanderState(this)));
@@ -166,18 +167,13 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
             yield return null;
         }
         Controller.ActivateAttack();
-        Parryable = true;
-        while (time < attackStart + DeveloperConsoleBehavior.PLAYER.machine.parryDuration)
-        {
-            time += Time.deltaTime;
-            yield return null;
-        }
-        Parryable = false;
+        Parryable = Stats.activeAttack.parryable;
         while (time < attackEnd)
         {
             time += Time.deltaTime;
             yield return null;
         }
+        parryable = false;
         Controller.DeactivateAttack();
         while (time < Animator.GetCurrentAnimatorStateInfo(0).length)
         {
@@ -207,6 +203,15 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
     public void Stagger()
     {
         //if the stagger bar is full then stun the boss.
+        StaggerGauge.ADD_STAGGER(0.25f);
+        Parryable = false;
+        if (StaggerGauge.STAGGER >= 1)
+        {
+            StopAllCoroutines();
+            Controller.DeactivateAttack();
+            Toggle = false;
+            StartCoroutine(ChangeState(new StaggerState(this)));
+        }
     }
 }
 

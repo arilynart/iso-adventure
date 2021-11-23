@@ -4927,7 +4927,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 7508409567138107117}
-  stats: {fileID: 0}
 --- !u!1 &451772654354614582
 GameObject:
   m_ObjectHideFlags: 0
@@ -5198,7 +5197,7 @@ Transform:
   m_GameObject: {fileID: 957640372441235308}
   m_LocalRotation: {x: -0.50000006, y: 0.49999994, z: 0.50000006, w: 0.49999994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 76, y: 76.000015, z: 76}
+  m_LocalScale: {x: 75, y: 75, z: 75}
   m_Children:
   - {fileID: 1458061458755166069}
   m_Father: {fileID: 2462759709258866216}
@@ -6420,7 +6419,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6900365417552025770}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.50000006}
+  m_LocalPosition: {x: -0, y: 0, z: -1.63}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 2462759709258866216}
@@ -6487,8 +6486,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4, y: 5, z: 1.4}
-  m_Center: {x: 0, y: 0, z: 1}
+  m_Size: {x: 1.4, y: 2.9241824, z: 1.4}
+  m_Center: {x: -5.210651e-15, y: 1.0379092, z: 1}
 --- !u!1 &6900365417595523461
 GameObject:
   m_ObjectHideFlags: 0
@@ -6515,7 +6514,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6900365417595523461}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 1.66, z: 2.08}
+  m_LocalPosition: {x: -0.08, y: 0.86, z: 2.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2462759709258866216}
@@ -6547,7 +6546,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 7508409567138107117}
-  stats: {fileID: 0}
 --- !u!1 &6900365418580020902
 GameObject:
   m_ObjectHideFlags: 0
@@ -6751,7 +6749,7 @@ Transform:
   m_GameObject: {fileID: 7508409567138107117}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 6.983, y: 0, z: 5.01}
-  m_LocalScale: {x: 0.5000001, y: 0.5, z: 0.5000001}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 6900365417552025771}
   - {fileID: 6900365418580020903}
@@ -7100,7 +7098,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 7508409567138107117}
-  stats: {fileID: 0}
 --- !u!1 &8424497039214129052
 GameObject:
   m_ObjectHideFlags: 0

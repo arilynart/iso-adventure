@@ -52,7 +52,6 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         set => attackDistance = value;
     }
 
-    public Vector3 directionToPlayer;
     private Vector3 lookRotation;
     public Vector3 LookRotation
     {
@@ -172,17 +171,12 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         }
         Controller.ActivateAttack();
         Parryable = true;
-        while (time < attackStart + DeveloperConsoleBehavior.PLAYER.machine.parryDuration)
-        {
-            time += Time.deltaTime;
-            yield return null;
-        }
-        Parryable = false;
         while (time < attackEnd)
         {
             time += Time.deltaTime;
             yield return null;
         }
+        Parryable = false;
         Controller.DeactivateAttack();
         while (time < Animator.GetCurrentAnimatorStateInfo(0).length)
         {

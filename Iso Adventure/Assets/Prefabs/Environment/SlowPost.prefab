@@ -204,6 +204,11 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 4.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6355333663940654782, guid: 644ec0a2819dc684eab7bade79cc0ae2,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6355333663940654783, guid: 644ec0a2819dc684eab7bade79cc0ae2,
         type: 3}
       propertyPath: m_Name

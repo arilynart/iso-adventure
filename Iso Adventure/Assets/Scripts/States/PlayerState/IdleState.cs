@@ -53,6 +53,11 @@ namespace Arilyn.State.PlayerState {
             machine.controller.blink.Blink();
         }
 
+        public override void Parry()
+        {
+            machine.ChangeState(new ParryState(machine));
+        }
+
         public override void Interact()
         {
             machine.controller.interactTrigger = true;

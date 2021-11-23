@@ -51,7 +51,6 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         get => attackDistance;
         set => attackDistance = value;
     }
-
     public Vector3 directionToPlayer;
     private Vector3 lookRotation;
     public Vector3 LookRotation
@@ -71,6 +70,12 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         get => toggle;
         set => toggle = value;
     }
+    private bool parryable;
+    public bool Parryable
+    {
+        get => parryable;
+        set => parryable = value;
+    }
     public PlayerController player;
 
     private float acceleration;
@@ -85,7 +90,12 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         get => speed;
         set => speed = value;
     }
-
+    private float staggerDuration;
+    public float StaggerDuration
+    {
+        get => staggerDuration;
+        set => staggerDuration = value;
+    }
     private State currentState;
 
     public GameObject FrontSphere;
@@ -102,6 +112,7 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         Transform = transform;
         Acceleration = 8;
         Speed = 2.6f;
+        StaggerDuration = 7f;
         Toggle = false;
 
         StartCoroutine(ChangeState(new WanderState(this)));
@@ -156,11 +167,13 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
             yield return null;
         }
         Controller.ActivateAttack();
+        Parryable = Stats.activeAttack.parryable;
         while (time < attackEnd)
         {
             time += Time.deltaTime;
             yield return null;
         }
+        parryable = false;
         Controller.DeactivateAttack();
         while (time < Animator.GetCurrentAnimatorStateInfo(0).length)
         {
@@ -185,6 +198,20 @@ public class GolemStateMachine : MonoBehaviour, IEnemyStateMachine
         }
         else
             Controller.colliders.Add(FrontSphere.GetComponent<Collider>());
+    }
+
+    public void Stagger()
+    {
+        //if the stagger bar is full then stun the boss.
+        StaggerGauge.ADD_STAGGER(0.25f);
+        Parryable = false;
+        if (StaggerGauge.STAGGER >= 1)
+        {
+            StopAllCoroutines();
+            Controller.DeactivateAttack();
+            Toggle = false;
+            StartCoroutine(ChangeState(new StaggerState(this)));
+        }
     }
 }
 

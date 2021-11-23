@@ -23,8 +23,13 @@ public class PlayerStateMachine : MonoBehaviour
     public GameObject slash;
     public Transform attackPoint;
     public Animator slashAnim;
+    public Vector3 fireballOffset = new Vector3(0, 0.5f, 0);
 
     public float maxComboDelay = 1.25f;
+    public float attackMoveSpeed = 1f;
+    public float parryDuration = 0.15f;
+
+    public bool parrying;
 
     public int noOfPresses = 0;
     public int attackDamage = 1;
@@ -105,6 +110,11 @@ public class PlayerStateMachine : MonoBehaviour
         if (PlayerUnlocks.BLINK) currentState.Blink();
     }
 
+    public void Parry()
+    {
+        if (PlayerUnlocks.BASIC_ATTACK) currentState.Parry();
+    }
+
     public void Interact()
     {
         currentState.Interact();
@@ -128,8 +138,8 @@ public class PlayerStateMachine : MonoBehaviour
         transform.forward = trajectory;
 
         //Make fireball and assign trajectory
-        GameObject ball = Instantiate(fireball, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
-        ball.transform.forward = transform.forward;
+        GameObject ball = Instantiate(fireball, transform.position + fireballOffset, transform.rotation);
+        ball.transform.forward = trajectory;
         ball.GetComponent<ShootFireball>().trajectory = trajectory;
         StartCoroutine(DestroyFireball(ball));
     }

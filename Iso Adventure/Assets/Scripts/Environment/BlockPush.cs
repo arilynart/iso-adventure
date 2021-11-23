@@ -51,10 +51,8 @@ public class BlockPush : MonoBehaviour
         if (rightPwr > fwdPwr) {
             if (rightDot > 0)
             {
-
                 dirX = -1;
                 dirZ = 0;
-
             }
             else
             {
@@ -73,8 +71,6 @@ public class BlockPush : MonoBehaviour
             {
                 dirZ = 1;
                 dirX = 0;
-
-
             }
         }
         return new Vector3(dirX, 0, dirZ);

@@ -46,6 +46,11 @@ namespace Arilyn.State.PlayerState
 
         }
 
+        public virtual void Parry()
+        {
+
+        }
+
         public virtual void Interact()
         {
 

@@ -52,7 +52,6 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         set => attackDistance = value;
     }
 
-    public Vector3 directionToPlayer;
     private Vector3 lookRotation;
     public Vector3 LookRotation
     {
@@ -69,7 +68,17 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
     public bool Toggle
     {
         get => toggle;
-        set => toggle = value;
+        set
+        {
+            toggle = value;
+            //Debug.Log(name + " Toggle: " + Toggle);
+        }
+    }
+    private bool parryable;
+    public bool Parryable
+    {
+        get => parryable;
+        set => parryable = value;
     }
     public PlayerController player;
 
@@ -84,6 +93,12 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
     {
         get => speed;
         set => speed = value;
+    }
+    private float staggerDuration;
+    public float StaggerDuration
+    {
+        get => staggerDuration;
+        set => staggerDuration = value;
     }
 
     private State currentState;
@@ -100,6 +115,7 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         Transform = transform;
         Acceleration = 8;
         Speed = 1.1f;
+        StaggerDuration = 3f;
         Toggle = false;
     }
 
@@ -111,7 +127,7 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         }
         LookRotation = player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(transform.forward, LookRotation);
-        currentState.LocalUpdate();
+        if (currentState != null) currentState.LocalUpdate();
     }
 
     private void OnEnable()
@@ -121,8 +137,10 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
 
     public IEnumerator ChangeState(State state)
     {
+        Debug.Log(name + " Changing State. " + state);
         if (Toggle) yield break;
         Toggle = true;
+        Debug.Log(name + " No toggle.");
         if (currentState != null) 
             yield return StartCoroutine(currentState.ExitState());
         currentState = state;
@@ -152,11 +170,13 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
             yield return null;
         }
         Controller.ActivateAttack();
+        Parryable = true;
         while (time < attackEnd)
         {
             time += Time.deltaTime;
             yield return null;
         }
+        Parryable = false;
         Controller.DeactivateAttack();
         while (time < Animator.GetCurrentAnimatorStateInfo(0).length)
         {
@@ -171,5 +191,14 @@ public class SoldierStateMachine : MonoBehaviour, IEnemyStateMachine
         Controller.colliders.Clear();
         Controller.colliders.Add(attackBox.GetComponent<Collider>());
     }
-}
 
+    public void Stagger()
+    {
+        Debug.Log("Stagger soldier.");
+        Parryable = false;
+        StopAllCoroutines();
+        Controller.DeactivateAttack();
+        Toggle = false;
+        StartCoroutine(ChangeState(new StaggerState(this)));
+    }
+}

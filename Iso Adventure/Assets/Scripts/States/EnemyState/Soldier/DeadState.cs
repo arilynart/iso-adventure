@@ -11,6 +11,7 @@ namespace Arilyn.State.EnemyState.Soldier
         public override IEnumerator EnterState()
         {
             machine.Agent.enabled = false;
+            machine.Toggle = true;
             yield break;
         }
     }
